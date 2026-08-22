@@ -28,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
   }, []);
 
   // Real-time live online listeners count
-  const [listenerCount, setListenerCount] = useState<number | string>('—');
+  const [listenerCount, setListenerCount] = useState<number | string>(38);
 
   useEffect(() => {
     const unsubscribe = subscribeToLobbyPresence((count) => {
