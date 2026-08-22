@@ -25,8 +25,8 @@ export const TapriAtmosphere: React.FC<TapriAtmosphereProps> = ({ dimmed = false
 
     window.addEventListener('resize', handleResize);
 
-    // Raindrop particles
-    const maxDrops = window.innerWidth < 768 ? 90 : 160;
+    // Raindrop particles for atmospheric monsoon rain
+    const maxDrops = window.innerWidth < 768 ? 95 : 170;
     const drops: Array<{
       x: number;
       y: number;
@@ -40,10 +40,10 @@ export const TapriAtmosphere: React.FC<TapriAtmosphereProps> = ({ dimmed = false
       drops.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        length: Math.random() * 22 + 12,
-        speed: Math.random() * 14 + 10,
-        opacity: Math.random() * 0.35 + 0.1,
-        width: Math.random() * 1.2 + 0.8
+        length: Math.random() * 24 + 12,
+        speed: Math.random() * 14 + 11,
+        opacity: Math.random() * 0.4 + 0.15,
+        width: Math.random() * 1.3 + 0.7
       });
     }
 
@@ -54,7 +54,7 @@ export const TapriAtmosphere: React.FC<TapriAtmosphereProps> = ({ dimmed = false
       for (let i = 0; i < maxDrops; i++) {
         const d = drops[i];
         ctx.beginPath();
-        ctx.strokeStyle = `rgba(180, 205, 235, ${d.opacity})`;
+        ctx.strokeStyle = `rgba(195, 220, 250, ${d.opacity})`;
         ctx.lineWidth = d.width;
         ctx.lineCap = 'round';
         ctx.moveTo(d.x, d.y);
@@ -62,7 +62,7 @@ export const TapriAtmosphere: React.FC<TapriAtmosphereProps> = ({ dimmed = false
         ctx.stroke();
 
         d.y += d.speed;
-        d.x += 1.8; // Wind drift
+        d.x += 1.8; // Monsoon wind drift
 
         if (d.y > height) {
           d.y = -d.length - Math.random() * 20;
@@ -82,34 +82,39 @@ export const TapriAtmosphere: React.FC<TapriAtmosphereProps> = ({ dimmed = false
   }, []);
 
   return (
-    <div className={`fixed inset-0 z-0 pointer-events-none transition-opacity duration-500 overflow-hidden ${dimmed ? 'opacity-35' : 'opacity-100'}`}>
-      {/* Moody Rainy Night Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#080c14] via-[#05070a] to-[#020305]" />
+    <div
+      className={`fixed inset-0 z-0 pointer-events-none transition-opacity duration-500 overflow-hidden ${
+        dimmed ? 'opacity-30' : 'opacity-100'
+      }`}
+    >
+      {/* 90s Chai Tapri Static Illustrated Backdrop */}
+      <picture className="absolute inset-0 size-full">
+        <source media="(min-width: 768px)" srcSet="./assets/tapri-backdrop.jpg" />
+        <img
+          src="./assets/tapri-backdrop-mobile.jpg"
+          alt="90s Indian roadside chai tapri tea stall in the rain with vintage Bollywood posters"
+          width={1920}
+          height={1088}
+          className="size-full object-cover object-center"
+        />
+      </picture>
 
-      {/* Distant soft street lamp amber glow through rain */}
-      <div className="absolute top-[-10%] left-[20%] size-[500px] rounded-full bg-amber-600/10 blur-[120px] pointer-events-none" />
-      <div className="absolute top-[30%] right-[10%] size-[400px] rounded-full bg-blue-500/5 blur-[100px] pointer-events-none" />
+      {/* Atmospheric dark wash to maintain UI contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#080c14]/40 via-[#05070a]/20 to-[#020305]/70" />
 
-      {/* HTML5 Rain Canvas */}
+      {/* Dynamic HTML5 Canvas Rain Layer */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 size-full pointer-events-none"
-        style={{ zIndex: 1 }}
+        style={{ zIndex: 2 }}
       />
 
-      {/* Tapri Top Tin Roof Silhouette & Raindrops edge */}
-      <div className="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-[#020305]/95 via-[#020305]/60 to-transparent z-[2]" />
-      
-      {/* Counter Atmosphere at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-[140px] sm:h-[180px] z-[2]">
-        {/* Wooden Counter Silhouette */}
-        <div className="absolute bottom-0 w-full h-[70px] sm:h-[90px] bg-[#030406]/95 border-t border-amber-900/20 backdrop-blur-sm shadow-[0_-15px_35px_rgba(0,0,0,0.8)]" />
-
-        {/* Ambient Candle Glow & Candle */}
-        <div className="absolute bottom-[68px] sm:bottom-[88px] left-[12%] sm:left-[18%] z-[4]">
-          {/* Flame Glow */}
+      {/* Foreground Ambient Elements */}
+      <div className="absolute bottom-0 left-0 right-0 h-[140px] sm:h-[180px] z-[3]">
+        {/* Candle Glow & Flame */}
+        <div className="absolute bottom-[20px] sm:bottom-[32px] left-[10%] sm:left-[14%] z-[4]">
+          {/* Ambient Flame Glow */}
           <div className="absolute -top-6 -left-6 size-16 rounded-full bg-amber-500/25 blur-lg animate-pulse" />
-          
           {/* Flickering Flame */}
           <div className="relative">
             <div
@@ -118,34 +123,31 @@ export const TapriAtmosphere: React.FC<TapriAtmosphereProps> = ({ dimmed = false
                 animation: 'tapriFlicker 0.12s ease-in-out infinite alternate'
               }}
             />
-            {/* Candle Body */}
-            <div className="w-4 h-11 bg-gradient-to-r from-[#d1c2a5] via-[#e5d8be] to-[#b8a789] rounded-t-sm shadow-inner" />
+            <div className="w-3.5 h-10 bg-gradient-to-r from-[#d1c2a5] via-[#e5d8be] to-[#b8a789] rounded-t-sm shadow-inner opacity-90" />
           </div>
         </div>
 
-        {/* Cutting Chai Glass with Steaming Tea */}
-        <div className="absolute bottom-[68px] sm:bottom-[88px] left-[26%] sm:left-[28%] z-[4]">
+        {/* Steaming Cutting Chai Glass */}
+        <div className="absolute bottom-[20px] sm:bottom-[32px] left-[22%] sm:left-[22%] z-[4]">
           <div className="relative">
-            {/* Rising Steam */}
+            {/* Rising Steam Streams */}
             <div
-              className="absolute -top-7 left-[3px] w-1.5 h-6 bg-white/20 blur-[2px] rounded-full"
+              className="absolute -top-7 left-[3px] w-1.5 h-6 bg-white/25 blur-[2px] rounded-full"
               style={{ animation: 'tapriSteam 2.4s linear infinite' }}
             />
             <div
-              className="absolute -top-8 left-[9px] w-1.5 h-7 bg-white/15 blur-[2.5px] rounded-full"
+              className="absolute -top-8 left-[9px] w-1.5 h-7 bg-white/20 blur-[2.5px] rounded-full"
               style={{ animation: 'tapriSteam 2.8s linear infinite 0.9s' }}
             />
             <div
-              className="absolute -top-6 left-[15px] w-1.5 h-5 bg-white/20 blur-[2px] rounded-full"
+              className="absolute -top-6 left-[14px] w-1.5 h-5 bg-white/25 blur-[2px] rounded-full"
               style={{ animation: 'tapriSteam 2.2s linear infinite 1.4s' }}
             />
 
-            {/* Cutting Chai Glass (Classic Indian tea glass silhouette) */}
-            <div className="relative w-6 h-10 border border-white/20 border-t-0 rounded-b-md bg-gradient-to-b from-transparent via-[#d48637]/45 to-[#b2621b]/80 shadow-[0_4px_12px_rgba(212,134,55,0.25)] overflow-hidden">
-              {/* Hot Tea Liquid Level */}
-              <div className="absolute bottom-0 w-full h-[75%] bg-gradient-to-t from-[#8d470d] to-[#d48637]/90" />
-              {/* Glass Vertical Fluted Ridges */}
-              <div className="absolute inset-0 flex justify-between px-1 opacity-20">
+            {/* Cutting Chai Glass */}
+            <div className="relative w-6 h-10 border border-white/25 border-t-0 rounded-b-md bg-gradient-to-b from-transparent via-[#d48637]/55 to-[#b2621b]/85 shadow-[0_4px_14px_rgba(212,134,55,0.35)] overflow-hidden">
+              <div className="absolute bottom-0 w-full h-[78%] bg-gradient-to-t from-[#8d470d] to-[#d48637]/95" />
+              <div className="absolute inset-0 flex justify-between px-1 opacity-25">
                 <span className="w-px h-full bg-white" />
                 <span className="w-px h-full bg-white" />
                 <span className="w-px h-full bg-white" />
@@ -155,11 +157,11 @@ export const TapriAtmosphere: React.FC<TapriAtmosphereProps> = ({ dimmed = false
         </div>
       </div>
 
-      {/* Analog Grain and Vignette Overlays */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 saloon-vignette opacity-80" />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 saloon-grain opacity-50" />
+      {/* Deluxe Salon Analog Grain and Vignette Overlays */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 saloon-vignette opacity-70" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 saloon-grain opacity-40" />
 
-      {/* Embedded Custom Keyframe Styles */}
+      {/* Custom CSS Keyframe Animations */}
       <style>{`
         @keyframes tapriFlicker {
           0% { transform: scale(1) rotate(-1deg); opacity: 0.88; }
@@ -168,8 +170,8 @@ export const TapriAtmosphere: React.FC<TapriAtmosphereProps> = ({ dimmed = false
         }
         @keyframes tapriSteam {
           0% { transform: translateY(4px) scaleX(0.8); opacity: 0; }
-          40% { opacity: 0.35; transform: translateY(-8px) scaleX(1.4); }
-          80% { opacity: 0.15; transform: translateY(-18px) scaleX(1.8); }
+          40% { opacity: 0.4; transform: translateY(-8px) scaleX(1.4); }
+          80% { opacity: 0.2; transform: translateY(-18px) scaleX(1.8); }
           100% { transform: translateY(-28px) scaleX(2.2); opacity: 0; }
         }
       `}</style>
