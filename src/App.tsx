@@ -38,31 +38,31 @@ export const App: React.FC = () => {
 
   return (
     <main className="relative min-h-[100dvh] w-full bg-shade text-cream overflow-x-hidden">
-      {/* Animated Tapri Atmosphere (Rain, Candle Flame, Steaming Chai, 90s Street Backdrop) */}
+      {/* Animated Tapri Atmosphere (Illustrated 90s Street Backdrop + Rain Engine) */}
       <TapriAtmosphere dimmed={currentView !== 'radio'} />
 
-      {/* Dim overlay for subpages */}
+      {/* Dim overlay for subpages (Playlists / Songs directory) */}
       {currentView !== 'radio' && (
-        <div className="fixed inset-0 z-0 bg-shade/80 backdrop-blur-[3px] pointer-events-none" />
+        <div className="fixed inset-0 z-0 bg-shade/85 backdrop-blur-[3px] pointer-events-none" />
       )}
 
       {/* App Container */}
       <div className="relative z-10 flex min-h-[100dvh] flex-col">
-        {/* Top Header with time, live listener count, WhatsApp popover, and grouped streams */}
+        {/* Top Header */}
         <Header
           currentView={currentView}
           onNavigate={handleNavigate}
           onOpenInstall={() => setIsInstallOpen(true)}
         />
 
-        {/* Views */}
+        {/* Radio Home View (Full 100vh viewport - Clean & Unobstructed) */}
         {currentView === 'radio' && (
-          <div className="flex flex-1 flex-col justify-between">
+          <div className="flex min-h-[calc(100dvh-5.5rem)] flex-col justify-between pb-36">
             {/* Center Hero */}
             <Hero />
 
-            {/* Ambient Spacer allowing full view of illustrated 90s Tapri */}
-            <div className="flex-1 min-h-[120px]" />
+            {/* Spacer allowing full view of the illustrated 90s Tapri */}
+            <div className="flex-1" />
           </div>
         )}
 
@@ -85,7 +85,7 @@ export const App: React.FC = () => {
           <SongsView />
         )}
 
-        {/* Footer */}
+        {/* Footer (Placed below the fold / bottom of the page) */}
         <Footer
           onNavigate={handleNavigate}
           onSelectPlaylist={handleSelectPlaylistFromFooter}

@@ -73,11 +73,11 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
   }, []);
 
   return (
-    <header className="relative z-20 flex items-start justify-between gap-3 px-4 pt-4 text-sand sm:px-8 sm:pt-6">
+    <header className="relative z-20 flex items-start justify-between gap-2 px-3 pt-3 text-sand sm:gap-3 sm:px-8 sm:pt-6">
       {/* Left Column: Time & WhatsApp Quick Chip */}
-      <div className="flex flex-col items-start gap-1.5">
+      <div className="flex flex-col items-start gap-1.5 shrink-0">
         {/* Time */}
-        <span className="min-w-[4.5rem] font-mono text-xs tracking-[0.2em] uppercase sm:text-sm text-sand/80">
+        <span className="min-w-[4rem] font-mono text-xs tracking-[0.2em] uppercase sm:text-sm text-sand/80">
           {timeStr || '\u00A0'}
         </span>
 
@@ -141,17 +141,18 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
       </div>
 
       {/* Center Column: Online indicator */}
-      <span className="flex items-center gap-2 text-xs sm:text-sm pt-0.5">
+      <span className="flex items-center gap-1.5 text-xs sm:gap-2 sm:text-sm pt-0.5 shrink-0">
         <span className="relative flex size-2">
           <span className="absolute inline-flex size-full animate-ping rounded-full bg-live opacity-70"></span>
           <span className="relative inline-flex size-2 rounded-full bg-live"></span>
         </span>
         <span className="font-semibold tabular-nums text-cream">{listenerCount}</span>
-        <span className="text-sand/70">online</span>
+        <span className="text-sand/70 hidden min-[360px]:inline">online</span>
       </span>
 
-      {/* Right Column: Nav & Grouped Music Streams */}
+      {/* Right Column: Multi-Tier / Vertically Stacked on Mobile */}
       <nav className="flex flex-col items-end gap-1.5 sm:gap-2">
+        {/* Tier 1: Listen Streams & Install App */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Grouped Music Streams Trigger */}
           <div className="relative" ref={streamsRef}>
@@ -198,11 +199,24 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
             )}
           </div>
 
-          {/* In-app navigation chips */}
+          {/* Install Button (Visible on both Mobile and Desktop) */}
+          <button
+            onClick={onOpenInstall}
+            className="saloon-chip inline-flex items-center gap-1 text-xs"
+            title="Install Web App"
+            aria-label="Install App"
+          >
+            <Download className="size-3.5" />
+            <span>Install</span>
+          </button>
+        </div>
+
+        {/* Tier 2: In-App Navigation (Playlists & Songs) */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {currentView !== 'radio' && (
             <button
               onClick={() => onNavigate('radio')}
-              className="saloon-chip inline-flex items-center gap-1"
+              className="saloon-chip inline-flex items-center gap-1 text-xs"
             >
               <ArrowLeft className="size-3" />
               <span>Radio</span>
@@ -211,25 +225,16 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
 
           <button
             onClick={() => onNavigate('playlists')}
-            className={`saloon-chip ${currentView === 'playlists' || currentView === 'playlist-detail' ? 'active' : ''}`}
+            className={`saloon-chip text-xs ${currentView === 'playlists' || currentView === 'playlist-detail' ? 'active' : ''}`}
           >
             Playlists
           </button>
 
           <button
             onClick={() => onNavigate('songs')}
-            className={`saloon-chip ${currentView === 'songs' ? 'active' : ''}`}
+            className={`saloon-chip text-xs ${currentView === 'songs' ? 'active' : ''}`}
           >
             Songs
-          </button>
-
-          <button
-            onClick={onOpenInstall}
-            className="saloon-chip hidden sm:inline-flex"
-            title="Install Web App"
-          >
-            <Download className="size-3.5" />
-            <span>Install</span>
           </button>
         </div>
       </nav>
