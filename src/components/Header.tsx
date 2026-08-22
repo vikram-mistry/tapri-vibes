@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { SOCIAL_LINKS } from '../data/playlists';
-import { Download, Headphones, ArrowLeft, X } from 'lucide-react';
+import { Headphones, ArrowLeft, X, HelpCircle } from 'lucide-react';
 import { subscribeToLobbyPresence } from '../utils/presence';
 
 interface HeaderProps {
   currentView: 'radio' | 'playlists' | 'songs' | 'playlist-detail';
   onNavigate: (view: 'radio' | 'playlists' | 'songs' | 'playlist-detail') => void;
-  onOpenInstall: () => void;
   onOpenChalkboard?: () => void;
   onOpenHowToUse?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenInstall, onOpenChalkboard, onOpenHowToUse }) => {
+export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenChalkboard, onOpenHowToUse }) => {
   // Live clock
   const [timeStr, setTimeStr] = useState<string>('');
 
@@ -79,7 +78,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
       {/* Left Column: Time & WhatsApp Quick Chip */}
       <div className="flex flex-col items-start gap-1.5 shrink-0">
         {/* Time */}
-        <span className="min-w-[4rem] font-mono text-xs tracking-[0.2em] uppercase sm:text-sm text-sand/80">
+        <span className="min-w-[3.5rem] font-mono text-[0.7rem] tracking-[0.18em] uppercase sm:text-sm text-sand/80">
           {timeStr || '\u00A0'}
         </span>
 
@@ -149,24 +148,24 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
           <span className="relative inline-flex size-2 rounded-full bg-live"></span>
         </span>
         <span className="font-semibold tabular-nums text-cream">{listenerCount}</span>
-        <span className="text-sand/70 hidden min-[360px]:inline">online</span>
+        <span className="text-sand/70 hidden min-[380px]:inline">online</span>
       </span>
 
-      {/* Right Column: Multi-Tier / Vertically Stacked on Mobile */}
+      {/* Right Column: Multi-Tier Clean Mobile-Optimized Navigation */}
       <nav className="flex flex-col items-end gap-1.5 sm:gap-2">
-        {/* Tier 1: Listen Streams & Install App */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        {/* Tier 1: Listen Streams & How to Use Guide */}
+        <div className="flex items-center gap-1 sm:gap-1.5">
           {/* Grouped Music Streams Trigger */}
           <div className="relative" ref={streamsRef}>
             <button
               type="button"
               onClick={() => setIsStreamsOpen(!isStreamsOpen)}
-              className={`saloon-chip flex items-center gap-1.5 ${isStreamsOpen ? 'active' : ''}`}
+              className={`saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 ${isStreamsOpen ? 'active' : ''}`}
               aria-label="Open streaming links"
               title="Listen on Spotify or YouTube Music"
             >
               <Headphones className="size-3.5 text-sand" />
-              <span className="text-xs">Listen</span>
+              <span>Listen</span>
             </button>
 
             {/* Floating Streams Dropdown */}
@@ -201,24 +200,25 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
             )}
           </div>
 
-          {/* Install Button (Visible on both Mobile and Desktop) */}
-          <button
-            onClick={onOpenInstall}
-            className="saloon-chip inline-flex items-center gap-1 text-xs"
-            title="Install Web App"
-            aria-label="Install App"
-          >
-            <Download className="size-3.5" />
-            <span>Install</span>
-          </button>
+          {/* Guide Button */}
+          {onOpenHowToUse && (
+            <button
+              onClick={onOpenHowToUse}
+              className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1 text-cream/90 hover:border-cream/40"
+              title="How to use Tapri Vibes & App Install"
+            >
+              <HelpCircle className="size-3.5 text-amber-300" />
+              <span>Guide</span>
+            </button>
+          )}
         </div>
 
-        {/* Tier 2: In-App Navigation (Playlists & Songs) */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        {/* Tier 2: In-App Navigation (Playlists, Songs & Notes) */}
+        <div className="flex items-center gap-1 sm:gap-1.5">
           {currentView !== 'radio' && (
             <button
               onClick={() => onNavigate('radio')}
-              className="saloon-chip inline-flex items-center gap-1 text-xs"
+              className="saloon-chip inline-flex items-center gap-1 text-[0.7rem] sm:text-xs py-1 px-2 sm:px-2.5"
             >
               <ArrowLeft className="size-3" />
               <span>Radio</span>
@@ -227,14 +227,18 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
 
           <button
             onClick={() => onNavigate('playlists')}
-            className={`saloon-chip text-xs ${currentView === 'playlists' || currentView === 'playlist-detail' ? 'active' : ''}`}
+            className={`saloon-chip text-[0.7rem] sm:text-xs py-1 px-2 sm:px-2.5 ${
+              currentView === 'playlists' || currentView === 'playlist-detail' ? 'active' : ''
+            }`}
           >
             Playlists
           </button>
 
           <button
             onClick={() => onNavigate('songs')}
-            className={`saloon-chip text-xs ${currentView === 'songs' ? 'active' : ''}`}
+            className={`saloon-chip text-[0.7rem] sm:text-xs py-1 px-2 sm:px-2.5 ${
+              currentView === 'songs' ? 'active' : ''
+            }`}
           >
             Songs
           </button>
@@ -242,20 +246,10 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
           {onOpenChalkboard && (
             <button
               onClick={onOpenChalkboard}
-              className="saloon-chip text-xs text-amber-300 hover:border-amber-500/50"
+              className="saloon-chip text-[0.7rem] sm:text-xs py-1 px-2 sm:px-2.5 text-amber-300 hover:border-amber-500/50"
               title="Tapri Chalkboard Guestbook"
             >
               Notes
-            </button>
-          )}
-
-          {onOpenHowToUse && (
-            <button
-              onClick={onOpenHowToUse}
-              className="saloon-chip text-xs text-cream/90 hover:border-cream/40"
-              title="How to use Tapri Vibes"
-            >
-              Guide
             </button>
           )}
         </div>

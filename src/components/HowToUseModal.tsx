@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, HelpCircle, Radio, CloudRain, Clock, CassetteTape, MessageSquareHeart, Download } from 'lucide-react';
+import { X, HelpCircle, Radio, CloudRain, Clock, CassetteTape, MessageSquareHeart, Download, Share, PlusSquare } from 'lucide-react';
 
 interface HowToUseModalProps {
   isOpen: boolean;
@@ -11,34 +11,39 @@ export const HowToUseModal: React.FC<HowToUseModalProps> = ({ isOpen, onClose })
 
   const features = [
     {
+      icon: <Download className="size-4.5 text-amber-400" />,
+      title: '📱 Add to Home Screen (App Install)',
+      desc: (
+        <span>
+          Use Tapri Vibes as a full-screen app with the official vinyl record icon! On iPhone/iPad/Mac Safari, tap <strong>Share <Share className="inline size-3 text-cream/70" /></strong> &gt; <strong>Add to Home Screen <PlusSquare className="inline size-3 text-cream/70" /></strong>. On Android Chrome, tap the 3 dots &gt; <strong>Install App</strong>.
+        </span>
+      ),
+      highlight: true
+    },
+    {
       icon: <Radio className="size-4.5 text-amber-400" />,
-      title: 'Chai Time Rotations',
-      desc: 'Browse and play curated 90s tape slots (Subah Ki Chai, Dophar Ki Susti, Shaam Ki Cutting, Raat Ki Tapri, or All 124 Classics) directly from the bottom player or Playlists tab.'
+      title: '📻 Chai Time Rotations',
+      desc: 'Browse and play curated 90s tape slots (Subah Ki Chai, Dophar Ki Susti, Shaam Ki Cutting, Raat Ki Tapri, or All 124 Classics) directly from the bottom player toolbar or Playlists tab.'
     },
     {
       icon: <CloudRain className="size-4.5 text-blue-400" />,
-      title: 'Tapri Soundscapes Mixer',
-      desc: 'Click "Soundscapes" in the bottom dock to mix real-time ambient sounds — Monsoon Rain on Tin Roof, Tea Kettle Boiling Simmer, and Vinyl Crackle.'
+      title: '🌧️ Tapri Soundscapes Mixer',
+      desc: 'Click "Soundscapes" in the bottom dock to mix real-time procedural ambient sounds — Monsoon Rain on Tin Roof, Tea Kettle Boiling Simmer, and Vinyl Crackle.'
     },
     {
       icon: <Clock className="size-4.5 text-amber-300" />,
-      title: 'Cutting Chai Focus & Sleep Timer',
+      title: '⏱️ Cutting Chai Focus & Sleep Timer',
       desc: 'Set 15m, 25m Pomodoro, or 45m deep focus timers. Music gently fades out in the final 15 seconds followed by a peaceful chime.'
     },
     {
       icon: <CassetteTape className="size-4.5 text-red-400" />,
-      title: '90s Retro Cassette Player',
-      desc: 'Tap "Tape Deck" to transform the radio into an animated vintage TDK/T-Series cassette deck with spinning geared spools and realistic mechanical click/whirr sounds.'
+      title: '📼 90s Retro Cassette Player',
+      desc: 'Tap "Tape Deck" in the bottom dock to transform the radio into an animated vintage TDK/T-Series cassette deck with rotating geared spools and realistic mechanical click/whirr sounds.'
     },
     {
       icon: <MessageSquareHeart className="size-4.5 text-emerald-400" />,
-      title: 'Roadside Chalkboard Guestbook',
+      title: '📝 Roadside Chalkboard Guestbook',
       desc: 'Click "Notes" in the top bar to share anonymous thoughts, chai memories, and favourite 90s songs with fellow listeners worldwide.'
-    },
-    {
-      icon: <Download className="size-4.5 text-cream" />,
-      title: 'Add to Home Screen (PWA)',
-      desc: 'Tap "Install" (or Share > Add to Home Screen in Safari) to install Tapri Vibes as a standalone app with the official vinyl record icon on your phone and Mac Dock.'
     }
   ];
 
@@ -64,7 +69,7 @@ export const HowToUseModal: React.FC<HowToUseModalProps> = ({ isOpen, onClose })
                 How to Use Tapri Vibes
               </h2>
               <p className="text-[0.65rem] text-sand/70 font-mono">
-                Guide to all nostalgic 90s features & shortcuts
+                Guide to features, app install & shortcuts
               </p>
             </div>
           </div>
@@ -83,7 +88,11 @@ export const HowToUseModal: React.FC<HowToUseModalProps> = ({ isOpen, onClose })
           {features.map((f, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-cream/10 bg-black/30 p-3.5 flex items-start gap-3 transition-colors hover:border-cream/20"
+              className={`rounded-2xl border p-3.5 flex items-start gap-3 transition-colors ${
+                f.highlight
+                  ? 'border-amber-500/40 bg-amber-500/10'
+                  : 'border-cream/10 bg-black/30 hover:border-cream/20'
+              }`}
             >
               <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-cream/5 border border-cream/10">
                 {f.icon}
@@ -92,9 +101,9 @@ export const HowToUseModal: React.FC<HowToUseModalProps> = ({ isOpen, onClose })
                 <h3 className="font-display text-sm font-bold text-cream">
                   {f.title}
                 </h3>
-                <p className="mt-1 text-xs text-sand/80 leading-relaxed font-sans">
+                <div className="mt-1 text-xs text-sand/80 leading-relaxed font-sans">
                   {f.desc}
-                </p>
+                </div>
               </div>
             </div>
           ))}

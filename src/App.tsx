@@ -7,7 +7,6 @@ import { PlaylistsView } from './components/PlaylistsView';
 import { PlaylistDetailView } from './components/PlaylistDetailView';
 import { SongsView } from './components/SongsView';
 import { Footer } from './components/Footer';
-import { InstallModal } from './components/InstallModal';
 import { AmbientMixerModal } from './components/AmbientMixerModal';
 import { ChaiTimerModal } from './components/ChaiTimerModal';
 import { ChalkboardGuestbook } from './components/ChalkboardGuestbook';
@@ -22,7 +21,6 @@ export const App: React.FC = () => {
   const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(null);
   
   // Modals & Feature states
-  const [isInstallOpen, setIsInstallOpen] = useState<boolean>(false);
   const [isAmbianceOpen, setIsAmbianceOpen] = useState<boolean>(false);
   const [isTimerOpen, setIsTimerOpen] = useState<boolean>(false);
   const [isChalkboardOpen, setIsChalkboardOpen] = useState<boolean>(false);
@@ -66,7 +64,6 @@ export const App: React.FC = () => {
         <Header
           currentView={currentView}
           onNavigate={handleNavigate}
-          onOpenInstall={() => setIsInstallOpen(true)}
           onOpenChalkboard={() => setIsChalkboardOpen(true)}
           onOpenHowToUse={() => setIsHowToUseOpen(true)}
         />
@@ -144,11 +141,6 @@ export const App: React.FC = () => {
       <HowToUseModal
         isOpen={isHowToUseOpen}
         onClose={() => setIsHowToUseOpen(false)}
-      />
-
-      <InstallModal
-        isOpen={isInstallOpen}
-        onClose={() => setIsInstallOpen(false)}
       />
 
       <AmbientMixerModal
