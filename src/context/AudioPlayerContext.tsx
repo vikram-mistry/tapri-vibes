@@ -23,17 +23,17 @@ interface AudioContextType {
   volume: number;
   currentTime: number;
   duration: number;
-  activePlaylistId: 'bollywood' | 'hollywood';
+  activePlaylistId: string;
   activePlaylist: Playlist;
   currentQueue: Song[];
-  playSong: (song: Song) => void;
+  playSong: (song: Song, playlistId?: string) => void;
   togglePlay: () => void;
   playNext: () => void;
   playPrevious: () => void;
   seekTo: (seconds: number) => void;
   setVolume: (volume: number) => void;
   toggleMute: () => void;
-  switchPlaylist: (playlistId: 'bollywood' | 'hollywood', autoPlay?: boolean) => void;
+  switchPlaylist: (playlistId: string, autoPlay?: boolean) => void;
   playQueue: (videoIds: string[], startIndex?: number) => void;
 }
 
@@ -45,7 +45,7 @@ declare global {
 }
 
 /* ------------------------------------------------------------------ */
-/*  YouTube IFrame API loader (singleton promise, like Deluxe Salon)   */
+/*  YouTube IFrame API loader (singleton promise)                      */
 /* ------------------------------------------------------------------ */
 
 let ytReadyPromise: Promise<void> | null = null;
@@ -77,10 +77,10 @@ function loadYTApi(): Promise<void> {
 const AudioPlayerContext = createContext<AudioContextType | null>(null);
 
 export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  /* ---- mutable refs (match Deluxe Salon's pattern) ---- */
+  /* ---- mutable refs ---- */
   const containerRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<any>(null);
-  const queueRef = useRef<Song[]>([]);            // current queue of Song objects
+  const queueRef = useRef<Song[]>(ALL_SONGS);       // current active queue of Song objects
   const indexRef = useRef<number>(0);              // current index in queue
   const tickRef = useRef<number | null>(null);     // progress interval id
   const mountedRef = useRef<boolean>(true);        // cleanup flag
@@ -95,14 +95,13 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
     duration: 0,
   });
 
-  const bollywoodSongs = ALL_SONGS.filter(s => s.playlistId === 'bollywood');
-  const [activePlaylistId, setActivePlaylistId] = useState<'bollywood' | 'hollywood'>('bollywood');
-  const [currentSong, setCurrentSong] = useState<Song | null>(bollywoodSongs[0] || null);
+  const [activePlaylistId, setActivePlaylistId] = useState<string>(PLAYLISTS[0]?.id || 'all-tapri-classics');
+  const [currentSong, setCurrentSong] = useState<Song | null>(ALL_SONGS[0] || null);
 
-  const currentQueue = ALL_SONGS.filter(s => s.playlistId === activePlaylistId);
   const activePlaylist = PLAYLISTS.find(p => p.id === activePlaylistId) || PLAYLISTS[0];
+  const currentQueue = queueRef.current;
 
-  /* ---- progress tick (starts/stops with play state) ---- */
+  /* ---- progress tick ---- */
   const startTick = useCallback(() => {
     if (tickRef.current) return;
     tickRef.current = window.setInterval(() => {
@@ -118,7 +117,7 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
             ...(dur > 0 && dur < 7200 ? { duration: dur } : {}),
           }));
         }
-      } catch { /* player not ready yet */ }
+      } catch {}
     }, 250);
   }, []);
 
@@ -129,7 +128,7 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
   }, []);
 
-  /* ---- goToIndex: the heart of playback (mirrors Deluxe Salon's `c` fn) ---- */
+  /* ---- goToIndex: playback heart ---- */
   const goToIndex = useCallback((idx: number) => {
     const queue = queueRef.current;
     if (queue.length === 0) return;
@@ -139,7 +138,6 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const song = queue[safeIdx];
 
     setCurrentSong(song);
-    setActivePlaylistId(song.playlistId);
 
     setState(prev => ({
       ...prev,
@@ -161,9 +159,7 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
   /* ---- Initialize YouTube Player (once) ---- */
   useEffect(() => {
     mountedRef.current = true;
-
-    // Set initial queue to bollywood
-    queueRef.current = bollywoodSongs;
+    queueRef.current = ALL_SONGS;
 
     let destroyed = false;
 
@@ -201,24 +197,17 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
             if (event.data === PS.PLAYING) {
               setState(prev => ({ ...prev, isPlaying: true }));
               startTick();
-              // Update duration from video info
-              try {
-                const dur = playerRef.current?.getDuration() || 0;
-                if (dur > 0 && dur < 7200) {
-                  setState(prev => ({ ...prev, duration: dur }));
-                }
-              } catch { /* noop */ }
             } else if (event.data === PS.PAUSED) {
               setState(prev => ({ ...prev, isPlaying: false }));
               stopTick();
             } else if (event.data === PS.BUFFERING) {
-              // keep isPlaying true during buffering
+              // keep ticking or waiting
             }
           },
 
-          onError: () => {
-            // On any embed error, skip to next track (same as Deluxe Salon)
-            if (!destroyed) advance();
+          onError: (event: any) => {
+            console.warn('[Tapri Player] YT Error code:', event.data, 'Skipping to next track…');
+            advance();
           },
         },
       });
@@ -230,35 +219,78 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
       stopTick();
       try {
         playerRef.current?.destroy();
-        playerRef.current = null;
-      } catch { /* noop */ }
+      } catch {}
+      playerRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [advance, startTick, stopTick]);
 
-  /* ---- user-interaction unlock for Safari/iOS ---- */
+  // Media Session API integration
+  useEffect(() => {
+    if (!('mediaSession' in navigator) || !currentSong) return;
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: currentSong.en,
+      artist: currentSong.artist,
+      album: currentSong.film || 'Tapri Vibes',
+      artwork: [
+        {
+          src: currentSong.coverUrl || `https://i.ytimg.com/vi/${currentSong.videoId}/hqdefault.jpg`,
+          sizes: '512x512',
+          type: 'image/jpeg',
+        },
+      ],
+    });
+
+    navigator.mediaSession.setActionHandler('play', () => {
+      playerRef.current?.playVideo();
+    });
+    navigator.mediaSession.setActionHandler('pause', () => {
+      playerRef.current?.pauseVideo();
+    });
+    navigator.mediaSession.setActionHandler('previoustrack', () => {
+      rewind();
+    });
+    navigator.mediaSession.setActionHandler('nexttrack', () => {
+      advance();
+    });
+    navigator.mediaSession.setActionHandler('seekto', (details) => {
+      if (details.seekTime !== undefined && details.seekTime !== null) {
+        playerRef.current?.seekTo(details.seekTime, true);
+        setState(prev => ({ ...prev, currentTime: details.seekTime! }));
+      }
+    });
+  }, [currentSong, advance, rewind]);
+
+  /* ---- Safari user-gesture unlock ---- */
   useEffect(() => {
     if (!state.ready) return;
-
-    // Safari blocks autoplay until a user gesture. On first pointer event,
-    // attempt playVideo so subsequent programmatic calls work.
     const unlock = () => {
       playerRef.current?.playVideo();
     };
-
     window.addEventListener('pointerdown', unlock, { once: true });
     return () => window.removeEventListener('pointerdown', unlock);
   }, [state.ready]);
 
   /* ---- Public API ---- */
 
-  const playSong = useCallback((song: Song) => {
-    // Ensure queue is set to the song's playlist
-    const playlistSongs = ALL_SONGS.filter(s => s.playlistId === song.playlistId);
-    queueRef.current = playlistSongs;
-    setActivePlaylistId(song.playlistId);
+  const playSong = useCallback((song: Song, playlistId?: string) => {
+    if (playlistId) {
+      const pl = PLAYLISTS.find(p => p.id === playlistId || p.slug === playlistId);
+      if (pl && pl.trackIds.length > 0) {
+        const playlistSongs = pl.trackIds.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s));
+        queueRef.current = playlistSongs.length > 0 ? playlistSongs : ALL_SONGS;
+        setActivePlaylistId(playlistId);
+        const idx = queueRef.current.findIndex(s => s.id === song.id);
+        goToIndex(idx >= 0 ? idx : 0);
+        return;
+      }
+    }
 
-    const idx = playlistSongs.findIndex(s => s.id === song.id);
+    let idx = queueRef.current.findIndex(s => s.id === song.id);
+    if (idx < 0) {
+      queueRef.current = ALL_SONGS;
+      idx = ALL_SONGS.findIndex(s => s.id === song.id);
+    }
     goToIndex(idx >= 0 ? idx : 0);
   }, [goToIndex]);
 
@@ -277,7 +309,6 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
   }, [advance]);
 
   const playPrevious = useCallback(() => {
-    // If > 3 seconds in, restart. Otherwise go to previous.
     if (state.currentTime > 3) {
       const p = playerRef.current;
       if (p && typeof p.seekTo === 'function') {
@@ -316,15 +347,20 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
   }, []);
 
-  const switchPlaylist = useCallback((playlistId: 'bollywood' | 'hollywood', autoPlay = true) => {
-    const songs = ALL_SONGS.filter(s => s.playlistId === playlistId);
-    queueRef.current = songs;
+  const switchPlaylist = useCallback((playlistId: string, autoPlay = true) => {
+    const pl = PLAYLISTS.find(p => p.id === playlistId || p.slug === playlistId);
+    const songs = pl && pl.trackIds.length > 0
+      ? pl.trackIds.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s))
+      : ALL_SONGS;
+
+    queueRef.current = songs.length > 0 ? songs : ALL_SONGS;
     setActivePlaylistId(playlistId);
-    if (songs.length > 0) {
+
+    if (queueRef.current.length > 0) {
       if (autoPlay) {
         goToIndex(0);
       } else {
-        setCurrentSong(songs[0]);
+        setCurrentSong(queueRef.current[0]);
         indexRef.current = 0;
       }
     }
@@ -359,33 +395,26 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
         playQueue,
       }}
     >
-      {children}
-
-      {/*
-        YouTube Player container — positioned off-screen but with real
-        dimensions so browsers (esp. Safari/Firefox) treat it as a
-        legitimate media element and allow audio playback.
-      */}
+      {/* Hidden YouTube IFrame container */}
       <div
+        ref={containerRef}
         aria-hidden="true"
         style={{
           position: 'fixed',
-          bottom: '-300px',
-          left: '-300px',
-          width: '200px',
-          height: '200px',
-          opacity: 0.01,
+          top: -9999,
+          left: -9999,
+          width: 1,
+          height: 1,
+          opacity: 0,
           pointerEvents: 'none',
-          zIndex: -9999,
         }}
-      >
-        <div ref={containerRef} />
-      </div>
+      />
+      {children}
     </AudioPlayerContext.Provider>
   );
 };
 
-export const useAudioPlayer = () => {
+export const useAudioPlayer = (): AudioContextType => {
   const context = useContext(AudioPlayerContext);
   if (!context) {
     throw new Error('useAudioPlayer must be used within an AudioPlayerProvider');

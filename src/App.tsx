@@ -37,8 +37,8 @@ export const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleSelectPlaylistFromFooter = (playlistId: 'bollywood' | 'hollywood') => {
-    const pl = PLAYLISTS.find(p => p.id === playlistId);
+  const handleSelectPlaylistFromFooter = (playlistId: string) => {
+    const pl = PLAYLISTS.find(p => p.id === playlistId || p.slug === playlistId);
     if (pl) {
       setSelectedPlaylist(pl);
       setCurrentView('playlist-detail');

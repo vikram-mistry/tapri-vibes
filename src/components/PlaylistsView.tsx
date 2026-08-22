@@ -14,15 +14,12 @@ export const PlaylistsView: React.FC<PlaylistsViewProps> = ({
 }) => {
   const { activePlaylistId, switchPlaylist, isPlaying, togglePlay } = useAudioPlayer();
 
-  // Filter out any hidden playlists (only show active public playlists)
-  const visiblePlaylists = PLAYLISTS.filter(p => p.id === 'bollywood');
-
   return (
     <div className="mx-auto w-full max-w-3xl px-4 pt-4 pb-36 sm:px-8 sm:pt-6">
       {/* Header section */}
       <header className="mt-4 mb-8 border-b border-cream/15 pb-6">
         <p className="font-mono text-[0.7rem] tracking-[0.22em] uppercase text-sand/70">
-          Rotations
+          Chai Time Rotations
         </p>
         <h1 className="mt-2 font-display text-4xl leading-tight font-extrabold sm:text-5xl text-cream tracking-tight">
           Playlists
@@ -37,7 +34,7 @@ export const PlaylistsView: React.FC<PlaylistsViewProps> = ({
 
       {/* Playlists Grid */}
       <div className="grid gap-4 sm:grid-cols-1">
-        {visiblePlaylists.map((playlist) => {
+        {PLAYLISTS.map((playlist) => {
           const isActive = activePlaylistId === playlist.id;
 
           return (
@@ -56,7 +53,7 @@ export const PlaylistsView: React.FC<PlaylistsViewProps> = ({
                   {isActive && (
                     <span className="flex items-center gap-1.5 rounded-full bg-live/20 px-2.5 py-0.5 text-[0.65rem] font-semibold text-live border border-live/30">
                       <span className="size-1.5 rounded-full bg-live animate-pulse" />
-                      Live Now
+                      Active Queue
                     </span>
                   )}
                 </div>
@@ -99,10 +96,10 @@ export const PlaylistsView: React.FC<PlaylistsViewProps> = ({
                   )}
                 </button>
 
-                <div className="flex items-center gap-1 text-xs text-sand/70 group-hover:text-cream transition-colors">
-                  <span>View songs ({playlist.trackIds.length})</span>
-                  <ChevronRight className="size-4" />
-                </div>
+                <span className="flex items-center text-xs font-mono text-sand/70 group-hover:text-cream transition-colors">
+                  <span>View Tracklist</span>
+                  <ChevronRight className="size-4 ml-0.5 transition-transform group-hover:translate-x-1" />
+                </span>
               </div>
             </div>
           );

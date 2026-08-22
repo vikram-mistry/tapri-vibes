@@ -16,14 +16,20 @@ export const PlaylistDetailView: React.FC<PlaylistDetailViewProps> = ({
 }) => {
   const { currentSong, isPlaying, playSong, togglePlay, switchPlaylist, activePlaylistId } = useAudioPlayer();
 
-  const songs: Song[] = ALL_SONGS.filter((s) => s.playlistId === playlist.id);
+  // Filter songs matching this playlist's specific trackIds
+  const songs: Song[] = playlist.trackIds && playlist.trackIds.length > 0
+    ? playlist.trackIds
+        .map((id) => ALL_SONGS.find((s) => s.id === id))
+        .filter((s): s is Song => Boolean(s))
+    : ALL_SONGS;
+
   const isPlaylistActive = activePlaylistId === playlist.id;
 
   const handlePlaySong = (song: Song) => {
     if (currentSong?.id === song.id) {
       togglePlay();
     } else {
-      playSong(song);
+      playSong(song, playlist.id);
     }
   };
 
@@ -110,52 +116,70 @@ export const PlaylistDetailView: React.FC<PlaylistDetailViewProps> = ({
         </div>
       </header>
 
-      {/* Playlist Tracks List */}
-      <ol className="divide-y divide-cream/10 pb-10">
-        {songs.map((song, idx) => {
+      {/* Song list in clean English */}
+      <div className="space-y-1">
+        {songs.map((song, index) => {
           const isCurrent = currentSong?.id === song.id;
 
           return (
-            <li key={song.id}>
-              <button
-                type="button"
-                onClick={() => handlePlaySong(song)}
-                aria-label={`Play ${song.en}`}
-                className={`group flex w-full items-center gap-3 py-3 text-left transition-colors hover:bg-cream/5 px-2.5 rounded-lg ${
-                  isCurrent ? 'bg-cream/10' : ''
-                }`}
-              >
-                {/* Index / Play indicator */}
-                <span className="grid w-8 shrink-0 place-items-center font-mono text-[0.7rem] text-sand/50 tabular-nums">
+            <div
+              key={song.id}
+              onClick={() => handlePlaySong(song)}
+              className={`group flex items-center justify-between rounded-xl px-3 py-3 sm:px-4 sm:py-3 transition-colors cursor-pointer ${
+                isCurrent
+                  ? 'bg-cream/15 border border-cream/25'
+                  : 'hover:bg-cream/5 border border-transparent'
+              }`}
+            >
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                {/* Index / Playing Indicator */}
+                <span className="w-6 text-center font-mono text-xs text-sand/60">
                   {isCurrent && isPlaying ? (
-                    <Volume2 className="size-4 text-live animate-pulse" aria-hidden="true" />
+                    <Volume2 className="size-4 text-live mx-auto animate-pulse" />
                   ) : (
-                    <>
-                      <span className="group-hover:hidden">{String(idx + 1).padStart(3, '0')}</span>
-                      <Play className="hidden size-3.5 text-cream group-hover:block fill-current ml-0.5" aria-hidden="true" />
-                    </>
+                    String(index + 1).padStart(2, '0')
                   )}
                 </span>
 
-                {/* Title & Film */}
-                <div className="min-w-0 flex-1">
-                  <p className={`font-display text-base sm:text-lg leading-snug font-semibold ${isCurrent ? 'text-cream font-bold' : 'text-cream/90'}`}>
+                {/* Song Meta */}
+                <div className="min-w-0">
+                  <p className={`truncate text-sm sm:text-base font-semibold ${isCurrent ? 'text-white' : 'text-cream'}`}>
                     {song.en}
                   </p>
-                  <p className="truncate text-xs text-sand/80">
-                    {song.film ? `${song.film} · ` : ''}{song.artist}
+                  <p className="truncate text-xs text-sand/70 mt-0.5">
+                    {song.artist} {song.film ? `· ${song.film}` : ''} {song.year ? `(${song.year})` : ''}
                   </p>
                 </div>
+              </div>
 
-                {/* Year */}
-                <div className="shrink-0 text-right">
-                  <p className="font-mono text-xs text-sand/60 tabular-nums">{song.year}</p>
-                </div>
-              </button>
-            </li>
+              {/* Right Side: Duration & Play Action */}
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="font-mono text-xs text-sand/60 hidden sm:inline">
+                  {song.duration}
+                </span>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePlaySong(song);
+                  }}
+                  className={`saloon-icon-btn size-8 ${
+                    isCurrent ? 'opacity-100 text-live' : 'opacity-0 group-hover:opacity-100'
+                  }`}
+                  aria-label={isCurrent && isPlaying ? `Pause ${song.en}` : `Play ${song.en}`}
+                >
+                  {isCurrent && isPlaying ? (
+                    <Pause className="size-4 fill-current" />
+                  ) : (
+                    <Play className="size-4 fill-current ml-0.5" />
+                  )}
+                </button>
+              </div>
+            </div>
           );
         })}
-      </ol>
+      </div>
     </div>
   );
 };

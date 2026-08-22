@@ -3,7 +3,7 @@ import { SOCIAL_LINKS } from '../data/playlists';
 
 interface FooterProps {
   onNavigate: (view: 'radio' | 'playlists' | 'songs' | 'playlist-detail') => void;
-  onSelectPlaylist: (playlistId: 'bollywood' | 'hollywood') => void;
+  onSelectPlaylist: (playlistId: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectPlaylist }) => {
@@ -37,7 +37,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectPlaylist }) 
         <nav className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
           <button
             type="button"
-            onClick={() => onSelectPlaylist('bollywood')}
+            onClick={() => onSelectPlaylist('all-tapri-classics')}
             className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-cream hover:underline cursor-pointer"
           >
             Tapri Classics
