@@ -32,29 +32,50 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectPlaylist }) 
 
         {/* Quick links */}
         <p className="mt-8 font-mono text-[0.65rem] tracking-[0.28em] uppercase text-sand/60">
-          Rotations
+          Chai Time Rotations
         </p>
-        <nav className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+        <nav className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5 text-xs sm:text-sm">
           <button
             type="button"
             onClick={() => onSelectPlaylist('all-tapri-classics')}
-            className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-cream hover:underline cursor-pointer"
+            className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-amber-300 hover:underline cursor-pointer"
           >
-            Tapri Classics
+            All Tapri Classics (124 Songs)
           </button>
           <button
             type="button"
-            onClick={() => onNavigate('playlists')}
-            className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-cream hover:underline cursor-pointer"
+            onClick={() => onSelectPlaylist('subah-ki-chai')}
+            className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-amber-300 hover:underline cursor-pointer"
           >
-            Playlists
+            Subah Ki Chai (6 AM – 11 AM)
+          </button>
+          <button
+            type="button"
+            onClick={() => onSelectPlaylist('dophar-ki-susti')}
+            className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-amber-300 hover:underline cursor-pointer"
+          >
+            Dophar Ki Susti (11 AM – 4 PM)
+          </button>
+          <button
+            type="button"
+            onClick={() => onSelectPlaylist('shaam-ki-cutting')}
+            className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-amber-300 hover:underline cursor-pointer"
+          >
+            Shaam Ki Cutting (4 PM – 9 PM)
+          </button>
+          <button
+            type="button"
+            onClick={() => onSelectPlaylist('raat-ki-tapri')}
+            className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-amber-300 hover:underline cursor-pointer"
+          >
+            Raat Ki Tapri (9 PM – 4 AM)
           </button>
           <button
             type="button"
             onClick={() => onNavigate('songs')}
-            className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-cream hover:underline cursor-pointer"
+            className="text-left text-sand/80 underline-offset-4 transition-colors hover:text-cream hover:underline cursor-pointer"
           >
-            All Songs (124)
+            All Songs Directory (124)
           </button>
         </nav>
 

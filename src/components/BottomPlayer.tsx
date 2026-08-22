@@ -1,12 +1,13 @@
 import React from 'react';
 import { useAudioPlayer } from '../context/AudioPlayerContext';
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Volume1, CloudRain, Clock, CassetteTape } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Volume1, CloudRain, Clock, CassetteTape, Radio } from 'lucide-react';
 import { SOCIAL_LINKS } from '../data/playlists';
 import { sfx } from '../utils/sfx';
 
 interface BottomPlayerProps {
   onOpenAmbiance?: () => void;
   onOpenTimer?: () => void;
+  onOpenRotations?: () => void;
   isCassetteMode?: boolean;
   onToggleCassetteMode?: () => void;
 }
@@ -14,6 +15,7 @@ interface BottomPlayerProps {
 export const BottomPlayer: React.FC<BottomPlayerProps> = ({
   onOpenAmbiance,
   onOpenTimer,
+  onOpenRotations,
   isCassetteMode = false,
   onToggleCassetteMode
 }) => {
@@ -72,14 +74,27 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
         <div className="relative z-30 mx-auto mb-[max(0.75rem,env(safe-area-inset-bottom))] w-full max-w-2xl px-3 sm:mb-6">
           
           {/* Top Floating Feature Toolbar (Above the main player) */}
-          <div className="mb-2 flex items-center justify-center gap-2">
+          <div className="mb-2 flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+            {onOpenRotations && (
+              <button
+                type="button"
+                onClick={onOpenRotations}
+                aria-label="Chai Time Rotations"
+                title="Switch 90s tape radio rotations"
+                className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 hover:border-amber-400/60 transition-all hover:scale-105"
+              >
+                <Radio className="size-3.5 text-amber-300" />
+                <span>Rotations</span>
+              </button>
+            )}
+
             {onOpenAmbiance && (
               <button
                 type="button"
                 onClick={onOpenAmbiance}
                 aria-label="Ambient Soundscapes Mixer"
                 title="Rain, Kettle & Vinyl soundscapes"
-                className="saloon-chip text-xs py-1 px-3 flex items-center gap-1.5 hover:border-blue-400/60 transition-all hover:scale-105"
+                className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 hover:border-blue-400/60 transition-all hover:scale-105"
               >
                 <CloudRain className="size-3.5 text-blue-300" />
                 <span>Soundscapes</span>
@@ -92,7 +107,7 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
                 onClick={onOpenTimer}
                 aria-label="Cutting Chai Focus Timer"
                 title="Chai Focus & Sleep timer"
-                className="saloon-chip text-xs py-1 px-3 flex items-center gap-1.5 hover:border-amber-400/60 transition-all hover:scale-105"
+                className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 hover:border-amber-400/60 transition-all hover:scale-105"
               >
                 <Clock className="size-3.5 text-amber-300" />
                 <span>Chai Timer</span>
@@ -105,7 +120,7 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
                 onClick={onToggleCassetteMode}
                 aria-label="Toggle Retro Cassette Deck"
                 title={isCassetteMode ? 'Switch to Vinyl View' : 'Switch to 90s Tape View'}
-                className={`saloon-chip text-xs py-1 px-3 flex items-center gap-1.5 transition-all hover:scale-105 ${
+                className={`saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 transition-all hover:scale-105 ${
                   isCassetteMode ? 'active border-amber-500/60 text-amber-300' : ''
                 }`}
               >

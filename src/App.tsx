@@ -11,6 +11,7 @@ import { InstallModal } from './components/InstallModal';
 import { AmbientMixerModal } from './components/AmbientMixerModal';
 import { ChaiTimerModal } from './components/ChaiTimerModal';
 import { ChalkboardGuestbook } from './components/ChalkboardGuestbook';
+import { QuickRotationsModal } from './components/QuickRotationsModal';
 import { TapriAtmosphere } from './components/TapriAtmosphere';
 import { PLAYLISTS } from './data/playlists';
 import { Playlist } from './types';
@@ -24,6 +25,7 @@ export const App: React.FC = () => {
   const [isAmbianceOpen, setIsAmbianceOpen] = useState<boolean>(false);
   const [isTimerOpen, setIsTimerOpen] = useState<boolean>(false);
   const [isChalkboardOpen, setIsChalkboardOpen] = useState<boolean>(false);
+  const [isRotationsOpen, setIsRotationsOpen] = useState<boolean>(false);
   const [isCassetteMode, setIsCassetteMode] = useState<boolean>(false);
 
   const handleNavigate = (view: 'radio' | 'playlists' | 'songs' | 'playlist-detail') => {
@@ -69,9 +71,20 @@ export const App: React.FC = () => {
         {/* Radio Home View (Full 100vh viewport - Clean & Unobstructed) */}
         {currentView === 'radio' && (
           <div className="flex min-h-[calc(100dvh-5.5rem)] flex-col justify-between pb-36">
-            {/* Center Hero or Retro Cassette Deck */}
+            {/* Center Hero or Compact Hero with Retro Cassette Deck */}
             {isCassetteMode ? (
-              <div className="my-auto pt-6 animate-in fade-in zoom-in-95 duration-200">
+              <div className="pt-2 sm:pt-4 select-none animate-in fade-in zoom-in-95 duration-200">
+                {/* Compact Hero Title shifted above Tape Deck */}
+                <div className="text-center mb-3 sm:mb-4">
+                  <h2 className="font-display text-xl sm:text-2xl font-black text-cream tracking-widest uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+                    TAPRI VIBES
+                  </h2>
+                  <p className="font-mono text-[0.6rem] sm:text-[0.65rem] tracking-[0.3em] text-sand/75 uppercase mt-0.5">
+                    Cutting Chai & 90s Radio
+                  </p>
+                </div>
+
+                {/* Animated 90s Cassette Deck */}
                 <CassetteDeck />
               </div>
             ) : (
@@ -111,6 +124,7 @@ export const App: React.FC = () => {
 
       {/* Bottom Floating Glassmorphism Player Dock */}
       <BottomPlayer
+        onOpenRotations={() => setIsRotationsOpen(true)}
         onOpenAmbiance={() => setIsAmbianceOpen(true)}
         onOpenTimer={() => setIsTimerOpen(true)}
         isCassetteMode={isCassetteMode}
@@ -118,6 +132,12 @@ export const App: React.FC = () => {
       />
 
       {/* Feature Modals */}
+      <QuickRotationsModal
+        isOpen={isRotationsOpen}
+        onClose={() => setIsRotationsOpen(false)}
+        onSelectPlaylistDetail={handleOpenPlaylistDetail}
+      />
+
       <InstallModal
         isOpen={isInstallOpen}
         onClose={() => setIsInstallOpen(false)}
