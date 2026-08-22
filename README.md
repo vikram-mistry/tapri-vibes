@@ -1,7 +1,7 @@
 # ☕ Tapri Vibes — 90s Bollywood & Cutting Chai Radio
 
-[![Deploy to GitHub Pages](https://github.com/vikram-mistry/workout-vibes/actions/workflows/deploy.yml/badge.svg)](https://github.com/vikram-mistry/workout-vibes/actions/workflows/deploy.yml)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Tapri%20Vibes-D48637?style=flat&logo=safari)](https://vikram-mistry.github.io/workout-vibes/)
+[![Deploy to GitHub Pages](https://github.com/vikram-mistry/tapri-vibes/actions/workflows/deploy.yml/badge.svg)](https://github.com/vikram-mistry/tapri-vibes/actions/workflows/deploy.yml)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Tapri%20Vibes-D48637?style=flat&logo=safari)](https://vikram-mistry.github.io/tapri-vibes/)
 
 An ambient, always-on web radio playing timeless 1990s Hindi cinema melodies over a nostalgic rainy tea stall corner, complete with real-time listener counts, dynamic canvas rain, steaming cutting chai, and warm candle glow.
 
@@ -13,7 +13,7 @@ An ambient, always-on web radio playing timeless 1990s Hindi cinema melodies ove
 - ☕ **Living Foreground Ambiance**: Steaming cutting chai glass with CSS keyframe vapor and a realistic flickering candle flame casting warm golden light over the rustic wooden counter.
 - 📻 **124+ Curated 90s Bollywood Classics**: Handpicked songs from Kumar Sanu, Udit Narayan, Alka Yagnik, Pankaj Udhas, S.P. Balasubrahmanyam, and Anuradha Paudwal — verified for smooth YouTube audio playback.
 - 👥 **Real-Time Listener Count**: Multi-user presence synchronization via Supabase Realtime and Web BroadcastChannel, showing live connected listeners worldwide.
-- 🎛️ **Floating Glassmorphic Audio Player**: Sleek bottom dock featuring song progress scrub bar, volume slider, mute toggle, and track skip navigation.
+- 🎛️ **Floating Glassmorphic Audio Player**: Sleek bottom dock featuring spinning vinyl album art, song progress scrub bar, volume slider, mute toggle, and track skip navigation.
 - 📱 **Responsive & PWA Ready**: Optimized for desktop and mobile screen sizes, installable directly to your home screen as a standalone app.
 
 ---
@@ -41,8 +41,8 @@ An ambient, always-on web radio playing timeless 1990s Hindi cinema melodies ove
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/vikram-mistry/workout-vibes.git
-   cd workout-vibes
+   git clone https://github.com/vikram-mistry/tapri-vibes.git
+   cd tapri-vibes
    ```
 
 2. **Install dependencies**:
@@ -71,7 +71,7 @@ This project includes a pre-configured automated deployment workflow [`.github/w
 2. Under **Build and deployment** > **Source**, select **GitHub Actions**.
 3. Every `git push` to `main` will automatically build and deploy the latest version to:
    ```
-   https://vikram-mistry.github.io/workout-vibes/
+   https://vikram-mistry.github.io/tapri-vibes/
    ```
 
 ---

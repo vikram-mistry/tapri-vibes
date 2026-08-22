@@ -171,12 +171,12 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
       if (destroyed || !containerRef.current || !window.YT) return;
 
       const initialSong = queueRef.current[0];
-      const initialVideoId = initialSong?.videoId || '8afBXZawfQw';
+      const initialVideoId = initialSong?.videoId || 'yexZf8g_dJw';
 
       playerRef.current = new window.YT.Player(containerRef.current, {
         videoId: initialVideoId,
         playerVars: {
-          autoplay: 0,
+          autoplay: 1,
           controls: 0,
           playsinline: 1,
           rel: 0,

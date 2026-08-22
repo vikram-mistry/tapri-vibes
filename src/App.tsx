@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { WhatsAppBanner } from './components/WhatsAppBanner';
 import { BottomPlayer } from './components/BottomPlayer';
 import { PlaylistsView } from './components/PlaylistsView';
 import { PlaylistDetailView } from './components/PlaylistDetailView';
@@ -39,7 +38,7 @@ export const App: React.FC = () => {
 
   return (
     <main className="relative min-h-[100dvh] w-full bg-shade text-cream overflow-x-hidden">
-      {/* Animated Tapri Atmosphere (Rain, Candle Flame, Steaming Chai, Moody Night Counter) */}
+      {/* Animated Tapri Atmosphere (Rain, Candle Flame, Steaming Chai, 90s Street Backdrop) */}
       <TapriAtmosphere dimmed={currentView !== 'radio'} />
 
       {/* Dim overlay for subpages */}
@@ -49,7 +48,7 @@ export const App: React.FC = () => {
 
       {/* App Container */}
       <div className="relative z-10 flex min-h-[100dvh] flex-col">
-        {/* Top Header */}
+        {/* Top Header with time, live listener count, WhatsApp popover, and grouped streams */}
         <Header
           currentView={currentView}
           onNavigate={handleNavigate}
@@ -62,13 +61,8 @@ export const App: React.FC = () => {
             {/* Center Hero */}
             <Hero />
 
-            {/* Spacer */}
-            <div className="flex-1 min-h-[80px]" />
-
-            {/* Floating Community Banner above dock */}
-            <div className="mb-[10.5rem] sm:mb-[11rem]">
-              <WhatsAppBanner />
-            </div>
+            {/* Ambient Spacer allowing full view of illustrated 90s Tapri */}
+            <div className="flex-1 min-h-[120px]" />
           </div>
         )}
 
@@ -98,7 +92,7 @@ export const App: React.FC = () => {
         />
       </div>
 
-      {/* Bottom Floating Glassmorphism Player Dock */}
+      {/* Bottom Floating Glassmorphism Player Dock with Spinning Vinyl */}
       <BottomPlayer />
 
       {/* PWA Install Sheet Modal */}

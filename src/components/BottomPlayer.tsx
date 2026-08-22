@@ -43,20 +43,20 @@ export const BottomPlayer: React.FC = () => {
       <div className="pointer-events-auto">
         <div className="relative z-30 mx-auto mb-[max(1.25rem,env(safe-area-inset-bottom))] w-full max-w-xl px-3 sm:mb-10">
           <div className="saloon-glass mb-3 flex items-center gap-3 rounded-full p-2 pr-3 sm:gap-4 sm:p-3 sm:pr-5">
-            {/* Thumbnail */}
-            <div className="relative size-12 shrink-0 overflow-hidden rounded-full sm:size-14 bg-black/40 border border-cream/20">
+            {/* Spinning Vinyl Album Art */}
+            <div className="relative size-12 shrink-0 overflow-hidden rounded-full sm:size-14 bg-black/50 border border-cream/25 shadow-md">
               <img
                 src={currentSong?.coverUrl || `https://i.ytimg.com/vi/${currentSong?.videoId}/hqdefault.jpg`}
-                alt={currentSong?.en || 'Workout Track'}
+                alt={currentSong?.en || 'Tapri Track'}
                 width={56}
                 height={56}
-                className="size-full object-cover transition-transform duration-500 hover:scale-110"
+                className="size-full object-cover animate-[spin_20s_linear_infinite]"
+                style={{
+                  animationPlayState: isPlaying ? 'running' : 'paused'
+                }}
               />
-              {isPlaying && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-[1px]">
-                  <span className="size-2 rounded-full bg-live animate-ping" />
-                </div>
-              )}
+              {/* Center Vinyl Spindle Hole Effect */}
+              <div className="absolute inset-0 m-auto size-2.5 rounded-full bg-shade border border-cream/40" />
             </div>
 
             {/* Song Meta & Seek Bar */}
@@ -65,7 +65,7 @@ export const BottomPlayer: React.FC = () => {
                 {currentSong?.en || 'Tuning in…'}
               </p>
               <p className="truncate text-xs text-cream/60">
-                {currentSong ? `${currentSong.artist} ${currentSong.film ? `· ${currentSong.film}` : ''}` : 'Workout Vibes radio'}
+                {currentSong ? `${currentSong.artist} ${currentSong.film ? `· ${currentSong.film}` : ''}` : 'Tapri Vibes radio'}
               </p>
 
               {/* Progress Slider */}
