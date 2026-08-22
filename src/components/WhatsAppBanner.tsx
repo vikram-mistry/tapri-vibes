@@ -14,7 +14,7 @@ export const WhatsAppBanner: React.FC<WhatsAppBannerProps> = ({ customLink }) =>
       target="_blank"
       rel="noreferrer noopener"
       className="group relative z-20 mx-auto mb-4 block w-full max-w-md px-4 text-left"
-      aria-label="Join Workout Vibes on WhatsApp"
+      aria-label="Join Tapri Vibes on WhatsApp"
     >
       <div className="saloon-glass relative flex items-center gap-3 overflow-hidden rounded-2xl px-4 py-3 text-cream transition-all duration-200 hover:border-[#25D366]/60">
         <span className="absolute left-0 top-0 h-full w-1 bg-[#25D366]" aria-hidden="true" />
@@ -28,10 +28,10 @@ export const WhatsAppBanner: React.FC<WhatsAppBannerProps> = ({ customLink }) =>
 
         <div className="min-w-0 flex-1">
           <p className="truncate font-display text-sm font-bold text-cream">
-            Get new workout drops before everyone else 🔥
+            Get classic 90s songs before everyone else 🔥
           </p>
           <p className="truncate text-[0.7rem] text-cream/80">
-            Join the Workout Vibes crew on WhatsApp — fresh gym playlists, motivation & drops.
+            Join the Tapri Vibes crew on WhatsApp — daily 90s Hindi classics, fresh drops & updates.
           </p>
         </div>
 

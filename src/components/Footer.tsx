@@ -13,21 +13,21 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectPlaylist }) 
         {/* Brand */}
         <div className="flex items-center gap-3">
           <div className="flex size-10 items-center justify-center rounded-full bg-cream/10 border border-cream/20 text-cream font-display font-black text-sm">
-            WV
+            ☕
           </div>
           <div>
             <p className="font-display text-2xl leading-none font-extrabold text-cream tracking-tight">
-              Workout Vibes
+              Tapri Vibes
             </p>
             <p className="mt-1 font-mono text-[0.65rem] tracking-[0.3em] uppercase text-sand/70">
-              Sweat It Out
+              Cutting Chai & 90s Radio
             </p>
           </div>
         </div>
 
         {/* Bio */}
         <p className="mt-5 max-w-md text-sm leading-relaxed text-sand/80">
-          High-energy workout anthems and timeless gym beats, playing round the clock. Designed to fuel heavy lifts, sprint sets, and relentless motivation.
+          90s Hindi film songs, playing round the clock — the kind of tape that never stops at a neighbourhood tea stall on a rainy evening.
         </p>
 
         {/* Quick links */}
@@ -40,28 +40,21 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectPlaylist }) 
             onClick={() => onSelectPlaylist('bollywood')}
             className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-cream hover:underline cursor-pointer"
           >
-            Bollywood Workout
-          </button>
-          <button
-            type="button"
-            onClick={() => onSelectPlaylist('hollywood')}
-            className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-cream hover:underline cursor-pointer"
-          >
-            Hollywood Workout
+            Tapri Classics
           </button>
           <button
             type="button"
             onClick={() => onNavigate('playlists')}
             className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-cream hover:underline cursor-pointer"
           >
-            All Playlists
+            Playlists
           </button>
           <button
             type="button"
             onClick={() => onNavigate('songs')}
             className="text-left text-cream/90 underline-offset-4 transition-colors hover:text-cream hover:underline cursor-pointer"
           >
-            All Songs (144)
+            All Songs (124)
           </button>
         </nav>
 
@@ -94,7 +87,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectPlaylist }) 
         {/* Legal notice & Credits */}
         <div className="mt-8 space-y-3 text-xs leading-relaxed text-sand/55">
           <p>
-            Audio streams via YouTube's official embedded player. Nothing is hosted on this server, and all rights remain with the respective record labels, composers, and artists.
+            Audio streams via YouTube's official embedded player. Nothing is hosted on this server, and all rights remain with the respective record labels, composers, and performers.
           </p>
           <p>
             If you hold rights to any music track and want it removed, contact{' '}
@@ -104,10 +97,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onSelectPlaylist }) 
             >
               {SOCIAL_LINKS.contactEmail}
             </a>{' '}
-            and it will be removed promptly.
+            and it will be taken down promptly.
           </p>
           <p className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-sand/40">
-            © {new Date().getFullYear()} Workout Vibes
+            © {new Date().getFullYear()} Tapri Vibes
           </p>
         </div>
       </div>

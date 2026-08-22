@@ -5,11 +5,12 @@ import { Play, Volume2, Search } from 'lucide-react';
 
 export const SongsView: React.FC = () => {
   const { currentSong, isPlaying, playSong, togglePlay } = useAudioPlayer();
-  const [filter, setFilter] = useState<'all' | 'bollywood' | 'hollywood'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const filteredSongs = ALL_SONGS.filter((s) => {
-    if (filter !== 'all' && s.playlistId !== filter) return false;
+  // Only show active Bollywood/Tapri songs
+  const visibleSongs = ALL_SONGS.filter(s => s.playlistId === 'bollywood');
+
+  const filteredSongs = visibleSongs.filter((s) => {
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       return (
@@ -32,44 +33,23 @@ export const SongsView: React.FC = () => {
           All Songs
         </h1>
         <p className="mt-1 text-sm tracking-[0.18em] uppercase text-sand/80">
-          {ALL_SONGS.length} Curated Tracks
+          {visibleSongs.length} 90s Bollywood Classics
         </p>
 
-        {/* Filter chips & Search */}
+        {/* Search bar */}
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setFilter('all')}
-              className={`saloon-chip ${filter === 'all' ? 'active' : ''}`}
-            >
-              All ({ALL_SONGS.length})
-            </button>
-            <button
-              type="button"
-              onClick={() => setFilter('bollywood')}
-              className={`saloon-chip ${filter === 'bollywood' ? 'active' : ''}`}
-            >
-              Bollywood ({ALL_SONGS.filter(s => s.playlistId === 'bollywood').length})
-            </button>
-            <button
-              type="button"
-              onClick={() => setFilter('hollywood')}
-              className={`saloon-chip ${filter === 'hollywood' ? 'active' : ''}`}
-            >
-              Hollywood ({ALL_SONGS.filter(s => s.playlistId === 'hollywood').length})
-            </button>
-          </div>
+          <span className="font-mono text-xs text-sand/70">
+            Showing {filteredSongs.length} tracks
+          </span>
 
-          {/* Search bar */}
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 size-3.5 -translate-y-1/2 text-sand/50" />
             <input
               type="text"
-              placeholder="Search songs, artists..."
+              placeholder="Search 90s songs, singers, movies..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full sm:w-60 rounded-full border border-cream/20 bg-cream/5 px-8 py-1.5 text-xs text-cream placeholder-sand/40 backdrop-blur-md focus:border-cream/50 focus:outline-none"
+              className="w-full sm:w-72 rounded-full border border-cream/20 bg-cream/5 px-8 py-1.5 text-xs text-cream placeholder-sand/40 backdrop-blur-md focus:border-cream/50 focus:outline-none"
             />
           </div>
         </div>
@@ -118,12 +98,9 @@ export const SongsView: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Tag & Year */}
+                {/* Year */}
                 <div className="shrink-0 text-right">
-                  <span className="inline-block rounded-full bg-cream/10 px-2 py-0.5 text-[0.65rem] text-sand/80 uppercase font-mono mb-0.5">
-                    {song.playlistId}
-                  </span>
-                  <p className="font-mono text-[0.7rem] text-sand/50 tabular-nums">{song.year}</p>
+                  <p className="font-mono text-xs text-sand/60 tabular-nums">{song.year}</p>
                 </div>
               </button>
             </li>

@@ -8,6 +8,7 @@ import { PlaylistDetailView } from './components/PlaylistDetailView';
 import { SongsView } from './components/SongsView';
 import { Footer } from './components/Footer';
 import { InstallModal } from './components/InstallModal';
+import { TapriAtmosphere } from './components/TapriAtmosphere';
 import { PLAYLISTS } from './data/playlists';
 import { Playlist } from './types';
 
@@ -38,30 +39,13 @@ export const App: React.FC = () => {
 
   return (
     <main className="relative min-h-[100dvh] w-full bg-shade text-cream overflow-x-hidden">
-      {/* Fixed Ambient Illustrated Background */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <picture>
-          <source media="(min-width: 768px)" srcSet="./assets/workout-backdrop.jpg" />
-          <img
-            src="./assets/workout-backdrop-mobile.jpg"
-            alt="Illustrated raw iron gym fitness workout atmosphere"
-            width={1920}
-            height={1088}
-            className={`size-full object-cover transition-opacity duration-300 ${
-              currentView !== 'radio' ? 'opacity-30' : 'opacity-100'
-            }`}
-          />
-        </picture>
+      {/* Animated Tapri Atmosphere (Rain, Candle Flame, Steaming Chai, Moody Night Counter) */}
+      <TapriAtmosphere dimmed={currentView !== 'radio'} />
 
-        {/* Dim overlay for subpages */}
-        {currentView !== 'radio' && (
-          <div className="absolute inset-0 bg-shade/75 backdrop-blur-[2px]" />
-        )}
-
-        {/* Deluxe Saloon Vignette & Analog Grain Overlays */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 saloon-vignette" />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 saloon-grain" />
-      </div>
+      {/* Dim overlay for subpages */}
+      {currentView !== 'radio' && (
+        <div className="fixed inset-0 z-0 bg-shade/80 backdrop-blur-[3px] pointer-events-none" />
+      )}
 
       {/* App Container */}
       <div className="relative z-10 flex min-h-[100dvh] flex-col">

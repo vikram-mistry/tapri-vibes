@@ -14,9 +14,12 @@ export const PlaylistsView: React.FC<PlaylistsViewProps> = ({
 }) => {
   const { activePlaylistId, switchPlaylist, isPlaying, togglePlay } = useAudioPlayer();
 
+  // Filter out any hidden playlists (only show active public playlists)
+  const visiblePlaylists = PLAYLISTS.filter(p => p.id === 'bollywood');
+
   return (
     <div className="mx-auto w-full max-w-3xl px-4 pt-4 pb-36 sm:px-8 sm:pt-6">
-      {/* Header section in English */}
+      {/* Header section */}
       <header className="mt-4 mb-8 border-b border-cream/15 pb-6">
         <p className="font-mono text-[0.7rem] tracking-[0.22em] uppercase text-sand/70">
           Rotations
@@ -28,13 +31,13 @@ export const PlaylistsView: React.FC<PlaylistsViewProps> = ({
           Curated Soundtracks
         </p>
         <p className="mt-4 max-w-xl text-sm leading-relaxed text-sand/80">
-          Dedicated workout rotations designed for heavy lifting, cardio sprints, and high-energy workout sessions. Select either playlist to explore all songs and start listening.
+          Evergreen 90s Bollywood cassettes playing round the clock — timeless melodies from old neighbourhood tea stalls and roadside corners.
         </p>
       </header>
 
       {/* Playlists Grid */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        {PLAYLISTS.map((playlist) => {
+      <div className="grid gap-4 sm:grid-cols-1">
+        {visiblePlaylists.map((playlist) => {
           const isActive = activePlaylistId === playlist.id;
 
           return (

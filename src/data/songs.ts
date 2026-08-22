@@ -2,85 +2,7 @@ import { Song } from '../types';
 
 export const ALL_SONGS: Song[] = [
   {
-    "id": "bw-1",
-    "slug": "zinda-workout-mix",
-    "hi": "Zinda (Workout Mix)",
-    "en": "Zinda (Workout Mix)",
-    "artist": "Siddharth Mahadevan",
-    "film": "Bhaag Milkha Bhaag",
-    "year": 2013,
-    "duration": "3:31",
-    "videoId": "8afBXZawfQw",
-    "playlistId": "bollywood",
-    "coverUrl": "https://i.ytimg.com/vi/8afBXZawfQw/hqdefault.jpg"
-  },
-  {
-    "id": "bw-2",
-    "slug": "kar-har-maidaan-fateh",
-    "hi": "Kar Har Maidaan Fateh",
-    "en": "Kar Har Maidaan Fateh",
-    "artist": "Sukhwinder Singh, Shreya Ghoshal",
-    "film": "Sanju",
-    "year": 2018,
-    "duration": "5:11",
-    "videoId": "9iIX4PBplAY",
-    "playlistId": "bollywood",
-    "coverUrl": "https://i.ytimg.com/vi/9iIX4PBplAY/hqdefault.jpg"
-  },
-  {
-    "id": "bw-3",
-    "slug": "khalibali-padmaavat",
-    "hi": "Khalibali",
-    "en": "Khalibali",
-    "artist": "Shivam Pathak",
-    "film": "Padmaavat",
-    "year": 2018,
-    "duration": "4:18",
-    "videoId": "v7K4vGYL9zI",
-    "playlistId": "bollywood",
-    "coverUrl": "https://i.ytimg.com/vi/v7K4vGYL9zI/hqdefault.jpg"
-  },
-  {
-    "id": "bw-4",
-    "slug": "arjan-vailly-animal",
-    "hi": "Arjan Vailly",
-    "en": "Arjan Vailly",
-    "artist": "Bhupinder Babbal, Manan Bhardwaj",
-    "film": "Animal",
-    "year": 2023,
-    "duration": "3:02",
-    "videoId": "zqGW6x_5N0k",
-    "playlistId": "bollywood",
-    "coverUrl": "https://i.ytimg.com/vi/zqGW6x_5N0k/hqdefault.jpg"
-  },
-  {
-    "id": "bw-5",
-    "slug": "dangal-title-track",
-    "hi": "Dangal",
-    "en": "Dangal",
-    "artist": "Daler Mehndi, Pritam",
-    "film": "Dangal",
-    "year": 2016,
-    "duration": "4:59",
-    "videoId": "bp-KoLN-6G0",
-    "playlistId": "bollywood",
-    "coverUrl": "https://i.ytimg.com/vi/bp-KoLN-6G0/hqdefault.jpg"
-  },
-  {
-    "id": "bw-6",
-    "slug": "tattad-tattad-ramleela",
-    "hi": "Tattad Tattad",
-    "en": "Tattad Tattad",
-    "artist": "Aditya Narayan",
-    "film": "Goliyon Ki Raasleela Ram-Leela",
-    "year": 2013,
-    "duration": "4:58",
-    "videoId": "sIooFGRBZJY",
-    "playlistId": "bollywood",
-    "coverUrl": "https://i.ytimg.com/vi/sIooFGRBZJY/hqdefault.jpg"
-  },
-  {
-    "id": "bw-7",
+    "id": "tapri-1",
     "slug": "chitthi-aayi-hai",
     "hi": "Chitthi Aayi Hai",
     "en": "Chitthi Aayi Hai",
@@ -93,7 +15,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/yexZf8g_dJw/hqdefault.jpg"
   },
   {
-    "id": "bw-8",
+    "id": "tapri-2",
     "slug": "ae-mere-humsafar",
     "hi": "Ae Mere Humsafar",
     "en": "Ae Mere Humsafar",
@@ -106,7 +28,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/sWqjZpBtcxc/hqdefault.jpg"
   },
   {
-    "id": "bw-9",
+    "id": "tapri-3",
     "slug": "akele-hain-to-kya-gham-hai",
     "hi": "Akele Hain To Kya Gham Hai",
     "en": "Akele Hain To Kya Gham Hai",
@@ -119,7 +41,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/QxpPkGSmCqY/hqdefault.jpg"
   },
   {
-    "id": "bw-10",
+    "id": "tapri-4",
     "slug": "ek-do-teen",
     "hi": "Ek Do Teen",
     "en": "Ek Do Teen",
@@ -132,7 +54,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/MS5BLS2sIDM/hqdefault.jpg"
   },
   {
-    "id": "bw-11",
+    "id": "tapri-5",
     "slug": "papa-kehte-hain",
     "hi": "Papa Kehte Hain",
     "en": "Papa Kehte Hain",
@@ -145,7 +67,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/E8ytXrzkTNs/hqdefault.jpg"
   },
   {
-    "id": "bw-12",
+    "id": "tapri-6",
     "slug": "tu-mera-janu-hai",
     "hi": "Tu Mera Janu Hai",
     "en": "Tu Mera Janu Hai",
@@ -158,7 +80,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/rCRc0hHWMHQ/hqdefault.jpg"
   },
   {
-    "id": "bw-13",
+    "id": "tapri-7",
     "slug": "aate-jaate-haste-gaate",
     "hi": "Aate Jaate Haste Gaate",
     "en": "Aate Jaate Haste Gaate",
@@ -171,7 +93,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/WGtqzK0VIRc/hqdefault.jpg"
   },
   {
-    "id": "bw-14",
+    "id": "tapri-8",
     "slug": "dil-deewana",
     "hi": "Dil Deewana",
     "en": "Dil Deewana",
@@ -184,7 +106,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/rL-TT1uB3zc/hqdefault.jpg"
   },
   {
-    "id": "bw-15",
+    "id": "tapri-9",
     "slug": "kabootar-ja-ja",
     "hi": "Kabootar Ja Ja",
     "en": "Kabootar Ja Ja",
@@ -197,7 +119,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/do1cu32sWec/hqdefault.jpg"
   },
   {
-    "id": "bw-16",
+    "id": "tapri-10",
     "slug": "mere-rang-mein-rangne-wali",
     "hi": "Mere Rang Mein Rangne Wali",
     "en": "Mere Rang Mein Rangne Wali",
@@ -210,7 +132,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/BkLOBuTAtS0/hqdefault.jpg"
   },
   {
-    "id": "bw-17",
+    "id": "tapri-11",
     "slug": "oye-oye",
     "hi": "Oye Oye",
     "en": "Oye Oye",
@@ -223,7 +145,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/lv4N9V5HjRA/hqdefault.jpg"
   },
   {
-    "id": "bw-18",
+    "id": "tapri-12",
     "slug": "tirchi-topi-wale",
     "hi": "Tirchi Topi Wale",
     "en": "Tirchi Topi Wale",
@@ -236,7 +158,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/eYl9i8mH1lI/hqdefault.jpg"
   },
   {
-    "id": "bw-19",
+    "id": "tapri-13",
     "slug": "ab-tere-bin-jee-lenge-hum",
     "hi": "Ab Tere Bin Jee Lenge Hum",
     "en": "Ab Tere Bin Jee Lenge Hum",
@@ -249,7 +171,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/tUx-PDUKne8/hqdefault.jpg"
   },
   {
-    "id": "bw-20",
+    "id": "tapri-14",
     "slug": "bas-ek-sanam-chahiye",
     "hi": "Bas Ek Sanam Chahiye",
     "en": "Bas Ek Sanam Chahiye",
@@ -262,7 +184,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/G5sjHPy-SzU/hqdefault.jpg"
   },
   {
-    "id": "bw-21",
+    "id": "tapri-15",
     "slug": "dheere-dheere-se-meri-zindagi",
     "hi": "Dheere Dheere Se Meri Zindagi",
     "en": "Dheere Dheere Se Meri Zindagi",
@@ -275,7 +197,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/Mcs2xEZ6K8o/hqdefault.jpg"
   },
   {
-    "id": "bw-22",
+    "id": "tapri-16",
     "slug": "jaane-jigar-jaaneman",
     "hi": "Jaane Jigar Jaaneman",
     "en": "Jaane Jigar Jaaneman",
@@ -288,7 +210,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/ecTeagAk1Dc/hqdefault.jpg"
   },
   {
-    "id": "bw-23",
+    "id": "tapri-17",
     "slug": "jab-koi-baat-bigad-jaye",
     "hi": "Jab Koi Baat Bigad Jaye",
     "en": "Jab Koi Baat Bigad Jaye",
@@ -301,7 +223,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/mNSYPtzpfd4/hqdefault.jpg"
   },
   {
-    "id": "bw-24",
+    "id": "tapri-18",
     "slug": "main-duniya-bhula-doonga",
     "hi": "Main Duniya Bhula Doonga",
     "en": "Main Duniya Bhula Doonga",
@@ -314,7 +236,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/lmZVoOlzbxw/hqdefault.jpg"
   },
   {
-    "id": "bw-25",
+    "id": "tapri-19",
     "slug": "nazar-ke-samne",
     "hi": "Nazar Ke Samne",
     "en": "Nazar Ke Samne",
@@ -327,7 +249,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/A4_KJ8t-dbo/hqdefault.jpg"
   },
   {
-    "id": "bw-26",
+    "id": "tapri-20",
     "slug": "saanson-ki-zaroorat-hai-jaise",
     "hi": "Saanson Ki Zaroorat Hai Jaise",
     "en": "Saanson Ki Zaroorat Hai Jaise",
@@ -340,7 +262,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/YCuhzjK11iA/hqdefault.jpg"
   },
   {
-    "id": "bw-27",
+    "id": "tapri-21",
     "slug": "bahut-pyar-karte-hain",
     "hi": "Bahut Pyar Karte Hain",
     "en": "Bahut Pyar Karte Hain",
@@ -353,7 +275,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/iupGwQqjgOk/hqdefault.jpg"
   },
   {
-    "id": "bw-28",
+    "id": "tapri-22",
     "slug": "dekha-hai-pehli-baar",
     "hi": "Dekha Hai Pehli Baar",
     "en": "Dekha Hai Pehli Baar",
@@ -366,7 +288,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/bBjVLCAAM1A/hqdefault.jpg"
   },
   {
-    "id": "bw-29",
+    "id": "tapri-23",
     "slug": "jaadu-bhari-aankhon-wali",
     "hi": "Jaadu Bhari Aankhon Wali",
     "en": "Jaadu Bhari Aankhon Wali",
@@ -379,7 +301,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/Q6JH5QMhGUc/hqdefault.jpg"
   },
   {
-    "id": "bw-30",
+    "id": "tapri-24",
     "slug": "jumma-chumma-de-de",
     "hi": "Jumma Chumma De De",
     "en": "Jumma Chumma De De",
@@ -392,7 +314,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/bVzIHMskZmQ/hqdefault.jpg"
   },
   {
-    "id": "bw-31",
+    "id": "tapri-25",
     "slug": "mera-dil-bhi-kitna-pagal-hai",
     "hi": "Mera Dil Bhi Kitna Pagal Hai",
     "en": "Mera Dil Bhi Kitna Pagal Hai",
@@ -405,7 +327,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/RVQsBlI35vw/hqdefault.jpg"
   },
   {
-    "id": "bw-32",
+    "id": "tapri-26",
     "slug": "saathiya-tune-kya-kiya",
     "hi": "Saathiya Tune Kya Kiya",
     "en": "Saathiya Tune Kya Kiya",
@@ -418,7 +340,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/9J_isuHe8bw/hqdefault.jpg"
   },
   {
-    "id": "bw-33",
+    "id": "tapri-27",
     "slug": "tumse-milne-ki-tamanna",
     "hi": "Tumse Milne Ki Tamanna",
     "en": "Tumse Milne Ki Tamanna",
@@ -431,7 +353,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/thjRNwjmAdQ/hqdefault.jpg"
   },
   {
-    "id": "bw-34",
+    "id": "tapri-28",
     "slug": "aisi-deewangi",
     "hi": "Aisi Deewangi",
     "en": "Aisi Deewangi",
@@ -444,7 +366,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/_YjSmLlmqLM/hqdefault.jpg"
   },
   {
-    "id": "bw-35",
+    "id": "tapri-29",
     "slug": "dhak-dhak-karne-laga",
     "hi": "Dhak Dhak Karne Laga",
     "en": "Dhak Dhak Karne Laga",
@@ -457,7 +379,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/AELvXURBfgw/hqdefault.jpg"
   },
   {
-    "id": "bw-36",
+    "id": "tapri-30",
     "slug": "koi-na-koi-chahiye",
     "hi": "Koi Na Koi Chahiye",
     "en": "Koi Na Koi Chahiye",
@@ -470,7 +392,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/euZmH3dMDaE/hqdefault.jpg"
   },
   {
-    "id": "bw-37",
+    "id": "tapri-31",
     "slug": "pehla-nasha",
     "hi": "Pehla Nasha",
     "en": "Pehla Nasha",
@@ -483,7 +405,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/Ki41AKu0iHc/hqdefault.jpg"
   },
   {
-    "id": "bw-38",
+    "id": "tapri-32",
     "slug": "roja-jaaneman",
     "hi": "Roja Jaaneman",
     "en": "Roja Jaaneman",
@@ -496,7 +418,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/PjiitGT4fUA/hqdefault.jpg"
   },
   {
-    "id": "bw-39",
+    "id": "tapri-33",
     "slug": "sochenge-tumhe-pyar",
     "hi": "Sochenge Tumhe Pyar",
     "en": "Sochenge Tumhe Pyar",
@@ -509,7 +431,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/lFdSi01tpYM/hqdefault.jpg"
   },
   {
-    "id": "bw-40",
+    "id": "tapri-34",
     "slug": "teri-ummeed-tera-intezar",
     "hi": "Teri Ummeed Tera Intezar",
     "en": "Teri Ummeed Tera Intezar",
@@ -522,7 +444,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/xvevXfFGPFY/hqdefault.jpg"
   },
   {
-    "id": "bw-41",
+    "id": "tapri-35",
     "slug": "yeh-haseen-vadiyan",
     "hi": "Yeh Haseen Vadiyan",
     "en": "Yeh Haseen Vadiyan",
@@ -535,7 +457,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/5kZ5o-oM0RI/hqdefault.jpg"
   },
   {
-    "id": "bw-42",
+    "id": "tapri-36",
     "slug": "aaja-sajan-aaja",
     "hi": "Aaja Sajan Aaja",
     "en": "Aaja Sajan Aaja",
@@ -548,7 +470,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/v45d6MlNKIk/hqdefault.jpg"
   },
   {
-    "id": "bw-43",
+    "id": "tapri-37",
     "slug": "baazigar-o-baazigar",
     "hi": "Baazigar O Baazigar",
     "en": "Baazigar O Baazigar",
@@ -561,7 +483,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/PUO7_Gi6ipg/hqdefault.jpg"
   },
   {
-    "id": "bw-44",
+    "id": "tapri-38",
     "slug": "chhupana-bhi-nahi-aata",
     "hi": "Chhupana Bhi Nahi Aata",
     "en": "Chhupana Bhi Nahi Aata",
@@ -574,7 +496,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/X9MB_25XncQ/hqdefault.jpg"
   },
   {
-    "id": "bw-45",
+    "id": "tapri-39",
     "slug": "choli-ke-peeche",
     "hi": "Choli Ke Peeche",
     "en": "Choli Ke Peeche",
@@ -587,7 +509,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/3OXiqmUhB70/hqdefault.jpg"
   },
   {
-    "id": "bw-46",
+    "id": "tapri-40",
     "slug": "ghunghat-ki-aad-se",
     "hi": "Ghunghat Ki Aad Se",
     "en": "Ghunghat Ki Aad Se",
@@ -600,7 +522,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/xnhjxG79Ttc/hqdefault.jpg"
   },
   {
-    "id": "bw-47",
+    "id": "tapri-41",
     "slug": "jaadu-teri-nazar",
     "hi": "Jaadu Teri Nazar",
     "en": "Jaadu Teri Nazar",
@@ -613,7 +535,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/s_fdQXXDSLw/hqdefault.jpg"
   },
   {
-    "id": "bw-48",
+    "id": "tapri-42",
     "slug": "kitaben-bahut-si",
     "hi": "Kitaben Bahut Si",
     "en": "Kitaben Bahut Si",
@@ -626,7 +548,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/ieu6xnwJxdA/hqdefault.jpg"
   },
   {
-    "id": "bw-49",
+    "id": "tapri-43",
     "slug": "likha-hai-teri-aankhon-mein",
     "hi": "Likha Hai Teri Aankhon Mein",
     "en": "Likha Hai Teri Aankhon Mein",
@@ -639,7 +561,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/tfSqvusJiFI/hqdefault.jpg"
   },
   {
-    "id": "bw-50",
+    "id": "tapri-44",
     "slug": "tu-mera-dil-tu-meri-jaan",
     "hi": "Tu Mera Dil Tu Meri Jaan",
     "en": "Tu Mera Dil Tu Meri Jaan",
@@ -652,7 +574,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/Oj484P4OXD8/hqdefault.jpg"
   },
   {
-    "id": "bw-51",
+    "id": "tapri-46",
     "slug": "yeh-kaali-kaali-aankhen",
     "hi": "Yeh Kaali Kaali Aankhen",
     "en": "Yeh Kaali Kaali Aankhen",
@@ -665,7 +587,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/axtCauVo24M/hqdefault.jpg"
   },
   {
-    "id": "bw-52",
+    "id": "tapri-47",
     "slug": "ae-kaash-ke-hum",
     "hi": "Ae Kaash Ke Hum",
     "en": "Ae Kaash Ke Hum",
@@ -678,7 +600,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/8RxkI28YxOk/hqdefault.jpg"
   },
   {
-    "id": "bw-53",
+    "id": "tapri-48",
     "slug": "churake-dil-mera",
     "hi": "Churake Dil Mera",
     "en": "Churake Dil Mera",
@@ -691,7 +613,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/Yqj1_V90KJo/hqdefault.jpg"
   },
   {
-    "id": "bw-54",
+    "id": "tapri-49",
     "slug": "deewana-dil-deewana",
     "hi": "Deewana Dil Deewana",
     "en": "Deewana Dil Deewana",
@@ -704,7 +626,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/4bIQNbHofs0/hqdefault.jpg"
   },
   {
-    "id": "bw-55",
+    "id": "tapri-50",
     "slug": "ek-ladki-ko-dekha",
     "hi": "Ek Ladki Ko Dekha To Aisa Laga",
     "en": "Ek Ladki Ko Dekha To Aisa Laga",
@@ -717,7 +639,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/htMvfOfixuM/hqdefault.jpg"
   },
   {
-    "id": "bw-56",
+    "id": "tapri-51",
     "slug": "is-tarah-aashiqui-ka",
     "hi": "Is Tarah Aashiqui Ka",
     "en": "Is Tarah Aashiqui Ka",
@@ -730,7 +652,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/Y-o8NQ8Y36A/hqdefault.jpg"
   },
   {
-    "id": "bw-57",
+    "id": "tapri-52",
     "slug": "kuch-na-kaho",
     "hi": "Kuch Na Kaho",
     "en": "Kuch Na Kaho",
@@ -743,7 +665,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/Kidtrrn4aUM/hqdefault.jpg"
   },
   {
-    "id": "bw-58",
+    "id": "tapri-53",
     "slug": "maine-pyar-tumhi-se-kiya-hai",
     "hi": "Maine Pyar Tumhi Se Kiya Hai",
     "en": "Maine Pyar Tumhi Se Kiya Hai",
@@ -756,7 +678,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/FbCvF0aDgwA/hqdefault.jpg"
   },
   {
-    "id": "bw-59",
+    "id": "tapri-54",
     "slug": "na-kajre-ki-dhaar",
     "hi": "Na Kajre Ki Dhaar",
     "en": "Na Kajre Ki Dhaar",
@@ -769,7 +691,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/C_wxaIOPMZk/hqdefault.jpg"
   },
   {
-    "id": "bw-60",
+    "id": "tapri-55",
     "slug": "pyar-hua-chupke-se",
     "hi": "Pyar Hua Chupke Se",
     "en": "Pyar Hua Chupke Se",
@@ -782,7 +704,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/iQMmyhezfg4/hqdefault.jpg"
   },
   {
-    "id": "bw-61",
+    "id": "tapri-56",
     "slug": "raah-mein-unse-mulaqat",
     "hi": "Raah Mein Unse Mulaqat",
     "en": "Raah Mein Unse Mulaqat",
@@ -795,7 +717,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/dDR4oiyjUBA/hqdefault.jpg"
   },
   {
-    "id": "bw-62",
+    "id": "tapri-57",
     "slug": "rim-jhim-rim-jhim",
     "hi": "Rim Jhim Rim Jhim",
     "en": "Rim Jhim Rim Jhim",
@@ -808,7 +730,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/nYdHqEyZpdk/hqdefault.jpg"
   },
   {
-    "id": "bw-63",
+    "id": "tapri-58",
     "slug": "tip-tip-barsa-paani",
     "hi": "Tip Tip Barsa Paani",
     "en": "Tip Tip Barsa Paani",
@@ -821,7 +743,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/Irr3fsN9G9c/hqdefault.jpg"
   },
   {
-    "id": "bw-64",
+    "id": "tapri-59",
     "slug": "tu-cheez-badi-hai-mast",
     "hi": "Tu Cheez Badi Hai Mast Mast",
     "en": "Tu Cheez Badi Hai Mast Mast",
@@ -834,7 +756,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/PufJm6BV8g4/hqdefault.jpg"
   },
   {
-    "id": "bw-65",
+    "id": "tapri-60",
     "slug": "aankhon-mein-base-ho-tum",
     "hi": "Aankhon Mein Base Ho Tum",
     "en": "Aankhon Mein Base Ho Tum",
@@ -847,7 +769,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/V3WrZcgeaoQ/hqdefault.jpg"
   },
   {
-    "id": "bw-66",
+    "id": "tapri-61",
     "slug": "aisa-zakhm-diya-hai",
     "hi": "Aisa Zakhm Diya Hai",
     "en": "Aisa Zakhm Diya Hai",
@@ -860,7 +782,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/3z7tf28mR90/hqdefault.jpg"
   },
   {
-    "id": "bw-67",
+    "id": "tapri-62",
     "slug": "akhiyaan-milaoon-kabhi",
     "hi": "Akhiyaan Milaoon Kabhi",
     "en": "Akhiyaan Milaoon Kabhi",
@@ -873,7 +795,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/QmEWg3P1GUQ/hqdefault.jpg"
   },
   {
-    "id": "bw-68",
+    "id": "tapri-63",
     "slug": "dil-mera-churaya-kyun",
     "hi": "Dil Mera Churaya Kyun",
     "en": "Dil Mera Churaya Kyun",
@@ -886,7 +808,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/JdDEVROAKjg/hqdefault.jpg"
   },
   {
-    "id": "bw-69",
+    "id": "tapri-64",
     "slug": "hai-rama",
     "hi": "Hai Rama",
     "en": "Hai Rama",
@@ -899,7 +821,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/3CM7aSOHc3Q/hqdefault.jpg"
   },
   {
-    "id": "bw-70",
+    "id": "tapri-65",
     "slug": "ho-gaya-hai-tujhko",
     "hi": "Ho Gaya Hai Tujhko To Pyar Sajna",
     "en": "Ho Gaya Hai Tujhko To Pyar Sajna",
@@ -912,7 +834,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/hw_HpTI_Wkw/hqdefault.jpg"
   },
   {
-    "id": "bw-71",
+    "id": "tapri-66",
     "slug": "humma-humma",
     "hi": "Humma Humma",
     "en": "Humma Humma",
@@ -925,7 +847,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/DJIkJEMjqfc/hqdefault.jpg"
   },
   {
-    "id": "bw-72",
+    "id": "tapri-67",
     "slug": "jaati-hoon-main",
     "hi": "Jaati Hoon Main",
     "en": "Jaati Hoon Main",
@@ -938,7 +860,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/l7iTcZ__Ejg/hqdefault.jpg"
   },
   {
-    "id": "bw-73",
+    "id": "tapri-68",
     "slug": "kehna-hi-kya",
     "hi": "Kehna Hi Kya",
     "en": "Kehna Hi Kya",
@@ -951,7 +873,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/_YB1taxJPgk/hqdefault.jpg"
   },
   {
-    "id": "bw-74",
+    "id": "tapri-69",
     "slug": "mehndi-laga-ke-rakhna",
     "hi": "Mehndi Laga Ke Rakhna",
     "en": "Mehndi Laga Ke Rakhna",
@@ -964,7 +886,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/hR-0OtU6gxw/hqdefault.jpg"
   },
   {
-    "id": "bw-75",
+    "id": "tapri-70",
     "slug": "mere-khwabon-mein-jo-aaye",
     "hi": "Mere Khwabon Mein Jo Aaye",
     "en": "Mere Khwabon Mein Jo Aaye",
@@ -977,7 +899,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/xF3gsIssLvM/hqdefault.jpg"
   },
   {
-    "id": "bw-76",
+    "id": "tapri-71",
     "slug": "nazrein-mili-dil-dhadka",
     "hi": "Nazrein Mili Dil Dhadka",
     "en": "Nazrein Mili Dil Dhadka",
@@ -990,7 +912,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/wTuS2FFgrxs/hqdefault.jpg"
   },
   {
-    "id": "bw-77",
+    "id": "tapri-72",
     "slug": "raja-ko-rani-se-pyar-ho-gaya",
     "hi": "Raja Ko Rani Se Pyar Ho Gaya",
     "en": "Raja Ko Rani Se Pyar Ho Gaya",
@@ -1003,7 +925,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/aA6o96wkEt0/hqdefault.jpg"
   },
   {
-    "id": "bw-78",
+    "id": "tapri-73",
     "slug": "ruk-ja-o-dil-deewane",
     "hi": "Ruk Ja O Dil Deewane",
     "en": "Ruk Ja O Dil Deewane",
@@ -1016,7 +938,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/jBpRItrod-Q/hqdefault.jpg"
   },
   {
-    "id": "bw-79",
+    "id": "tapri-74",
     "slug": "tanha-tanha",
     "hi": "Tanha Tanha",
     "en": "Tanha Tanha",
@@ -1029,7 +951,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/CKXG45s96m8/hqdefault.jpg"
   },
   {
-    "id": "bw-80",
+    "id": "tapri-75",
     "slug": "tu-hi-re",
     "hi": "Tu Hi Re",
     "en": "Tu Hi Re",
@@ -1042,7 +964,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/V9mN0qBgEzQ/hqdefault.jpg"
   },
   {
-    "id": "bw-81",
+    "id": "tapri-76",
     "slug": "tu-mile-dil-khile",
     "hi": "Tu Mile Dil Khile",
     "en": "Tu Mile Dil Khile",
@@ -1055,7 +977,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/nqTS7ngviwQ/hqdefault.jpg"
   },
   {
-    "id": "bw-82",
+    "id": "tapri-77",
     "slug": "tujhe-dekha-to",
     "hi": "Tujhe Dekha To Ye Jaana Sanam",
     "en": "Tujhe Dekha To Ye Jaana Sanam",
@@ -1068,7 +990,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/cNV5hLSa9H8/hqdefault.jpg"
   },
   {
-    "id": "bw-83",
+    "id": "tapri-78",
     "slug": "zara-sa-jhoom-loon-main",
     "hi": "Zara Sa Jhoom Loon Main",
     "en": "Zara Sa Jhoom Loon Main",
@@ -1081,7 +1003,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/kjUTs76Gnks/hqdefault.jpg"
   },
   {
-    "id": "bw-84",
+    "id": "tapri-79",
     "slug": "aaye-ho-meri-zindagi-mein",
     "hi": "Aaye Ho Meri Zindagi Mein",
     "en": "Aaye Ho Meri Zindagi Mein",
@@ -1094,7 +1016,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/ixCnsZswdpU/hqdefault.jpg"
   },
   {
-    "id": "bw-85",
+    "id": "tapri-80",
     "slug": "chhod-aaye-hum",
     "hi": "Chhod Aaye Hum Woh Galiyan",
     "en": "Chhod Aaye Hum Woh Galiyan",
@@ -1107,7 +1029,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/wGafZnT75a4/hqdefault.jpg"
   },
   {
-    "id": "bw-86",
+    "id": "tapri-81",
     "slug": "ghar-se-nikalte-hi",
     "hi": "Ghar Se Nikalte Hi",
     "en": "Ghar Se Nikalte Hi",
@@ -1120,7 +1042,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/_IcVb6hFhPs/hqdefault.jpg"
   },
   {
-    "id": "bw-87",
+    "id": "tapri-82",
     "slug": "ho-nahi-sakta",
     "hi": "Ho Nahi Sakta",
     "en": "Ho Nahi Sakta",
@@ -1133,7 +1055,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/4_a0ge-TPJs/hqdefault.jpg"
   },
   {
-    "id": "bw-88",
+    "id": "tapri-83",
     "slug": "jhanjhariya",
     "hi": "Jhanjhariya",
     "en": "Jhanjhariya",
@@ -1146,7 +1068,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/vkF1PPHS99s/hqdefault.jpg"
   },
   {
-    "id": "bw-89",
+    "id": "tapri-84",
     "slug": "kitna-pyara-tujhe",
     "hi": "Kitna Pyara Tujhe Rab Ne Banaya",
     "en": "Kitna Pyara Tujhe Rab Ne Banaya",
@@ -1159,7 +1081,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/tZqlD8VN9AE/hqdefault.jpg"
   },
   {
-    "id": "bw-90",
+    "id": "tapri-85",
     "slug": "pardesi-pardesi",
     "hi": "Pardesi Pardesi",
     "en": "Pardesi Pardesi",
@@ -1172,7 +1094,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/xKb6lP3JxrA/hqdefault.jpg"
   },
   {
-    "id": "bw-91",
+    "id": "tapri-86",
     "slug": "are-re-are",
     "hi": "Are Re Are",
     "en": "Are Re Are",
@@ -1185,7 +1107,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/o31C53fu_so/hqdefault.jpg"
   },
   {
-    "id": "bw-92",
+    "id": "tapri-87",
     "slug": "bholi-si-surat",
     "hi": "Bholi Si Surat",
     "en": "Bholi Si Surat",
@@ -1198,7 +1120,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/-1J1XqOKnuw/hqdefault.jpg"
   },
   {
-    "id": "bw-93",
+    "id": "tapri-88",
     "slug": "chand-taare",
     "hi": "Chand Taare",
     "en": "Chand Taare",
@@ -1211,7 +1133,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/t3ynYlnIKAI/hqdefault.jpg"
   },
   {
-    "id": "bw-94",
+    "id": "tapri-89",
     "slug": "dil-to-pagal-hai",
     "hi": "Dil To Pagal Hai",
     "en": "Dil To Pagal Hai",
@@ -1224,7 +1146,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/ojCnlV1MA-k/hqdefault.jpg"
   },
   {
-    "id": "bw-95",
+    "id": "tapri-90",
     "slug": "do-dil-mil-rahe-hain",
     "hi": "Do Dil Mil Rahe Hain",
     "en": "Do Dil Mil Rahe Hain",
@@ -1237,7 +1159,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/dReDtHKF0-g/hqdefault.jpg"
   },
   {
-    "id": "bw-96",
+    "id": "tapri-91",
     "slug": "duniya-haseeno-ka-mela",
     "hi": "Duniya Haseeno Ka Mela",
     "en": "Duniya Haseeno Ka Mela",
@@ -1250,7 +1172,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/S1Jnszqzfl4/hqdefault.jpg"
   },
   {
-    "id": "bw-97",
+    "id": "tapri-92",
     "slug": "i-love-my-india",
     "hi": "I Love My India",
     "en": "I Love My India",
@@ -1263,7 +1185,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/VHQ0w-9ITBI/hqdefault.jpg"
   },
   {
-    "id": "bw-98",
+    "id": "tapri-93",
     "slug": "ke-ghar-kab-aaoge",
     "hi": "Ke Ghar Kab Aaoge",
     "en": "Ke Ghar Kab Aaoge",
@@ -1276,7 +1198,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/9sthJUHkzgI/hqdefault.jpg"
   },
   {
-    "id": "bw-99",
+    "id": "tapri-94",
     "slug": "le-gayi",
     "hi": "Le Gayi",
     "en": "Le Gayi",
@@ -1289,7 +1211,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/Qw0SM_TU20c/hqdefault.jpg"
   },
   {
-    "id": "bw-100",
+    "id": "tapri-95",
     "slug": "main-koi-aisa-geet-gaoon",
     "hi": "Main Koi Aisa Geet Gaoon",
     "en": "Main Koi Aisa Geet Gaoon",
@@ -1302,7 +1224,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/vzlXfZlH5dk/hqdefault.jpg"
   },
   {
-    "id": "bw-101",
+    "id": "tapri-96",
     "slug": "meri-mehbooba",
     "hi": "Meri Mehbooba",
     "en": "Meri Mehbooba",
@@ -1315,7 +1237,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/k2CuG5E4OAo/hqdefault.jpg"
   },
   {
-    "id": "bw-102",
+    "id": "tapri-97",
     "slug": "neend-churai-meri",
     "hi": "Neend Churai Meri",
     "en": "Neend Churai Meri",
@@ -1328,7 +1250,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/gCcGXy_Mv8g/hqdefault.jpg"
   },
   {
-    "id": "bw-103",
+    "id": "tapri-98",
     "slug": "oonchi-hai-building",
     "hi": "Oonchi Hai Building",
     "en": "Oonchi Hai Building",
@@ -1341,7 +1263,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/kcRiLuclqzo/hqdefault.jpg"
   },
   {
-    "id": "bw-104",
+    "id": "tapri-100",
     "slug": "yeh-dil-deewana",
     "hi": "Yeh Dil Deewana",
     "en": "Yeh Dil Deewana",
@@ -1354,7 +1276,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/09DLlXKwJJU/hqdefault.jpg"
   },
   {
-    "id": "bw-105",
+    "id": "tapri-101",
     "slug": "aankhon-se-tune-ye-kya",
     "hi": "Aankhon Se Tune Ye Kya Keh Diya",
     "en": "Aankhon Se Tune Ye Kya Keh Diya",
@@ -1367,7 +1289,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/RlSRxyxFwXI/hqdefault.jpg"
   },
   {
-    "id": "bw-106",
+    "id": "tapri-102",
     "slug": "aati-kya-khandala",
     "hi": "Aati Kya Khandala",
     "en": "Aati Kya Khandala",
@@ -1380,7 +1302,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/EENnVk1_suc/hqdefault.jpg"
   },
   {
-    "id": "bw-107",
+    "id": "tapri-103",
     "slug": "ae-ajnabi",
     "hi": "Ae Ajnabi",
     "en": "Ae Ajnabi",
@@ -1393,7 +1315,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/D22u3A6S_Qk/hqdefault.jpg"
   },
   {
-    "id": "bw-108",
+    "id": "tapri-104",
     "slug": "chaiyya-chaiyya",
     "hi": "Chaiyya Chaiyya",
     "en": "Chaiyya Chaiyya",
@@ -1406,7 +1328,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/9MX-QejdVaQ/hqdefault.jpg"
   },
   {
-    "id": "bw-109",
+    "id": "tapri-105",
     "slug": "gali-mein-aaj-chand-nikla",
     "hi": "Gali Mein Aaj Chand Nikla",
     "en": "Gali Mein Aaj Chand Nikla",
@@ -1419,7 +1341,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/azEOf5PuqNA/hqdefault.jpg"
   },
   {
-    "id": "bw-110",
+    "id": "tapri-106",
     "slug": "jiya-jale",
     "hi": "Jiya Jale",
     "en": "Jiya Jale",
@@ -1432,7 +1354,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/qaMQNwBhghA/hqdefault.jpg"
   },
   {
-    "id": "bw-111",
+    "id": "tapri-107",
     "slug": "kisi-disco-mein-jaaye",
     "hi": "Kisi Disco Mein Jaaye",
     "en": "Kisi Disco Mein Jaaye",
@@ -1445,7 +1367,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/wfAIdZKs6Ok/hqdefault.jpg"
   },
   {
-    "id": "bw-112",
+    "id": "tapri-108",
     "slug": "koi-mil-gaya",
     "hi": "Koi Mil Gaya",
     "en": "Koi Mil Gaya",
@@ -1458,7 +1380,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/IuS2d8bobgw/hqdefault.jpg"
   },
   {
-    "id": "bw-113",
+    "id": "tapri-109",
     "slug": "kuch-kuch-hota-hai",
     "hi": "Kuch Kuch Hota Hai",
     "en": "Kuch Kuch Hota Hai",
@@ -1471,7 +1393,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/bKZTnnFU9HA/hqdefault.jpg"
   },
   {
-    "id": "bw-114",
+    "id": "tapri-110",
     "slug": "ladki-badi-anjani-hai",
     "hi": "Ladki Badi Anjani Hai",
     "en": "Ladki Badi Anjani Hai",
@@ -1484,7 +1406,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/oJcE_QPFAng/hqdefault.jpg"
   },
   {
-    "id": "bw-115",
+    "id": "tapri-111",
     "slug": "mere-mehboob-mere-sanam",
     "hi": "Mere Mehboob Mere Sanam",
     "en": "Mere Mehboob Mere Sanam",
@@ -1497,7 +1419,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/p-pQaTOmVrs/hqdefault.jpg"
   },
   {
-    "id": "bw-116",
+    "id": "tapri-112",
     "slug": "satrangi-re",
     "hi": "Satrangi Re",
     "en": "Satrangi Re",
@@ -1510,7 +1432,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/OClXVLsI4jM/hqdefault.jpg"
   },
   {
-    "id": "bw-117",
+    "id": "tapri-113",
     "slug": "tujhe-yaad-na-meri-aayee",
     "hi": "Tujhe Yaad Na Meri Aayee",
     "en": "Tujhe Yaad Na Meri Aayee",
@@ -1523,7 +1445,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/vzWWTX83C_Q/hqdefault.jpg"
   },
   {
-    "id": "bw-118",
+    "id": "tapri-114",
     "slug": "aankhon-ki-gustakhiyan",
     "hi": "Aankhon Ki Gustakhiyan",
     "en": "Aankhon Ki Gustakhiyan",
@@ -1536,7 +1458,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/2hpBJd-YcpI/hqdefault.jpg"
   },
   {
-    "id": "bw-119",
+    "id": "tapri-115",
     "slug": "albela-sajan",
     "hi": "Albela Sajan",
     "en": "Albela Sajan",
@@ -1549,7 +1471,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/MCXQXuKpgKE/hqdefault.jpg"
   },
   {
-    "id": "bw-120",
+    "id": "tapri-116",
     "slug": "chaha-hai-tujhko",
     "hi": "Chaha Hai Tujhko",
     "en": "Chaha Hai Tujhko",
@@ -1562,7 +1484,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/9jpsuaZlIss/hqdefault.jpg"
   },
   {
-    "id": "bw-121",
+    "id": "tapri-117",
     "slug": "chand-chupa-badal-mein",
     "hi": "Chand Chupa Badal Mein",
     "en": "Chand Chupa Badal Mein",
@@ -1575,7 +1497,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/9a6UaCBEV6o/hqdefault.jpg"
   },
   {
-    "id": "bw-122",
+    "id": "tapri-118",
     "slug": "dholi-taro-dhol-baaje",
     "hi": "Dholi Taro Dhol Baaje",
     "en": "Dholi Taro Dhol Baaje",
@@ -1588,7 +1510,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/4a25J3p0kVI/hqdefault.jpg"
   },
   {
-    "id": "bw-123",
+    "id": "tapri-119",
     "slug": "dilbar-dilbar",
     "hi": "Dilbar Dilbar",
     "en": "Dilbar Dilbar",
@@ -1601,7 +1523,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/s5Iyc5rwUoI/hqdefault.jpg"
   },
   {
-    "id": "bw-124",
+    "id": "tapri-120",
     "slug": "ghungroo-toot-gaye",
     "hi": "Ghungroo Toot Gaye",
     "en": "Ghungroo Toot Gaye",
@@ -1614,7 +1536,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/69WKhXjWBNE/hqdefault.jpg"
   },
   {
-    "id": "bw-125",
+    "id": "tapri-121",
     "slug": "ishq-bina",
     "hi": "Ishq Bina",
     "en": "Ishq Bina",
@@ -1627,7 +1549,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/SqZbGOCuai4/hqdefault.jpg"
   },
   {
-    "id": "bw-126",
+    "id": "tapri-122",
     "slug": "maiyya-yashoda",
     "hi": "Maiyya Yashoda",
     "en": "Maiyya Yashoda",
@@ -1640,7 +1562,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/Kke1Q0J9quw/hqdefault.jpg"
   },
   {
-    "id": "bw-127",
+    "id": "tapri-123",
     "slug": "nimbooda",
     "hi": "Nimbooda",
     "en": "Nimbooda",
@@ -1653,7 +1575,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/YLsIl0G0qlM/hqdefault.jpg"
   },
   {
-    "id": "bw-128",
+    "id": "tapri-124",
     "slug": "taal-se-taal-mila",
     "hi": "Taal Se Taal Mila",
     "en": "Taal Se Taal Mila",
@@ -1666,7 +1588,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/OinGHNpnGtc/hqdefault.jpg"
   },
   {
-    "id": "bw-129",
+    "id": "tapri-125",
     "slug": "tadap-tadap",
     "hi": "Tadap Tadap Ke",
     "en": "Tadap Tadap Ke",
@@ -1679,7 +1601,7 @@ export const ALL_SONGS: Song[] = [
     "coverUrl": "https://i.ytimg.com/vi/qsiHgJbwJUE/hqdefault.jpg"
   },
   {
-    "id": "bw-130",
+    "id": "tapri-126",
     "slug": "kaali-kaali-aankhen",
     "hi": "Kaali Kaali Aankhen",
     "en": "Kaali Kaali Aankhen",
@@ -1690,187 +1612,5 @@ export const ALL_SONGS: Song[] = [
     "videoId": "KI_EjpMxvJs",
     "playlistId": "bollywood",
     "coverUrl": "https://i.ytimg.com/vi/KI_EjpMxvJs/hqdefault.jpg"
-  },
-  {
-    "id": "hw-1",
-    "slug": "lose-yourself-eminem",
-    "hi": "Lose Yourself",
-    "en": "Lose Yourself",
-    "artist": "Eminem",
-    "film": "8 Mile Soundtrack",
-    "year": 2002,
-    "duration": "5:26",
-    "videoId": "_Yhyp-_hX2s",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/_Yhyp-_hX2s/hqdefault.jpg"
-  },
-  {
-    "id": "hw-2",
-    "slug": "eye-of-the-tiger-survivor",
-    "hi": "Eye of the Tiger",
-    "en": "Eye of the Tiger",
-    "artist": "Survivor",
-    "film": "Rocky III",
-    "year": 1982,
-    "duration": "4:04",
-    "videoId": "btPJPFnesV4",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/btPJPFnesV4/hqdefault.jpg"
-  },
-  {
-    "id": "hw-3",
-    "slug": "stronger-kanye-west",
-    "hi": "Stronger",
-    "en": "Stronger",
-    "artist": "Kanye West",
-    "film": "Graduation",
-    "year": 2007,
-    "duration": "5:12",
-    "videoId": "PsO6ZnUZI0g",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/PsO6ZnUZI0g/hqdefault.jpg"
-  },
-  {
-    "id": "hw-4",
-    "slug": "remember-the-name-fort-minor",
-    "hi": "Remember The Name",
-    "en": "Remember The Name",
-    "artist": "Fort Minor ft. Styles of Beyond",
-    "film": "The Rising Tied",
-    "year": 2005,
-    "duration": "3:50",
-    "videoId": "VDvr08sCPOc",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/VDvr08sCPOc/hqdefault.jpg"
-  },
-  {
-    "id": "hw-5",
-    "slug": "believer-imagine-dragons",
-    "hi": "Believer",
-    "en": "Believer",
-    "artist": "Imagine Dragons",
-    "film": "Evolve",
-    "year": 2017,
-    "duration": "3:24",
-    "videoId": "7wtfhZwyrcc",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/7wtfhZwyrcc/hqdefault.jpg"
-  },
-  {
-    "id": "hw-6",
-    "slug": "industry-baby-lil-nas-x",
-    "hi": "INDUSTRY BABY",
-    "en": "INDUSTRY BABY",
-    "artist": "Lil Nas X & Jack Harlow",
-    "film": "Montero",
-    "year": 2021,
-    "duration": "3:32",
-    "videoId": "UTHLKHL_whs",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/UTHLKHL_whs/hqdefault.jpg"
-  },
-  {
-    "id": "hw-7",
-    "slug": "centuries-fall-out-boy",
-    "hi": "Centuries",
-    "en": "Centuries",
-    "artist": "Fall Out Boy",
-    "film": "American Beauty / American Psycho",
-    "year": 2014,
-    "duration": "4:32",
-    "videoId": "LBr7kECsjcQ",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/LBr7kECsjcQ/hqdefault.jpg"
-  },
-  {
-    "id": "hw-8",
-    "slug": "hall-of-fame-the-script",
-    "hi": "Hall of Fame",
-    "en": "Hall of Fame",
-    "artist": "The Script ft. will.i.am",
-    "film": "#3",
-    "year": 2012,
-    "duration": "3:22",
-    "videoId": "mk48xRzuNvA",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/mk48xRzuNvA/hqdefault.jpg"
-  },
-  {
-    "id": "hw-9",
-    "slug": "unstoppable-sia",
-    "hi": "Unstoppable",
-    "en": "Unstoppable",
-    "artist": "Sia",
-    "film": "This Is Acting",
-    "year": 2016,
-    "duration": "3:37",
-    "videoId": "cxjvTXo9WWM",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/cxjvTXo9WWM/hqdefault.jpg"
-  },
-  {
-    "id": "hw-10",
-    "slug": "mortals-rock-fitness-mix",
-    "hi": "Mortals (Fitness Mix)",
-    "en": "Mortals (Fitness Mix)",
-    "artist": "Warriyo ft. Laura Brehm",
-    "film": "Fitness Motivation Series",
-    "year": 2017,
-    "duration": "3:45",
-    "videoId": "DXwY-pg23aA",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/DXwY-pg23aA/hqdefault.jpg"
-  },
-  {
-    "id": "hw-11",
-    "slug": "thunder-imagine-dragons",
-    "hi": "Thunder",
-    "en": "Thunder",
-    "artist": "Imagine Dragons",
-    "film": "Evolve",
-    "year": 2017,
-    "duration": "3:07",
-    "videoId": "fKopy74weus",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/fKopy74weus/hqdefault.jpg"
-  },
-  {
-    "id": "hw-12",
-    "slug": "lean-on-major-lazer",
-    "hi": "Lean On",
-    "en": "Lean On",
-    "artist": "Major Lazer, DJ Snake ft. M\u00d8",
-    "film": "Peace Is the Mission",
-    "year": 2015,
-    "duration": "2:56",
-    "videoId": "YqeW9_5kURI",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/YqeW9_5kURI/hqdefault.jpg"
-  },
-  {
-    "id": "hw-13",
-    "slug": "rockabye-clean-bandit",
-    "hi": "Rockabye",
-    "en": "Rockabye",
-    "artist": "Clean Bandit ft. Sean Paul & Anne-Marie",
-    "film": "What Is Love?",
-    "year": 2016,
-    "duration": "4:11",
-    "videoId": "papuvlVeZg8",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/papuvlVeZg8/hqdefault.jpg"
-  },
-  {
-    "id": "hw-14",
-    "slug": "uptown-funk-mark-ronson",
-    "hi": "Uptown Funk",
-    "en": "Uptown Funk",
-    "artist": "Mark Ronson ft. Bruno Mars",
-    "film": "Uptown Special",
-    "year": 2014,
-    "duration": "4:30",
-    "videoId": "OPf0YbXqDm0",
-    "playlistId": "hollywood",
-    "coverUrl": "https://i.ytimg.com/vi/OPf0YbXqDm0/hqdefault.jpg"
   }
 ];
