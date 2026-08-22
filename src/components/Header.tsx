@@ -7,9 +7,10 @@ interface HeaderProps {
   currentView: 'radio' | 'playlists' | 'songs' | 'playlist-detail';
   onNavigate: (view: 'radio' | 'playlists' | 'songs' | 'playlist-detail') => void;
   onOpenInstall: () => void;
+  onOpenChalkboard?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenInstall }) => {
+export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenInstall, onOpenChalkboard }) => {
   // Live clock
   const [timeStr, setTimeStr] = useState<string>('');
 
@@ -236,6 +237,16 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
           >
             Songs
           </button>
+
+          {onOpenChalkboard && (
+            <button
+              onClick={onOpenChalkboard}
+              className="saloon-chip text-xs text-amber-300 hover:border-amber-500/50"
+              title="Tapri Chalkboard Guestbook"
+            >
+              Notes
+            </button>
+          )}
         </div>
       </nav>
     </header>

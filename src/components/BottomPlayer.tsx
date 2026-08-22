@@ -1,9 +1,22 @@
 import React from 'react';
 import { useAudioPlayer } from '../context/AudioPlayerContext';
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Volume1 } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Volume1, CloudRain, Clock, CassetteTape } from 'lucide-react';
 import { SOCIAL_LINKS } from '../data/playlists';
+import { sfx } from '../utils/sfx';
 
-export const BottomPlayer: React.FC = () => {
+interface BottomPlayerProps {
+  onOpenAmbiance?: () => void;
+  onOpenTimer?: () => void;
+  isCassetteMode?: boolean;
+  onToggleCassetteMode?: () => void;
+}
+
+export const BottomPlayer: React.FC<BottomPlayerProps> = ({
+  onOpenAmbiance,
+  onOpenTimer,
+  isCassetteMode = false,
+  onToggleCassetteMode
+}) => {
   const {
     currentSong,
     isPlaying,
@@ -38,13 +51,33 @@ export const BottomPlayer: React.FC = () => {
     setVolume(val);
   };
 
+  const handlePlayToggle = () => {
+    sfx.playCassetteClick();
+    togglePlay();
+  };
+
+  const handleNext = () => {
+    sfx.playTapeWhirr();
+    playNext();
+  };
+
+  const handlePrev = () => {
+    sfx.playTapeWhirr();
+    playPrevious();
+  };
+
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40">
       <div className="pointer-events-auto">
-        <div className="relative z-30 mx-auto mb-[max(1.25rem,env(safe-area-inset-bottom))] w-full max-w-xl px-3 sm:mb-10">
-          <div className="saloon-glass mb-3 flex items-center gap-3 rounded-full p-2 pr-3 sm:gap-4 sm:p-3 sm:pr-5">
-            {/* Spinning Vinyl Album Art */}
-            <div className="relative size-12 shrink-0 overflow-hidden rounded-full sm:size-14 bg-black/50 border border-cream/25 shadow-md">
+        <div className="relative z-30 mx-auto mb-[max(1rem,env(safe-area-inset-bottom))] w-full max-w-xl px-3 sm:mb-8">
+          <div className="saloon-glass mb-2 flex items-center gap-2.5 rounded-full p-2 pr-3 sm:gap-3 sm:p-2.5 sm:pr-4">
+            {/* Spinning Vinyl Album Art / Cassette Toggle */}
+            <button
+              type="button"
+              onClick={onToggleCassetteMode}
+              title={isCassetteMode ? 'Switch to Vinyl' : 'Switch to Cassette Tape'}
+              className="relative size-12 shrink-0 overflow-hidden rounded-full sm:size-14 bg-black/50 border border-cream/25 shadow-md group cursor-pointer transition-transform hover:scale-105"
+            >
               <img
                 src={currentSong?.coverUrl || `https://i.ytimg.com/vi/${currentSong?.videoId}/hqdefault.jpg`}
                 alt={currentSong?.en || 'Tapri Track'}
@@ -57,19 +90,19 @@ export const BottomPlayer: React.FC = () => {
               />
               {/* Center Vinyl Spindle Hole Effect */}
               <div className="absolute inset-0 m-auto size-2.5 rounded-full bg-shade border border-cream/40" />
-            </div>
+            </button>
 
             {/* Song Meta & Seek Bar */}
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold text-cream sm:text-base">
+              <p className="truncate text-xs sm:text-sm font-semibold text-cream">
                 {currentSong?.en || 'Tuning in…'}
               </p>
-              <p className="truncate text-xs text-cream/60">
+              <p className="truncate text-[0.65rem] sm:text-xs text-cream/60">
                 {currentSong ? `${currentSong.artist} ${currentSong.film ? `· ${currentSong.film}` : ''}` : 'Tapri Vibes radio'}
               </p>
 
               {/* Progress Slider */}
-              <div className="mt-2 flex items-center gap-2">
+              <div className="mt-1 flex items-center gap-2">
                 <input
                   type="range"
                   min={0}
@@ -87,79 +120,118 @@ export const BottomPlayer: React.FC = () => {
               </div>
             </div>
 
-            {/* Playback Controls */}
-            <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+            {/* Playback Controls with 90s SFX */}
+            <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
               <button
                 type="button"
-                onClick={playPrevious}
+                onClick={handlePrev}
                 aria-label="Previous track"
-                className="saloon-icon-btn"
+                className="saloon-icon-btn p-1.5"
                 title="Previous track"
               >
-                <SkipBack className="size-4" />
+                <SkipBack className="size-3.5 sm:size-4" />
               </button>
 
               <button
                 type="button"
-                onClick={togglePlay}
+                onClick={handlePlayToggle}
                 aria-label={isPlaying ? 'Pause' : 'Play'}
-                className="saloon-play-btn"
+                className="saloon-play-btn size-9 sm:size-10"
                 title={isPlaying ? 'Pause' : 'Play'}
               >
                 {isPlaying ? (
-                  <Pause className="size-5 fill-current" />
+                  <Pause className="size-4 sm:size-5 fill-current" />
                 ) : (
-                  <Play className="size-5 fill-current ml-0.5" />
+                  <Play className="size-4 sm:size-5 fill-current ml-0.5" />
                 )}
               </button>
 
               <button
                 type="button"
-                onClick={playNext}
+                onClick={handleNext}
                 aria-label="Next track"
-                className="saloon-icon-btn"
+                className="saloon-icon-btn p-1.5"
                 title="Next track"
               >
-                <SkipForward className="size-4" />
+                <SkipForward className="size-3.5 sm:size-4" />
               </button>
             </div>
 
-            {/* Volume Control */}
-            <div className="relative flex shrink-0 items-center gap-1 sm:gap-1.5">
-              <button
-                type="button"
-                onClick={toggleMute}
-                aria-label={isMuted ? 'Unmute' : 'Mute'}
-                className="saloon-icon-btn"
-                title={isMuted ? 'Unmute' : 'Mute'}
-              >
-                {isMuted || volume === 0 ? (
-                  <VolumeX className="size-4 text-cream/70" />
-                ) : volume < 50 ? (
-                  <Volume1 className="size-4" />
-                ) : (
-                  <Volume2 className="size-4" />
-                )}
-              </button>
+            {/* Feature Tools (Ambiance & Timer) */}
+            <div className="flex shrink-0 items-center gap-1 border-l border-cream/15 pl-1.5 sm:gap-1.5">
+              {onOpenAmbiance && (
+                <button
+                  type="button"
+                  onClick={onOpenAmbiance}
+                  aria-label="Ambient Soundscapes Mixer"
+                  title="Rain, Kettle & Vinyl soundscapes"
+                  className="saloon-icon-btn p-1.5"
+                >
+                  <CloudRain className="size-3.5 sm:size-4 text-blue-300" />
+                </button>
+              )}
 
-              <input
-                type="range"
-                min={0}
-                max={100}
-                step={1}
-                value={isMuted ? 0 : volume}
-                onChange={handleVolume}
-                aria-label="Volume"
-                className="saloon-range hidden h-1 w-16 sm:block"
-                style={{ '--progress': `${isMuted ? 0 : volume}%` } as React.CSSProperties}
-              />
+              {onOpenTimer && (
+                <button
+                  type="button"
+                  onClick={onOpenTimer}
+                  aria-label="Cutting Chai Focus Timer"
+                  title="Chai Focus & Sleep timer"
+                  className="saloon-icon-btn p-1.5"
+                >
+                  <Clock className="size-3.5 sm:size-4 text-amber-300" />
+                </button>
+              )}
+
+              {onToggleCassetteMode && (
+                <button
+                  type="button"
+                  onClick={onToggleCassetteMode}
+                  aria-label="Toggle Retro Cassette Deck"
+                  title={isCassetteMode ? 'Hide Cassette Deck' : 'Show 90s Cassette Deck'}
+                  className={`saloon-icon-btn p-1.5 ${isCassetteMode ? 'text-amber-400 border-amber-500/50' : ''}`}
+                >
+                  <CassetteTape className="size-3.5 sm:size-4" />
+                </button>
+              )}
+
+              {/* Volume */}
+              <div className="relative hidden sm:flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  aria-label={isMuted ? 'Unmute' : 'Mute'}
+                  className="saloon-icon-btn p-1.5"
+                  title={isMuted ? 'Unmute' : 'Mute'}
+                >
+                  {isMuted || volume === 0 ? (
+                    <VolumeX className="size-3.5 text-cream/70" />
+                  ) : volume < 50 ? (
+                    <Volume1 className="size-3.5" />
+                  ) : (
+                    <Volume2 className="size-3.5" />
+                  )}
+                </button>
+
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={isMuted ? 0 : volume}
+                  onChange={handleVolume}
+                  aria-label="Volume"
+                  className="saloon-range h-1 w-14"
+                  style={{ '--progress': `${isMuted ? 0 : volume}%` } as React.CSSProperties}
+                />
+              </div>
             </div>
           </div>
 
           {/* Contact link */}
           <a
             href={`mailto:${SOCIAL_LINKS.contactEmail}`}
-            className="block text-center font-mono text-[0.65rem] text-cream/50 transition-colors hover:text-cream/90 sm:text-xs"
+            className="block text-center font-mono text-[0.6rem] text-cream/50 transition-colors hover:text-cream/90 sm:text-xs"
           >
             contact: {SOCIAL_LINKS.contactEmail}
           </a>

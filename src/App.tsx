@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { BottomPlayer } from './components/BottomPlayer';
+import { CassetteDeck } from './components/CassetteDeck';
 import { PlaylistsView } from './components/PlaylistsView';
 import { PlaylistDetailView } from './components/PlaylistDetailView';
 import { SongsView } from './components/SongsView';
 import { Footer } from './components/Footer';
 import { InstallModal } from './components/InstallModal';
+import { AmbientMixerModal } from './components/AmbientMixerModal';
+import { ChaiTimerModal } from './components/ChaiTimerModal';
+import { ChalkboardGuestbook } from './components/ChalkboardGuestbook';
 import { TapriAtmosphere } from './components/TapriAtmosphere';
 import { PLAYLISTS } from './data/playlists';
 import { Playlist } from './types';
@@ -14,7 +18,13 @@ import { Playlist } from './types';
 export const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<'radio' | 'playlists' | 'songs' | 'playlist-detail'>('radio');
   const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(null);
+  
+  // Modals & Feature states
   const [isInstallOpen, setIsInstallOpen] = useState<boolean>(false);
+  const [isAmbianceOpen, setIsAmbianceOpen] = useState<boolean>(false);
+  const [isTimerOpen, setIsTimerOpen] = useState<boolean>(false);
+  const [isChalkboardOpen, setIsChalkboardOpen] = useState<boolean>(false);
+  const [isCassetteMode, setIsCassetteMode] = useState<boolean>(false);
 
   const handleNavigate = (view: 'radio' | 'playlists' | 'songs' | 'playlist-detail') => {
     setCurrentView(view);
@@ -53,13 +63,20 @@ export const App: React.FC = () => {
           currentView={currentView}
           onNavigate={handleNavigate}
           onOpenInstall={() => setIsInstallOpen(true)}
+          onOpenChalkboard={() => setIsChalkboardOpen(true)}
         />
 
         {/* Radio Home View (Full 100vh viewport - Clean & Unobstructed) */}
         {currentView === 'radio' && (
           <div className="flex min-h-[calc(100dvh-5.5rem)] flex-col justify-between pb-36">
-            {/* Center Hero */}
-            <Hero />
+            {/* Center Hero or Retro Cassette Deck */}
+            {isCassetteMode ? (
+              <div className="my-auto pt-6 animate-in fade-in zoom-in-95 duration-200">
+                <CassetteDeck />
+              </div>
+            ) : (
+              <Hero />
+            )}
 
             {/* Spacer allowing full view of the illustrated 90s Tapri */}
             <div className="flex-1" />
@@ -92,13 +109,33 @@ export const App: React.FC = () => {
         />
       </div>
 
-      {/* Bottom Floating Glassmorphism Player Dock with Spinning Vinyl */}
-      <BottomPlayer />
+      {/* Bottom Floating Glassmorphism Player Dock */}
+      <BottomPlayer
+        onOpenAmbiance={() => setIsAmbianceOpen(true)}
+        onOpenTimer={() => setIsTimerOpen(true)}
+        isCassetteMode={isCassetteMode}
+        onToggleCassetteMode={() => setIsCassetteMode(!isCassetteMode)}
+      />
 
-      {/* PWA Install Sheet Modal */}
+      {/* Feature Modals */}
       <InstallModal
         isOpen={isInstallOpen}
         onClose={() => setIsInstallOpen(false)}
+      />
+
+      <AmbientMixerModal
+        isOpen={isAmbianceOpen}
+        onClose={() => setIsAmbianceOpen(false)}
+      />
+
+      <ChaiTimerModal
+        isOpen={isTimerOpen}
+        onClose={() => setIsTimerOpen(false)}
+      />
+
+      <ChalkboardGuestbook
+        isOpen={isChalkboardOpen}
+        onClose={() => setIsChalkboardOpen(false)}
       />
     </main>
   );
