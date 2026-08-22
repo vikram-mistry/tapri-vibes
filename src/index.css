@@ -33,26 +33,26 @@ body {
 
 /* Glassmorphism panel */
 .saloon-glass {
-  background: color-mix(in oklab, var(--shade) 62%, transparent);
-  -webkit-backdrop-filter: blur(18px) saturate(1.15);
-  backdrop-filter: blur(18px) saturate(1.15);
-  border: 1px solid color-mix(in oklab, var(--cream) 16%, transparent);
-  box-shadow: 0 18px 50px -18px oklch(15% 0.05 28 / 0.75);
+  background: color-mix(in oklab, var(--shade) 72%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid color-mix(in oklab, var(--cream) 18%, transparent);
+  box-shadow: 0 20px 50px -15px oklch(10% 0.05 28 / 0.85);
 }
 
 /* Glass pill button / chip */
 .saloon-chip {
   color: var(--cream);
-  background: color-mix(in oklab, var(--shade) 45%, transparent);
+  background: color-mix(in oklab, var(--shade) 55%, transparent);
   border-radius: 9999px;
   align-items: center;
   gap: 0.35rem;
   padding: 0.35rem 0.75rem;
   font-size: 0.75rem;
   display: inline-flex;
-  border: 1px solid color-mix(in oklab, var(--cream) 14%, transparent);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in oklab, var(--cream) 16%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   text-decoration: none;
@@ -60,20 +60,20 @@ body {
 }
 
 .saloon-chip:hover {
-  background: color-mix(in oklab, var(--shade) 75%, transparent);
-  border-color: color-mix(in oklab, var(--cream) 30%, transparent);
+  background: color-mix(in oklab, var(--shade) 80%, transparent);
+  border-color: color-mix(in oklab, var(--cream) 35%, transparent);
 }
 
 .saloon-chip.active {
-  background: color-mix(in oklab, var(--cream) 20%, transparent);
-  border-color: color-mix(in oklab, var(--cream) 40%, transparent);
+  background: color-mix(in oklab, var(--cream) 22%, transparent);
+  border-color: color-mix(in oklab, var(--cream) 45%, transparent);
   color: #fff;
 }
 
 /* Main circular play button */
 .saloon-play-btn {
-  width: 3rem;
-  height: 3rem;
+  width: 2.75rem;
+  height: 2.75rem;
   color: var(--shade);
   background: var(--cream);
   border-radius: 9999px;
@@ -92,7 +92,7 @@ body {
 }
 
 .saloon-play-btn:active {
-  transform: scale(0.96);
+  transform: scale(0.95);
 }
 
 /* Circular icon control button */
@@ -126,35 +126,39 @@ body {
   cursor: pointer;
   border-radius: 9999px;
   outline: none;
+  height: 6px;
   background: linear-gradient(
     to right,
-    var(--cream) 0%,
-    var(--cream) var(--progress, 0%),
-    color-mix(in oklab, var(--cream) 25%, transparent) var(--progress, 0%),
-    color-mix(in oklab, var(--cream) 25%, transparent) 100%
+    #d48637 0%,
+    #d48637 var(--progress, 0%),
+    color-mix(in oklab, var(--cream) 22%, transparent) var(--progress, 0%),
+    color-mix(in oklab, var(--cream) 22%, transparent) 100%
   );
+  touch-action: none;
 }
 
 .saloon-range::-webkit-slider-thumb {
   appearance: none;
-  background: var(--cream);
+  background: #ffffff;
+  border: 2px solid #d48637;
   border-radius: 9999px;
-  width: 0.625rem;
-  height: 0.625rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  width: 14px;
+  height: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.6);
   transition: transform 0.1s;
 }
 
 .saloon-range::-webkit-slider-thumb:hover {
-  transform: scale(1.25);
+  transform: scale(1.3);
 }
 
 .saloon-range::-moz-range-thumb {
-  background: var(--cream);
-  border: none;
+  background: #ffffff;
+  border: 2px solid #d48637;
   border-radius: 9999px;
-  width: 0.625rem;
-  height: 0.625rem;
+  width: 14px;
+  height: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
 /* Vignette overlay */
