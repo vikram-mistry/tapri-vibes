@@ -8,9 +8,10 @@ interface HeaderProps {
   onNavigate: (view: 'radio' | 'playlists' | 'songs' | 'playlist-detail') => void;
   onOpenInstall: () => void;
   onOpenChalkboard?: () => void;
+  onOpenHowToUse?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenInstall, onOpenChalkboard }) => {
+export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenInstall, onOpenChalkboard, onOpenHowToUse }) => {
   // Live clock
   const [timeStr, setTimeStr] = useState<string>('');
 
@@ -245,6 +246,16 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenI
               title="Tapri Chalkboard Guestbook"
             >
               Notes
+            </button>
+          )}
+
+          {onOpenHowToUse && (
+            <button
+              onClick={onOpenHowToUse}
+              className="saloon-chip text-xs text-cream/90 hover:border-cream/40"
+              title="How to use Tapri Vibes"
+            >
+              Guide
             </button>
           )}
         </div>

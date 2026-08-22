@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAudioPlayer } from '../context/AudioPlayerContext';
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Volume1, CloudRain, Clock, CassetteTape, Radio } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Volume1, CloudRain, Clock, CassetteTape, Radio, Heart } from 'lucide-react';
 import { SOCIAL_LINKS } from '../data/playlists';
 import { sfx } from '../utils/sfx';
+import { fetchGlobalLikes, incrementGlobalLikes, getUserLikedStatus, subscribeToLikesSync } from '../utils/likes';
 
 interface BottomPlayerProps {
   onOpenAmbiance?: () => void;
@@ -33,6 +34,39 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
     setVolume,
     toggleMute
   } = useAudioPlayer();
+
+  // Global Likes state
+  const [likeCount, setLikeCount] = useState<number>(148);
+  const [hasLiked, setHasLiked] = useState<boolean>(false);
+  const [isLiking, setIsLiking] = useState<boolean>(false);
+
+  useEffect(() => {
+    setHasLiked(getUserLikedStatus());
+    fetchGlobalLikes().then(count => setLikeCount(count));
+
+    const unsubscribe = subscribeToLikesSync((count, liked) => {
+      setLikeCount(count);
+      if (liked) setHasLiked(true);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLikeClick = async () => {
+    if (isLiking) return;
+    setIsLiking(true);
+    sfx.playCassetteClick();
+    
+    // Immediate optimistic update
+    setHasLiked(true);
+    setLikeCount(prev => prev + 1);
+
+    try {
+      const updated = await incrementGlobalLikes();
+      setLikeCount(updated);
+    } catch {} finally {
+      setIsLiking(false);
+    }
+  };
 
   const formatTime = (secs: number) => {
     if (isNaN(secs) || secs < 0) return '0:00';
@@ -128,6 +162,24 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
                 <span>{isCassetteMode ? 'Vinyl View' : 'Tape Deck'}</span>
               </button>
             )}
+
+            {/* Live Global Like Counter Button */}
+            <button
+              type="button"
+              onClick={handleLikeClick}
+              aria-label="Like Tapri Vibes"
+              title="Show some love for Tapri Vibes"
+              className={`saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 transition-all hover:scale-105 cursor-pointer ${
+                hasLiked ? 'border-red-500/60 bg-red-500/15 text-red-300' : 'hover:border-red-400/60'
+              }`}
+            >
+              <Heart
+                className={`size-3.5 transition-transform duration-200 ${
+                  hasLiked ? 'fill-red-500 text-red-500 scale-110' : 'text-red-400 group-hover:scale-110'
+                }`}
+              />
+              <span className="font-mono text-[0.7rem] tabular-nums font-semibold">{likeCount}</span>
+            </button>
           </div>
 
           {/* Main Floating Glassmorphic Player Card */}

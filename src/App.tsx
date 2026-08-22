@@ -12,6 +12,7 @@ import { AmbientMixerModal } from './components/AmbientMixerModal';
 import { ChaiTimerModal } from './components/ChaiTimerModal';
 import { ChalkboardGuestbook } from './components/ChalkboardGuestbook';
 import { QuickRotationsModal } from './components/QuickRotationsModal';
+import { HowToUseModal } from './components/HowToUseModal';
 import { TapriAtmosphere } from './components/TapriAtmosphere';
 import { PLAYLISTS } from './data/playlists';
 import { Playlist } from './types';
@@ -26,6 +27,7 @@ export const App: React.FC = () => {
   const [isTimerOpen, setIsTimerOpen] = useState<boolean>(false);
   const [isChalkboardOpen, setIsChalkboardOpen] = useState<boolean>(false);
   const [isRotationsOpen, setIsRotationsOpen] = useState<boolean>(false);
+  const [isHowToUseOpen, setIsHowToUseOpen] = useState<boolean>(false);
   const [isCassetteMode, setIsCassetteMode] = useState<boolean>(false);
 
   const handleNavigate = (view: 'radio' | 'playlists' | 'songs' | 'playlist-detail') => {
@@ -66,6 +68,7 @@ export const App: React.FC = () => {
           onNavigate={handleNavigate}
           onOpenInstall={() => setIsInstallOpen(true)}
           onOpenChalkboard={() => setIsChalkboardOpen(true)}
+          onOpenHowToUse={() => setIsHowToUseOpen(true)}
         />
 
         {/* Radio Home View (Full 100vh viewport - Clean & Unobstructed) */}
@@ -136,6 +139,11 @@ export const App: React.FC = () => {
         isOpen={isRotationsOpen}
         onClose={() => setIsRotationsOpen(false)}
         onSelectPlaylistDetail={handleOpenPlaylistDetail}
+      />
+
+      <HowToUseModal
+        isOpen={isHowToUseOpen}
+        onClose={() => setIsHowToUseOpen(false)}
       />
 
       <InstallModal

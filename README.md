@@ -1,20 +1,32 @@
 # ☕ Tapri Vibes — 90s Bollywood & Cutting Chai Radio
 
-[![Deploy to GitHub Pages](https://github.com/vikram-mistry/tapri-vibes/actions/workflows/deploy.yml/badge.svg)](https://github.com/vikram-mistry/tapri-vibes/actions/workflows/deploy.yml)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Tapri%20Vibes-D48637?style=flat&logo=safari)](https://vikram-mistry.github.io/tapri-vibes/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e814030d-2713-43cf-8302-d9f7ee763138/deploy-status)](https://taprivibes.netlify.app)
+[![Live on Netlify](https://img.shields.io/badge/Live%20App-Netlify-00C7B7?style=flat&logo=netlify)](https://taprivibes.netlify.app)
+[![Live on GitHub Pages](https://img.shields.io/badge/Live%20App-GitHub%20Pages-D48637?style=flat&logo=github)](https://vikram-mistry.github.io/tapri-vibes/)
 
-An ambient, always-on web radio playing timeless 1990s Hindi cinema melodies over a nostalgic rainy tea stall corner, complete with real-time listener counts, dynamic canvas rain, steaming cutting chai, and warm candle glow.
+An ambient, always-on web radio playing timeless 1990s Hindi cinema melodies over a nostalgic rainy roadside tea stall, complete with real-time listener counts, procedural soundscapes, interactive 90s tape deck, focus timers, and a roadside chalkboard guestbook.
 
 ---
 
-## 🌟 Features
+## 🌟 Key Features
 
 - 🌧️ **Dynamic Monsoon Atmosphere**: HTML5 Canvas particle engine rendering real-time rainfall with wind drift, layered over an illustrated 90s roadside chai tapri with vintage Bollywood posters (*DDLJ*, *Saajan*, *Hum Aapke Hain Koun..!*).
-- ☕ **Living Foreground Ambiance**: Steaming cutting chai glass with CSS keyframe vapor and a realistic flickering candle flame casting warm golden light over the rustic wooden counter.
-- 📻 **124+ Curated 90s Bollywood Classics**: Handpicked songs from Kumar Sanu, Udit Narayan, Alka Yagnik, Pankaj Udhas, S.P. Balasubrahmanyam, and Anuradha Paudwal — verified for smooth YouTube audio playback.
-- 👥 **Real-Time Listener Count**: Multi-user presence synchronization via Supabase Realtime and Web BroadcastChannel, showing live connected listeners worldwide.
-- 🎛️ **Floating Glassmorphic Audio Player**: Sleek bottom dock featuring spinning vinyl album art, song progress scrub bar, volume slider, mute toggle, and track skip navigation.
-- 📱 **Responsive & PWA Ready**: Optimized for desktop and mobile screen sizes, installable directly to your home screen as a standalone app.
+- 🎛️ **Tapri Soundscapes Mixer**: Built-in procedural Web Audio synthesizer allowing listeners to mix ambient sounds directly in their browser with zero network buffering:
+  - *Monsoon Rain on Tin Roof*
+  - *Tea Kettle Boiling Simmer*
+  - *Vintage Vinyl Crackle & Tape Hiss*
+- 📻 **Chai Time Smart Rotations**: 124 curated and verified 90s Bollywood evergreen songs categorized into daily tea slots:
+  - 🌅 **Subah Ki Chai** (6 AM – 11 AM): Soothing morning acoustic melodies & soulful vocals.
+  - ☀️ **Dophar Ki Susti** (11 AM – 4 PM): Relaxed mid-day romantic duets.
+  - ☕ **Shaam Ki Cutting** (4 PM – 9 PM): High-energy 90s dance tracks & street beats.
+  - 🌙 **Raat Ki Tapri** (9 PM – 4 AM): Late-night melancholic classics & ghazals.
+  - 🗂️ **All Tapri Classics**: Full 124-track uncut tape archive.
+- 📼 **90s Retro Cassette Player & Mechanical SFX**: Transform the radio into an animated vintage TDK/T-Series cassette deck with rotating geared spools, moving magnetic tape ribbon, and authentic button click/whirr audio effects.
+- ⏱️ **"Cutting Chai" Focus & Sleep Timer**: 15 min (Quick Break), 25 min (Pomodoro Focus), and 45 min (Deep Work / Sleep) timers with smooth audio fade-out in the final 15 seconds.
+- 📝 **Roadside Chalkboard Guestbook**: Live visitor notes board where listeners share nostalgic memories, synced across browser tabs in real time.
+- ❤️ **Global Live Like Counter**: Real-time server-synced like counter allowing listeners to show their love for Tapri Vibes.
+- 👥 **Real-Time Presence**: Dynamic live listener tracking based on peak IST tea hours with Supabase Realtime upgrade support.
+- 📱 **Apple iOS & macOS PWA Ready**: Installable as a standalone app on iPhone, iPad, and Mac Dock with the custom transparent edge-to-edge vinyl record icon.
 
 ---
 
@@ -24,9 +36,10 @@ An ambient, always-on web radio playing timeless 1990s Hindi cinema melodies ove
 - **Build Tool**: [Vite](https://vitejs.dev/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Audio Engine**: Embedded YouTube IFrame API (Custom singleton audio context with auto-advance and error recovery)
-- **Real-Time Presence**: [@supabase/supabase-js](https://supabase.com/) Realtime + Web BroadcastChannel
-- **Hosting**: GitHub Pages via automated GitHub Actions
+- **Audio Engines**:
+  - Embedded YouTube IFrame API (Custom singleton audio context with auto-advance and error recovery)
+  - Web Audio API (Procedural pink noise, resonant filters, impulse pop generators, and mechanical tape synthesis)
+- **Deployment**: Automated CI/CD via GitHub Actions & Netlify
 
 ---
 
@@ -50,11 +63,11 @@ An ambient, always-on web radio playing timeless 1990s Hindi cinema melodies ove
    npm install
    ```
 
-3. **Start the local development server**:
+3. **Start local development server**:
    ```bash
    npm run dev
    ```
-   Open your browser and navigate to `http://localhost:3000`.
+   Open your browser at `http://localhost:3000`.
 
 4. **Build for production**:
    ```bash
@@ -63,16 +76,12 @@ An ambient, always-on web radio playing timeless 1990s Hindi cinema melodies ove
 
 ---
 
-## 🌐 Deploying to GitHub Pages
+## 👨‍💻 Creator & Community
 
-This project includes a pre-configured automated deployment workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+Created with ☕ and nostalgia by **Vikram Mistry**.
 
-1. In your GitHub repository, go to **Settings** > **Pages** (in the left sidebar).
-2. Under **Build and deployment** > **Source**, select **GitHub Actions**.
-3. Every `git push` to `main` will automatically build and deploy the latest version to:
-   ```
-   https://vikram-mistry.github.io/tapri-vibes/
-   ```
+- 💬 **WhatsApp Community**: [Join the Tapri Crew](https://whatsapp.com/channel/0029Vb8VSzq5kg7FBQkurZ45)
+- ✉️ **Contact**: [mvikram43@gmail.com](mailto:mvikram43@gmail.com)
 
 ---
 
@@ -81,7 +90,3 @@ This project includes a pre-configured automated deployment workflow [`.github/w
 Audio streams through YouTube’s official embedded player. No audio files are hosted on this server, and all rights remain with the respective record labels, film production houses, composers, and performers. 
 
 If you hold rights to any music track and want it removed, contact **mvikram43@gmail.com** and it will be taken down promptly.
-
----
-
-<p align="center">Made with ☕ and nostalgia · Tapri Vibes</p>
