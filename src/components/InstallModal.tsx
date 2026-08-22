@@ -16,7 +16,7 @@ export const InstallModal: React.FC<InstallModalProps> = ({ isOpen, onClose }) =
       className="fixed inset-0 z-50 flex items-end justify-center bg-black/75 p-4 backdrop-blur-sm sm:items-center"
       role="dialog"
       aria-modal="true"
-      aria-label="How to install Workout Vibes"
+      aria-label="How to install Tapri Vibes"
       onClick={onClose}
     >
       <div
@@ -52,7 +52,7 @@ export const InstallModal: React.FC<InstallModalProps> = ({ isOpen, onClose }) =
             </li>
             <li className="flex items-center gap-2.5">
               <span className="font-mono text-xs text-live">✓</span>
-              <span>Tap <strong>“Add”</strong> — ready to pump!</span>
+              <span>Tap <strong>“Add”</strong> — ready to tune in!</span>
             </li>
           </ol>
         ) : (
