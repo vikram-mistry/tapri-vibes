@@ -1612,5 +1612,18 @@ export const ALL_SONGS: Song[] = [
     "videoId": "KI_EjpMxvJs",
     "playlistId": "bollywood",
     "coverUrl": "https://i.ytimg.com/vi/KI_EjpMxvJs/hqdefault.jpg"
+  },
+  {
+    "id": "tapri-127",
+    "slug": "tumsa-koi-pyaara",
+    "hi": "Tumsa Koi Pyaara",
+    "en": "Tumsa Koi Pyaara",
+    "artist": "Kumar Sanu, Alka Yagnik",
+    "film": "Khuddar",
+    "year": 1994,
+    "duration": "5:42",
+    "videoId": "kYJv8P1J2X4",
+    "playlistId": "bollywood",
+    "coverUrl": "https://i.ytimg.com/vi/kYJv8P1J2X4/hqdefault.jpg"
   }
 ];

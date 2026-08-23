@@ -42,7 +42,8 @@ export const PLAYLISTS: Playlist[] = [
       'tapri-10', 'tapri-13', 'tapri-16', 'tapri-17', 'tapri-19', 'tapri-21',
       'tapri-23', 'tapri-25', 'tapri-26', 'tapri-28', 'tapri-29', 'tapri-31',
       'tapri-32', 'tapri-33', 'tapri-35', 'tapri-36', 'tapri-37', 'tapri-39',
-      'tapri-40', 'tapri-41', 'tapri-43', 'tapri-44', 'tapri-46', 'tapri-47'
+      'tapri-40', 'tapri-41', 'tapri-43', 'tapri-44', 'tapri-46', 'tapri-47',
+      'tapri-127'
     ]
   },
   {
