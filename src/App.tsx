@@ -39,6 +39,7 @@ export const App: React.FC = () => {
   // Desktop Global Keyboard Hotkeys
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger shortcuts when user is typing inside text inputs / textareas
       const tag = (e.target as HTMLElement)?.tagName?.toLowerCase();
       if (tag === 'input' || tag === 'textarea') return;
 
@@ -117,16 +118,16 @@ export const App: React.FC = () => {
         {/* Radio Home View (Full 100vh viewport - Clean & Unobstructed) */}
         {currentView === 'radio' && (
           <div className="flex min-h-[calc(100dvh-5.5rem)] flex-col justify-between pb-36">
-            {/* Center: Hero Title or Cassette Deck */}
+            {/* Center: Hero Title or Cassette Deck (shifted ~15% downwards) */}
             {isPlaying ? (
-              <div className="pt-2 sm:pt-4 select-none animate-in fade-in zoom-in-95 duration-300">
+              <div className="pt-6 sm:pt-8 select-none animate-in fade-in zoom-in-95 duration-300">
                 {/* Compact Hero Title shifted above Tape Deck */}
                 <div className="text-center mb-3 sm:mb-4">
                   <h2 className="font-display text-xl sm:text-2xl font-black text-cream tracking-widest uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
                     TAPRI VIBES
                   </h2>
-                  <p className="font-mono text-[0.6rem] sm:text-[0.65rem] tracking-[0.3em] text-sand/75 uppercase mt-0.5">
-                    Cutting Chai & 90s Radio
+                  <p className="font-mono text-[0.68rem] sm:text-[0.75rem] font-bold tracking-[0.3em] text-cream uppercase mt-1 drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
+                    CUTTING CHAI & 90s RADIO
                   </p>
                 </div>
 
@@ -139,8 +140,8 @@ export const App: React.FC = () => {
               </div>
             )}
 
-            {/* Authentic Cutting Chai Glass Interactive Hotspot (Pouring sound + Desi Tapri Slangs) */}
-            <div className="my-auto py-2 flex justify-center z-30 pointer-events-auto">
+            {/* Authentic Cutting Chai Glass Interactive Hotspot (shifted ~15% downwards) */}
+            <div className="my-auto pt-6 sm:pt-10 pb-2 flex justify-center z-30 pointer-events-auto">
               <div
                 style={{
                   pointerEvents: 'auto',
