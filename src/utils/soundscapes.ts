@@ -1,15 +1,11 @@
 // Procedural Web Audio Ambient Soundscape Synthesizer
-// Generates Rain on Tin Roof, Chai Kettle Simmer, and Vinyl Crackle with zero network assets
+// Generates realistic Monsoon Rain on Tin Roof with zero network assets
 
 class SoundscapeEngine {
   private ctx: AudioContext | null = null;
-  
-  // Gain nodes
   private rainGain: GainNode | null = null;
-  private kettleGain: GainNode | null = null;
-  private vinylGain: GainNode | null = null;
+  private roofPatterGain: GainNode | null = null;
   private masterGain: GainNode | null = null;
-
   private isRunning: boolean = false;
 
   private initContext() {
@@ -25,10 +21,11 @@ class SoundscapeEngine {
     }
   }
 
-  // 🌧️ 1. Rain Synthesizer (Pink Noise + Low-Pass Filter)
+  // 🌧️ Rain on Tin Roof Synthesizer (Pink Noise + Metallic Resonance Filter)
   private startRain() {
     if (!this.ctx || !this.masterGain) return;
 
+    // Pink noise buffer
     const bufferSize = this.ctx.sampleRate * 2;
     const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
     const output = noiseBuffer.getChannelData(0);
@@ -43,7 +40,7 @@ class SoundscapeEngine {
       b4 = 0.55000 * b4 + white * 0.5329522;
       b5 = -0.7616 * b5 - white * 0.0168980;
       output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
-      output[i] *= 0.11;
+      output[i] *= 0.14;
       b6 = white * 0.115926;
     }
 
@@ -51,120 +48,69 @@ class SoundscapeEngine {
     whiteNoise.buffer = noiseBuffer;
     whiteNoise.loop = true;
 
-    const filter = this.ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(1200, this.ctx.currentTime);
+    // Lowpass filter for deep steady rain body
+    const lowFilter = this.ctx.createBiquadFilter();
+    lowFilter.type = 'lowpass';
+    lowFilter.frequency.setValueAtTime(1400, this.ctx.currentTime);
+
+    // Highpass filter for tin roof metallic splatter
+    const tinFilter = this.ctx.createBiquadFilter();
+    tinFilter.type = 'highpass';
+    tinFilter.frequency.setValueAtTime(450, this.ctx.currentTime);
 
     this.rainGain = this.ctx.createGain();
     this.rainGain.gain.setValueAtTime(0, this.ctx.currentTime);
 
-    whiteNoise.connect(filter);
-    filter.connect(this.rainGain);
+    whiteNoise.connect(lowFilter);
+    lowFilter.connect(tinFilter);
+    tinFilter.connect(this.rainGain);
     this.rainGain.connect(this.masterGain);
 
     whiteNoise.start(0);
-  }
 
-  // 🫖 2. Chai Kettle Simmer (Low Bubbling + Steam Hiss)
-  private startKettle() {
-    if (!this.ctx || !this.masterGain) return;
+    // Dynamic metallic droplet drops hitting tin shed
+    this.roofPatterGain = this.ctx.createGain();
+    this.roofPatterGain.gain.setValueAtTime(0, this.ctx.currentTime);
+    this.roofPatterGain.connect(this.masterGain);
 
-    // Steam Hiss
-    const bufferSize = this.ctx.sampleRate * 2;
-    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      output[i] = (Math.random() * 2 - 1) * 0.05;
-    }
-
-    const steam = this.ctx.createBufferSource();
-    steam.buffer = noiseBuffer;
-    steam.loop = true;
-
-    const bandpass = this.ctx.createBiquadFilter();
-    bandpass.type = 'bandpass';
-    bandpass.frequency.setValueAtTime(800, this.ctx.currentTime);
-    bandpass.Q.setValueAtTime(3.0, this.ctx.currentTime);
-
-    this.kettleGain = this.ctx.createGain();
-    this.kettleGain.gain.setValueAtTime(0, this.ctx.currentTime);
-
-    steam.connect(bandpass);
-    bandpass.connect(this.kettleGain);
-    this.kettleGain.connect(this.masterGain);
-
-    steam.start(0);
-  }
-
-  // 📻 3. Vintage Vinyl Crackle (Impulse Pop Generator)
-  private startVinyl() {
-    if (!this.ctx || !this.masterGain) return;
-
-    this.vinylGain = this.ctx.createGain();
-    this.vinylGain.gain.setValueAtTime(0, this.ctx.currentTime);
-    this.vinylGain.connect(this.masterGain);
-
-    // Random pops scheduler
     window.setInterval(() => {
-      if (!this.ctx || !this.vinylGain || this.vinylGain.gain.value <= 0.01) return;
-
-      const popCount = Math.floor(Math.random() * 4) + 1;
-      for (let i = 0; i < popCount; i++) {
+      if (!this.ctx || !this.roofPatterGain || this.roofPatterGain.gain.value <= 0.01) return;
+      const count = Math.floor(Math.random() * 3) + 1;
+      for (let k = 0; k < count; k++) {
         const osc = this.ctx.createOscillator();
-        const popGain = this.ctx.createGain();
-
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(Math.random() * 200 + 40, this.ctx.currentTime);
-
-        popGain.gain.setValueAtTime(Math.random() * 0.15 + 0.05, this.ctx.currentTime);
-        popGain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.03);
-
-        osc.connect(popGain);
-        popGain.connect(this.vinylGain);
-
-        osc.start(this.ctx.currentTime + Math.random() * 0.3);
-        osc.stop(this.ctx.currentTime + 0.04);
+        const dropGain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(Math.random() * 800 + 1200, this.ctx.currentTime);
+        dropGain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+        dropGain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.05);
+        osc.connect(dropGain);
+        dropGain.connect(this.roofPatterGain);
+        osc.start(this.ctx.currentTime + Math.random() * 0.1);
+        osc.stop(this.ctx.currentTime + 0.06);
       }
-    }, 400);
+    }, 200);
   }
 
   public start() {
     if (this.isRunning) return;
     this.initContext();
     this.startRain();
-    this.startKettle();
-    this.startVinyl();
     this.isRunning = true;
   }
 
   public setRainVolume(vol: number) { // 0 to 100
     this.start();
+    const normalized = Math.max(0, Math.min(1, vol / 100));
     if (this.rainGain && this.ctx) {
-      const normalized = Math.max(0, Math.min(1, vol / 100));
-      this.rainGain.gain.setTargetAtTime(normalized * 0.8, this.ctx.currentTime, 0.1);
+      this.rainGain.gain.setTargetAtTime(normalized * 0.85, this.ctx.currentTime, 0.1);
     }
-  }
-
-  public setKettleVolume(vol: number) { // 0 to 100
-    this.start();
-    if (this.kettleGain && this.ctx) {
-      const normalized = Math.max(0, Math.min(1, vol / 100));
-      this.kettleGain.gain.setTargetAtTime(normalized * 0.7, this.ctx.currentTime, 0.1);
-    }
-  }
-
-  public setVinylVolume(vol: number) { // 0 to 100
-    this.start();
-    if (this.vinylGain && this.ctx) {
-      const normalized = Math.max(0, Math.min(1, vol / 100));
-      this.vinylGain.gain.setTargetAtTime(normalized * 0.6, this.ctx.currentTime, 0.1);
+    if (this.roofPatterGain && this.ctx) {
+      this.roofPatterGain.gain.setTargetAtTime(normalized * 0.5, this.ctx.currentTime, 0.1);
     }
   }
 
   public stopAll() {
     this.setRainVolume(0);
-    this.setKettleVolume(0);
-    this.setVinylVolume(0);
   }
 }
 

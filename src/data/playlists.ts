@@ -79,6 +79,21 @@ export const PLAYLISTS: Playlist[] = [
   }
 ];
 
+export function getMyTapePlaylist(favoriteTrackIds: string[]): Playlist {
+  return {
+    id: 'my-tapri-tape',
+    slug: 'my-tapri-tape',
+    hi: 'My Tapri Tape',
+    en: 'My Tapri Tape ❤️',
+    window: 'Your Personal Mixtape',
+    description: 'Your hand-picked 90s favourites recorded onto a custom cassette. Click the heart on any song to add or remove it.',
+    spotifyUrl: 'https://open.spotify.com/playlist/2AVjI8Z57bqMJVtU3V9X1Q',
+    ytMusicUrl: 'https://music.youtube.com/playlist?list=PLTJ1PnzCWyFw',
+    trackIds: favoriteTrackIds,
+    isCustom: true
+  };
+}
+
 export const SOCIAL_LINKS = {
   whatsapp: 'https://whatsapp.com/channel/0029Vb8VSzq5kg7FBQkurZ45',
   spotify: 'https://open.spotify.com/playlist/2AVjI8Z57bqMJVtU3V9X1Q',

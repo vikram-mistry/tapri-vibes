@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAudioPlayer } from '../context/AudioPlayerContext';
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Volume1, CloudRain, Clock, CassetteTape, Radio, Heart } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Volume1, CloudRain, Clock, Radio, Heart, Shuffle, Send } from 'lucide-react';
 import { SOCIAL_LINKS } from '../data/playlists';
 import { sfx } from '../utils/sfx';
-import { fetchGlobalLikes, incrementGlobalLikes, getUserLikedStatus, subscribeToLikesSync } from '../utils/likes';
 
 interface BottomPlayerProps {
   onOpenAmbiance?: () => void;
   onOpenTimer?: () => void;
   onOpenRotations?: () => void;
-  isCassetteMode?: boolean;
-  onToggleCassetteMode?: () => void;
+  onOpenSharePostcard?: () => void;
 }
 
 export const BottomPlayer: React.FC<BottomPlayerProps> = ({
   onOpenAmbiance,
   onOpenTimer,
   onOpenRotations,
-  isCassetteMode = false,
-  onToggleCassetteMode
+  onOpenSharePostcard
 }) => {
   const {
     currentSong,
@@ -32,40 +29,22 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
     playPrevious,
     seekTo,
     setVolume,
-    toggleMute
+    toggleMute,
+    toggleFavorite,
+    isFavorite,
+    isShuffled,
+    toggleShuffle
   } = useAudioPlayer();
 
-  // Global Likes state
-  const [likeCount, setLikeCount] = useState<number>(148);
-  const [hasLiked, setHasLiked] = useState<boolean>(false);
-  const [isLiking, setIsLiking] = useState<boolean>(false);
+  const [showMobileVolume, setShowMobileVolume] = useState<boolean>(false);
 
-  useEffect(() => {
-    setHasLiked(getUserLikedStatus());
-    fetchGlobalLikes().then(count => setLikeCount(count));
+  const isCurrentFav = currentSong ? isFavorite(currentSong.id) : false;
 
-    const unsubscribe = subscribeToLikesSync((count, liked) => {
-      setLikeCount(count);
-      if (liked) setHasLiked(true);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const handleLikeClick = async () => {
-    if (isLiking) return;
-    setIsLiking(true);
+  const handleToggleFav = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!currentSong) return;
     sfx.playCassetteClick();
-    
-    // Immediate optimistic update
-    setHasLiked(true);
-    setLikeCount(prev => prev + 1);
-
-    try {
-      const updated = await incrementGlobalLikes();
-      setLikeCount(updated);
-    } catch {} finally {
-      setIsLiking(false);
-    }
+    toggleFavorite(currentSong.id);
   };
 
   const formatTime = (secs: number) => {
@@ -107,6 +86,20 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
       <div className="pointer-events-auto">
         <div className="relative z-30 mx-auto mb-[max(0.75rem,env(safe-area-inset-bottom))] w-full max-w-2xl px-3 sm:mb-6">
           
+          {/* Small Desktop Hotkey Indicator Banner */}
+          <div className="hidden sm:flex items-center justify-center gap-2 mb-1 text-[0.62rem] text-sand/65 font-mono select-none">
+            <span>⌨️ Hotkeys:</span>
+            <span><strong className="text-cream">Space</strong> (Play)</span>
+            <span>·</span>
+            <span><strong className="text-cream">M</strong> (Mute)</span>
+            <span>·</span>
+            <span><strong className="text-cream">←/→</strong> (Skip)</span>
+            <span>·</span>
+            <span><strong className="text-cream">R</strong> (Rotations)</span>
+            <span>·</span>
+            <span><strong className="text-cream">S</strong> (Atmosphere)</span>
+          </div>
+
           {/* Top Floating Feature Toolbar (Above the main player) */}
           <div className="mb-2 flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
             {onOpenRotations && (
@@ -115,7 +108,7 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
                 onClick={onOpenRotations}
                 aria-label="Chai Time Rotations"
                 title="Switch 90s tape radio rotations"
-                className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 hover:border-amber-400/60 transition-all hover:scale-105"
+                className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 hover:border-amber-400/60 transition-all hover:scale-105 cursor-pointer"
               >
                 <Radio className="size-3.5 text-amber-300" />
                 <span>Rotations</span>
@@ -127,11 +120,11 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
                 type="button"
                 onClick={onOpenAmbiance}
                 aria-label="Ambient Soundscapes Mixer"
-                title="Rain, Kettle & Vinyl soundscapes"
-                className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 hover:border-blue-400/60 transition-all hover:scale-105"
+                title="Monsoon rain on tin roof & weather"
+                className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 hover:border-blue-400/60 transition-all hover:scale-105 cursor-pointer"
               >
                 <CloudRain className="size-3.5 text-blue-300" />
-                <span>Soundscapes</span>
+                <span>Atmosphere</span>
               </button>
             )}
 
@@ -141,79 +134,90 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
                 onClick={onOpenTimer}
                 aria-label="Cutting Chai Focus Timer"
                 title="Chai Focus & Sleep timer"
-                className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 hover:border-amber-400/60 transition-all hover:scale-105"
+                className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 hover:border-amber-400/60 transition-all hover:scale-105 cursor-pointer"
               >
                 <Clock className="size-3.5 text-amber-300" />
                 <span>Chai Timer</span>
               </button>
             )}
 
-            {onToggleCassetteMode && (
+            {/* Dedicate Song Postcard Button */}
+            {onOpenSharePostcard && (
               <button
                 type="button"
-                onClick={onToggleCassetteMode}
-                aria-label="Toggle Retro Cassette Deck"
-                title={isCassetteMode ? 'Switch to Vinyl View' : 'Switch to 90s Tape View'}
-                className={`saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 transition-all hover:scale-105 ${
-                  isCassetteMode ? 'active border-amber-500/60 text-amber-300' : ''
-                }`}
+                onClick={onOpenSharePostcard}
+                aria-label="Send Chai Postcard"
+                title="Dedicate this song on WhatsApp"
+                className="saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 text-emerald-400 hover:border-emerald-500/60 transition-all hover:scale-105 cursor-pointer"
               >
-                <CassetteTape className="size-3.5" />
-                <span>{isCassetteMode ? 'Vinyl View' : 'Tape Deck'}</span>
+                <Send className="size-3.5" />
+                <span>Dedicate</span>
               </button>
             )}
-
-            {/* Live Global Like Counter Button */}
-            <button
-              type="button"
-              onClick={handleLikeClick}
-              aria-label="Like Tapri Vibes"
-              title="Show some love for Tapri Vibes"
-              className={`saloon-chip text-xs py-1 px-2.5 sm:px-3 flex items-center gap-1.5 transition-all hover:scale-105 cursor-pointer ${
-                hasLiked ? 'border-red-500/60 bg-red-500/15 text-red-300' : 'hover:border-red-400/60'
-              }`}
-            >
-              <Heart
-                className={`size-3.5 transition-transform duration-200 ${
-                  hasLiked ? 'fill-red-500 text-red-500 scale-110' : 'text-red-400 group-hover:scale-110'
-                }`}
-              />
-              <span className="font-mono text-[0.7rem] tabular-nums font-semibold">{likeCount}</span>
-            </button>
           </div>
 
           {/* Main Floating Glassmorphic Player Card */}
-          <div className="saloon-glass rounded-3xl p-3 sm:p-4 shadow-2xl border border-cream/20">
+          <div className="saloon-glass rounded-3xl p-3 sm:p-4 shadow-2xl border border-cream/20 relative">
             
+            {/* Mobile Expandable Volume Popover */}
+            {showMobileVolume && (
+              <div className="md:hidden absolute -top-12 right-4 saloon-glass rounded-2xl px-3 py-1.5 flex items-center gap-2 border border-cream/20 shadow-xl animate-in fade-in zoom-in-95 duration-150">
+                <span className="text-[0.65rem] font-mono text-sand/80">{isMuted ? 0 : volume}%</span>
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={isMuted ? 0 : volume}
+                  onChange={handleVolume}
+                  aria-label="Volume"
+                  className="saloon-range h-1.5 w-24 cursor-pointer"
+                  style={{ '--progress': `${isMuted ? 0 : volume}%` } as React.CSSProperties}
+                />
+              </div>
+            )}
+
             {/* Top Row: Track Artwork, Metadata & Playback Controls */}
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center justify-between gap-2.5 sm:gap-3">
               
               {/* Left: Spinning Vinyl Disc & Song Info */}
-              <div className="flex min-w-0 flex-1 items-center gap-2.5 sm:gap-3">
-                <button
-                  type="button"
-                  onClick={onToggleCassetteMode}
-                  title="Toggle Visual Player Mode"
-                  className="relative size-11 sm:size-13 shrink-0 overflow-hidden rounded-full bg-black/60 border border-cream/30 shadow-md group cursor-pointer transition-transform hover:scale-105"
-                >
+              <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+                <div className="relative size-10 sm:size-12 shrink-0 overflow-hidden rounded-full bg-black/60 border border-cream/30 shadow-md">
                   <img
                     src={currentSong?.coverUrl || `https://i.ytimg.com/vi/${currentSong?.videoId}/hqdefault.jpg`}
                     alt={currentSong?.en || 'Tapri Track'}
-                    width={52}
-                    height={52}
+                    width={48}
+                    height={48}
                     className="size-full object-cover animate-[spin_20s_linear_infinite]"
                     style={{
                       animationPlayState: isPlaying ? 'running' : 'paused'
                     }}
                   />
                   {/* Center Vinyl Hole */}
-                  <div className="absolute inset-0 m-auto size-2.5 rounded-full bg-[#0e121a] border border-cream/50" />
-                </button>
+                  <div className="absolute inset-0 m-auto size-2 rounded-full bg-[#0e121a] border border-cream/50" />
+                </div>
 
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs sm:text-sm font-bold text-cream">
-                    {currentSong?.en || 'Tuning into 90s Tapri…'}
-                  </p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="truncate text-xs sm:text-sm font-bold text-cream">
+                      {currentSong?.en || 'Tuning into 90s Tapri…'}
+                    </p>
+                    {/* Heart to Favorite Current Track */}
+                    {currentSong && (
+                      <button
+                        type="button"
+                        onClick={handleToggleFav}
+                        title={isCurrentFav ? 'Remove from My Tapri Tape' : 'Add to My Tapri Tape ❤️'}
+                        className="saloon-icon-btn size-5 p-0.5 shrink-0 text-sand/60 hover:text-red-400 cursor-pointer"
+                      >
+                        <Heart
+                          className={`size-3.5 transition-colors ${
+                            isCurrentFav ? 'fill-red-500 text-red-500' : 'hover:text-red-400'
+                          }`}
+                        />
+                      </button>
+                    )}
+                  </div>
                   <p className="truncate text-[0.65rem] sm:text-xs text-sand/75">
                     {currentSong ? `${currentSong.artist} ${currentSong.film ? `· ${currentSong.film}` : ''}` : 'Timeless evergreen melodies'}
                   </p>
@@ -221,7 +225,20 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
               </div>
 
               {/* Right: Playback Buttons & Volume */}
-              <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+              <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
+                {/* Shuffle Button */}
+                <button
+                  type="button"
+                  onClick={toggleShuffle}
+                  aria-label="Toggle Shuffle"
+                  title={isShuffled ? 'Shuffle is ON' : 'Shuffle is OFF'}
+                  className={`saloon-icon-btn size-7 sm:size-8 hidden min-[420px]:flex ${
+                    isShuffled ? 'text-amber-400 bg-amber-500/20 border-amber-500/40' : 'text-sand/70'
+                  }`}
+                >
+                  <Shuffle className="size-3.5" />
+                </button>
+
                 <button
                   type="button"
                   onClick={handlePrev}
@@ -256,21 +273,27 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
                   <SkipForward className="size-4" />
                 </button>
 
-                {/* Desktop Volume Slider */}
-                <div className="relative hidden md:flex items-center gap-1 border-l border-cream/15 pl-2 ml-1">
+                {/* Volume Controller (Both Desktop and Mobile) */}
+                <div className="relative flex items-center gap-1 border-l border-cream/15 pl-1.5 ml-0.5">
                   <button
                     type="button"
-                    onClick={toggleMute}
+                    onClick={() => {
+                      if (window.innerWidth < 768) {
+                        setShowMobileVolume(!showMobileVolume);
+                      } else {
+                        toggleMute();
+                      }
+                    }}
                     aria-label={isMuted ? 'Unmute' : 'Mute'}
-                    className="saloon-icon-btn size-8"
-                    title={isMuted ? 'Unmute' : 'Mute'}
+                    className="saloon-icon-btn size-7 sm:size-8"
+                    title={isMuted ? 'Unmute' : 'Mute / Adjust Volume'}
                   >
                     {isMuted || volume === 0 ? (
-                      <VolumeX className="size-4 text-cream/70" />
+                      <VolumeX className="size-3.5 text-cream/70" />
                     ) : volume < 50 ? (
-                      <Volume1 className="size-4" />
+                      <Volume1 className="size-3.5" />
                     ) : (
-                      <Volume2 className="size-4" />
+                      <Volume2 className="size-3.5" />
                     )}
                   </button>
 
@@ -282,15 +305,15 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
                     value={isMuted ? 0 : volume}
                     onChange={handleVolume}
                     aria-label="Volume"
-                    className="saloon-range h-1.5 w-16"
+                    className="saloon-range h-1.5 w-14 hidden md:inline-block"
                     style={{ '--progress': `${isMuted ? 0 : volume}%` } as React.CSSProperties}
                   />
                 </div>
               </div>
             </div>
 
-            {/* Bottom Row: Dedicated Full-Width Seek Bar (Spans 100% width) */}
-            <div className="mt-2.5 flex items-center gap-2.5 pt-1 border-t border-cream/10">
+            {/* Bottom Row: Dedicated Full-Width Seek Bar */}
+            <div className="mt-2 flex items-center gap-2.5 pt-1 border-t border-cream/10">
               <span className="shrink-0 font-mono text-[0.65rem] sm:text-xs text-sand/80 tabular-nums">
                 {formatTime(currentTime)}
               </span>
@@ -318,7 +341,7 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
           {/* Contact link */}
           <a
             href={`mailto:${SOCIAL_LINKS.contactEmail}`}
-            className="block mt-1.5 text-center font-mono text-[0.6rem] text-cream/50 transition-colors hover:text-cream/90 sm:text-xs"
+            className="block mt-1 text-center font-mono text-[0.6rem] text-cream/50 transition-colors hover:text-cream/90 sm:text-xs"
           >
             contact: {SOCIAL_LINKS.contactEmail}
           </a>

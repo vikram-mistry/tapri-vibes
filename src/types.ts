@@ -1,3 +1,5 @@
+export type WeatherMode = 'monsoon' | 'winter-mist' | 'sunset-glow';
+
 export interface Song {
   id: string;
   slug: string;
@@ -22,6 +24,7 @@ export interface Playlist {
   spotifyUrl: string;
   ytMusicUrl: string;
   trackIds: string[];
+  isCustom?: boolean;
 }
 
 export interface PlayerState {

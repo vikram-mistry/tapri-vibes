@@ -2,22 +2,26 @@ import React from 'react';
 import { Playlist, Song } from '../types';
 import { ALL_SONGS } from '../data/songs';
 import { useAudioPlayer } from '../context/AudioPlayerContext';
-import { Play, Pause, Volume2, ArrowLeft } from 'lucide-react';
+import { Play, Pause, Volume2, ArrowLeft, Heart, Send } from 'lucide-react';
 
 interface PlaylistDetailViewProps {
   playlist: Playlist;
   onBackToPlaylists: () => void;
   onBackToRadio: () => void;
+  onOpenDedication?: (song: Song) => void;
 }
 
 export const PlaylistDetailView: React.FC<PlaylistDetailViewProps> = ({
   playlist,
-  onBackToPlaylists
+  onBackToPlaylists,
+  onOpenDedication
 }) => {
-  const { currentSong, isPlaying, playSong, togglePlay, switchPlaylist, activePlaylistId } = useAudioPlayer();
+  const { currentSong, isPlaying, playSong, togglePlay, switchPlaylist, activePlaylistId, toggleFavorite, isFavorite, favorites } = useAudioPlayer();
 
-  // Filter songs matching this playlist's specific trackIds
-  const songs: Song[] = playlist.trackIds && playlist.trackIds.length > 0
+  // If viewing My Tapri Tape, derive live tracks from favorites
+  const songs: Song[] = playlist.id === 'my-tapri-tape'
+    ? favorites.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s))
+    : playlist.trackIds && playlist.trackIds.length > 0
     ? playlist.trackIds
         .map((id) => ALL_SONGS.find((s) => s.id === id))
         .filter((s): s is Song => Boolean(s))
@@ -66,6 +70,7 @@ export const PlaylistDetailView: React.FC<PlaylistDetailViewProps> = ({
           <div className="flex items-center gap-3 pt-2 sm:pt-0">
             <button
               type="button"
+              disabled={songs.length === 0}
               onClick={() => {
                 if (isPlaylistActive) {
                   togglePlay();
@@ -73,7 +78,7 @@ export const PlaylistDetailView: React.FC<PlaylistDetailViewProps> = ({
                   switchPlaylist(playlist.id, true);
                 }
               }}
-              className="saloon-play-btn"
+              className="saloon-play-btn disabled:opacity-50"
               title={isPlaylistActive && isPlaying ? 'Pause Rotation' : 'Play Rotation'}
             >
               {isPlaylistActive && isPlaying ? (
@@ -89,37 +94,50 @@ export const PlaylistDetailView: React.FC<PlaylistDetailViewProps> = ({
           {playlist.description}
         </p>
 
-        {/* Streaming links */}
-        <div className="mt-4 flex items-center gap-2 text-xs">
-          <a
-            href={playlist.spotifyUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="saloon-chip"
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-4 text-[#1ED760]">
-              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.12-.899-.48-.12-.421.12-.78.479-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.362 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
-            </svg>
-            <span>Spotify</span>
-          </a>
-          <a
-            href={playlist.ytMusicUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="saloon-chip"
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-4 text-[#FF0033]">
-              <path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L15.816 12l-6.132 3.54z" />
-            </svg>
-            <span>YT Music</span>
-          </a>
-        </div>
+        {/* Streaming links (only for regular playlists) */}
+        {!playlist.isCustom && (
+          <div className="mt-4 flex items-center gap-2 text-xs">
+            <a
+              href={playlist.spotifyUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="saloon-chip"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-4 text-[#1ED760]">
+                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.12-.899-.48-.12-.421.12-.78.479-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.362 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+              </svg>
+              <span>Spotify</span>
+            </a>
+            <a
+              href={playlist.ytMusicUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="saloon-chip"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-4 text-[#FF0033]">
+                <path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L15.816 12l-6.132 3.54z" />
+              </svg>
+              <span>YT Music</span>
+            </a>
+          </div>
+        )}
       </header>
+
+      {/* Empty State */}
+      {songs.length === 0 && (
+        <div className="text-center py-12 saloon-glass rounded-2xl p-6 border border-cream/15">
+          <Heart className="size-10 text-red-400/60 mx-auto mb-3" />
+          <p className="text-sand/80 text-sm">
+            No tracks in this tape yet. Tap the heart on songs in the directory to add them here!
+          </p>
+        </div>
+      )}
 
       {/* Song list in clean English */}
       <div className="space-y-1">
         {songs.map((song, index) => {
           const isCurrent = currentSong?.id === song.id;
+          const isFav = isFavorite(song.id);
 
           return (
             <div
@@ -131,9 +149,9 @@ export const PlaylistDetailView: React.FC<PlaylistDetailViewProps> = ({
                   : 'hover:bg-cream/5 border border-transparent'
               }`}
             >
-              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
                 {/* Index / Playing Indicator */}
-                <span className="w-6 text-center font-mono text-xs text-sand/60">
+                <span className="w-6 text-center font-mono text-xs text-sand/60 shrink-0">
                   {isCurrent && isPlaying ? (
                     <Volume2 className="size-4 text-live mx-auto animate-pulse" />
                   ) : (
@@ -142,7 +160,7 @@ export const PlaylistDetailView: React.FC<PlaylistDetailViewProps> = ({
                 </span>
 
                 {/* Song Meta */}
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className={`truncate text-sm sm:text-base font-semibold ${isCurrent ? 'text-white' : 'text-cream'}`}>
                     {song.en}
                   </p>
@@ -152,18 +170,41 @@ export const PlaylistDetailView: React.FC<PlaylistDetailViewProps> = ({
                 </div>
               </div>
 
-              {/* Right Side: Duration & Play Action */}
-              <div className="flex items-center gap-3 shrink-0">
-                <span className="font-mono text-xs text-sand/60 hidden sm:inline">
+              {/* Right Side: Favorite, Dedicate, Duration & Play Action */}
+              <div className="flex items-center gap-2 sm:gap-3 shrink-0" onClick={(e) => e.stopPropagation()}>
+                {/* Favorite Toggle */}
+                <button
+                  type="button"
+                  onClick={() => toggleFavorite(song.id)}
+                  title={isFav ? 'Remove from Favorites' : 'Add to My Tapri Tape ❤️'}
+                  className="saloon-icon-btn size-7 p-1 text-sand/60 hover:text-red-400"
+                >
+                  <Heart
+                    className={`size-3.5 transition-colors ${
+                      isFav ? 'fill-red-500 text-red-500' : 'text-sand/50 group-hover:text-sand/90'
+                    }`}
+                  />
+                </button>
+
+                {/* Dedicate Postcard */}
+                {onOpenDedication && (
+                  <button
+                    type="button"
+                    onClick={() => onOpenDedication(song)}
+                    title="Send as Chai Postcard on WhatsApp"
+                    className="saloon-icon-btn size-7 p-1 text-sand/50 hover:text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <Send className="size-3.5" />
+                  </button>
+                )}
+
+                <span className="font-mono text-xs text-sand/60 hidden sm:inline w-10 text-right">
                   {song.duration}
                 </span>
 
                 <button
                   type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePlaySong(song);
-                  }}
+                  onClick={() => handlePlaySong(song)}
                   className={`saloon-icon-btn size-8 ${
                     isCurrent ? 'opacity-100 text-live' : 'opacity-0 group-hover:opacity-100'
                   }`}

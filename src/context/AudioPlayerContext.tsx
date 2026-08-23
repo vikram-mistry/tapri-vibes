@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { Song, Playlist } from '../types';
 import { ALL_SONGS } from '../data/songs';
-import { PLAYLISTS } from '../data/playlists';
+import { PLAYLISTS, getMyTapePlaylist } from '../data/playlists';
+import { getFavoriteSongIds, toggleFavoriteSongId, subscribeToFavoritesSync } from '../utils/favorites';
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -26,6 +27,11 @@ interface AudioContextType {
   activePlaylistId: string;
   activePlaylist: Playlist;
   currentQueue: Song[];
+  favorites: string[];
+  isShuffled: boolean;
+  toggleFavorite: (songId: string) => void;
+  isFavorite: (songId: string) => boolean;
+  toggleShuffle: () => void;
   playSong: (song: Song, playlistId?: string) => void;
   togglePlay: () => void;
   playNext: () => void;
@@ -80,10 +86,10 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
   /* ---- mutable refs ---- */
   const containerRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<any>(null);
-  const queueRef = useRef<Song[]>(ALL_SONGS);       // current active queue of Song objects
-  const indexRef = useRef<number>(0);              // current index in queue
-  const tickRef = useRef<number | null>(null);     // progress interval id
-  const mountedRef = useRef<boolean>(true);        // cleanup flag
+  const queueRef = useRef<Song[]>(ALL_SONGS);
+  const indexRef = useRef<number>(0);
+  const tickRef = useRef<number | null>(null);
+  const mountedRef = useRef<boolean>(true);
 
   /* ---- React state ---- */
   const [state, setState] = useState<PlayerState>({
@@ -95,10 +101,24 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
     duration: 0,
   });
 
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [isShuffled, setIsShuffled] = useState<boolean>(false);
   const [activePlaylistId, setActivePlaylistId] = useState<string>(PLAYLISTS[0]?.id || 'all-tapri-classics');
   const [currentSong, setCurrentSong] = useState<Song | null>(ALL_SONGS[0] || null);
 
-  const activePlaylist = PLAYLISTS.find(p => p.id === activePlaylistId) || PLAYLISTS[0];
+  // Sync favorites on mount and cross-tabs
+  useEffect(() => {
+    setFavorites(getFavoriteSongIds());
+    const unsubscribe = subscribeToFavoritesSync((favs) => {
+      setFavorites(favs);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const activePlaylist = activePlaylistId === 'my-tapri-tape'
+    ? getMyTapePlaylist(favorites)
+    : PLAYLISTS.find(p => p.id === activePlaylistId) || PLAYLISTS[0];
+
   const currentQueue = queueRef.current;
 
   /* ---- progress tick ---- */
@@ -159,18 +179,44 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
   /* ---- Initialize YouTube Player (once) ---- */
   useEffect(() => {
     mountedRef.current = true;
-    queueRef.current = ALL_SONGS;
+    
+    // Check URL search params for deep linking (e.g. ?song=tapri-10 or ?rotation=subah-ki-chai)
+    const params = new URLSearchParams(window.location.search);
+    const paramSongId = params.get('song');
+    const paramRotationId = params.get('rotation');
+
+    let initialSong = ALL_SONGS[0];
+
+    if (paramRotationId) {
+      const targetPl = PLAYLISTS.find(p => p.id === paramRotationId || p.slug === paramRotationId);
+      if (targetPl && targetPl.trackIds.length > 0) {
+        const plSongs = targetPl.trackIds.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s));
+        if (plSongs.length > 0) {
+          queueRef.current = plSongs;
+          setActivePlaylistId(paramRotationId);
+          initialSong = plSongs[0];
+        }
+      }
+    }
+
+    if (paramSongId) {
+      const matched = ALL_SONGS.find(s => s.id === paramSongId || s.videoId === paramSongId);
+      if (matched) {
+        initialSong = matched;
+        const idx = queueRef.current.findIndex(s => s.id === matched.id);
+        if (idx >= 0) indexRef.current = idx;
+      }
+    }
+
+    setCurrentSong(initialSong);
 
     let destroyed = false;
 
     loadYTApi().then(() => {
       if (destroyed || !containerRef.current || !window.YT) return;
 
-      const initialSong = queueRef.current[0];
-      const initialVideoId = initialSong?.videoId || 'yexZf8g_dJw';
-
       playerRef.current = new window.YT.Player(containerRef.current, {
-        videoId: initialVideoId,
+        videoId: initialSong.videoId,
         playerVars: {
           autoplay: 1,
           controls: 0,
@@ -273,17 +319,56 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   /* ---- Public API ---- */
 
+  const toggleFavorite = useCallback((songId: string) => {
+    const updated = toggleFavoriteSongId(songId);
+    setFavorites(updated);
+
+    // If currently playing My Tapri Tape and removed currently playing queue
+    if (activePlaylistId === 'my-tapri-tape') {
+      const favSongs = updated.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s));
+      queueRef.current = favSongs.length > 0 ? favSongs : ALL_SONGS;
+    }
+  }, [activePlaylistId]);
+
+  const isFavorite = useCallback((songId: string) => {
+    return favorites.includes(songId);
+  }, [favorites]);
+
+  const toggleShuffle = useCallback(() => {
+    setIsShuffled(prev => {
+      const nextState = !prev;
+      if (nextState) {
+        // Shuffle current queue keeping currentSong at index 0
+        const cur = currentSong;
+        const rest = queueRef.current.filter(s => s.id !== cur?.id);
+        for (let i = rest.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [rest[i], rest[j]] = [rest[j], rest[i]];
+        }
+        queueRef.current = cur ? [cur, ...rest] : rest;
+        indexRef.current = 0;
+      }
+      return nextState;
+    });
+  }, [currentSong]);
+
   const playSong = useCallback((song: Song, playlistId?: string) => {
     if (playlistId) {
-      const pl = PLAYLISTS.find(p => p.id === playlistId || p.slug === playlistId);
-      if (pl && pl.trackIds.length > 0) {
-        const playlistSongs = pl.trackIds.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s));
-        queueRef.current = playlistSongs.length > 0 ? playlistSongs : ALL_SONGS;
-        setActivePlaylistId(playlistId);
-        const idx = queueRef.current.findIndex(s => s.id === song.id);
-        goToIndex(idx >= 0 ? idx : 0);
-        return;
+      if (playlistId === 'my-tapri-tape') {
+        const favSongs = favorites.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s));
+        queueRef.current = favSongs.length > 0 ? favSongs : ALL_SONGS;
+        setActivePlaylistId('my-tapri-tape');
+      } else {
+        const pl = PLAYLISTS.find(p => p.id === playlistId || p.slug === playlistId);
+        if (pl && pl.trackIds.length > 0) {
+          const playlistSongs = pl.trackIds.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s));
+          queueRef.current = playlistSongs.length > 0 ? playlistSongs : ALL_SONGS;
+          setActivePlaylistId(playlistId);
+        }
       }
+      const idx = queueRef.current.findIndex(s => s.id === song.id);
+      goToIndex(idx >= 0 ? idx : 0);
+      return;
     }
 
     let idx = queueRef.current.findIndex(s => s.id === song.id);
@@ -292,7 +377,7 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
       idx = ALL_SONGS.findIndex(s => s.id === song.id);
     }
     goToIndex(idx >= 0 ? idx : 0);
-  }, [goToIndex]);
+  }, [goToIndex, favorites]);
 
   const togglePlay = useCallback(() => {
     const p = playerRef.current;
@@ -348,13 +433,19 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
   }, []);
 
   const switchPlaylist = useCallback((playlistId: string, autoPlay = true) => {
-    const pl = PLAYLISTS.find(p => p.id === playlistId || p.slug === playlistId);
-    const songs = pl && pl.trackIds.length > 0
-      ? pl.trackIds.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s))
-      : ALL_SONGS;
+    if (playlistId === 'my-tapri-tape') {
+      const favSongs = favorites.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s));
+      queueRef.current = favSongs.length > 0 ? favSongs : ALL_SONGS;
+      setActivePlaylistId('my-tapri-tape');
+    } else {
+      const pl = PLAYLISTS.find(p => p.id === playlistId || p.slug === playlistId);
+      const songs = pl && pl.trackIds.length > 0
+        ? pl.trackIds.map(id => ALL_SONGS.find(s => s.id === id)).filter((s): s is Song => Boolean(s))
+        : ALL_SONGS;
 
-    queueRef.current = songs.length > 0 ? songs : ALL_SONGS;
-    setActivePlaylistId(playlistId);
+      queueRef.current = songs.length > 0 ? songs : ALL_SONGS;
+      setActivePlaylistId(playlistId);
+    }
 
     if (queueRef.current.length > 0) {
       if (autoPlay) {
@@ -364,7 +455,7 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
         indexRef.current = 0;
       }
     }
-  }, [goToIndex]);
+  }, [goToIndex, favorites]);
 
   const playQueue = useCallback((ids: string[], startIndex = 0) => {
     const song = ALL_SONGS.find(s => s.id === ids[startIndex] || s.videoId === ids[startIndex]);
@@ -384,6 +475,11 @@ export const AudioPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
         activePlaylistId,
         activePlaylist,
         currentQueue,
+        favorites,
+        isShuffled,
+        toggleFavorite,
+        isFavorite,
+        toggleShuffle,
         playSong,
         togglePlay,
         playNext,
