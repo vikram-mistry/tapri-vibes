@@ -165,8 +165,8 @@ export const BottomPlayer: React.FC<BottomPlayerProps> = ({
             )}
           </div>
 
-          {/* Main Floating 75% Transparent Glassmorphic Player Card */}
-          <div className="rounded-3xl p-3 sm:p-4 shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-white/20 bg-black/25 sm:bg-[#0e121a]/30 backdrop-blur-xl relative">
+          {/* Main Floating Ultra-Glassmorphic Transparent Player Card (~85% Transparent) */}
+          <div className="rounded-3xl p-3 sm:p-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 bg-black/12 sm:bg-[#0e121a]/15 backdrop-blur-xl relative">
             
             {/* Shuffle Toast Notification */}
             {shuffleToast && (
