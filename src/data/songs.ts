@@ -2,19 +2,6 @@ import { Song } from '../types';
 
 export const ALL_SONGS: Song[] = [
   {
-    "id": "tapri-1",
-    "slug": "chitthi-aayi-hai",
-    "hi": "Chitthi Aayi Hai",
-    "en": "Chitthi Aayi Hai",
-    "artist": "Pankaj Udhas",
-    "film": "Naam",
-    "year": 1986,
-    "duration": "4:30",
-    "videoId": "yexZf8g_dJw",
-    "playlistId": "bollywood",
-    "coverUrl": "https://i.ytimg.com/vi/yexZf8g_dJw/hqdefault.jpg"
-  },
-  {
     "id": "tapri-2",
     "slug": "ae-mere-humsafar",
     "hi": "Ae Mere Humsafar",
@@ -1625,5 +1612,18 @@ export const ALL_SONGS: Song[] = [
     "videoId": "kYJv8P1J2X4",
     "playlistId": "bollywood",
     "coverUrl": "https://i.ytimg.com/vi/kYJv8P1J2X4/hqdefault.jpg"
+  },
+  {
+    "id": "tapri-1",
+    "slug": "chitthi-aayi-hai",
+    "hi": "Chitthi Aayi Hai",
+    "en": "Chitthi Aayi Hai",
+    "artist": "Pankaj Udhas",
+    "film": "Naam",
+    "year": 1986,
+    "duration": "4:30",
+    "videoId": "yexZf8g_dJw",
+    "playlistId": "bollywood",
+    "coverUrl": "https://i.ytimg.com/vi/yexZf8g_dJw/hqdefault.jpg"
   }
 ];

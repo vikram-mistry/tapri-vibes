@@ -13,7 +13,10 @@ import { ChalkboardGuestbook } from './components/ChalkboardGuestbook';
 import { QuickRotationsModal } from './components/QuickRotationsModal';
 import { HowToUseModal } from './components/HowToUseModal';
 import { SharePostcardModal } from './components/SharePostcardModal';
-import { CuttingChaiInteractive } from './components/CuttingChaiInteractive';
+import { NewspaperModal } from './components/NewspaperModal';
+import { TapriMicroInteractions } from './components/TapriMicroInteractions';
+import { FairyLights, FairyLightMode } from './components/FairyLights';
+import { InteractiveTapriScene } from './components/InteractiveTapriScene';
 import { TapriAtmosphere } from './components/TapriAtmosphere';
 import { PLAYLISTS, getMyTapePlaylist } from './data/playlists';
 import { Playlist, Song, WeatherMode } from './types';
@@ -28,13 +31,26 @@ export const App: React.FC = () => {
   
   // Modals & Feature states
   const [weatherMode, setWeatherMode] = useState<WeatherMode>('monsoon');
+  const [fairyLightMode, setFairyLightMode] = useState<FairyLightMode>(() => {
+    return (localStorage.getItem('tapri_fairy_lights') as FairyLightMode) || 'warm';
+  });
+
   const [isAmbianceOpen, setIsAmbianceOpen] = useState<boolean>(false);
   const [isTimerOpen, setIsTimerOpen] = useState<boolean>(false);
   const [isChalkboardOpen, setIsChalkboardOpen] = useState<boolean>(false);
   const [isRotationsOpen, setIsRotationsOpen] = useState<boolean>(false);
   const [isHowToUseOpen, setIsHowToUseOpen] = useState<boolean>(false);
   const [isPostcardOpen, setIsPostcardOpen] = useState<boolean>(false);
+  const [isNewspaperOpen, setIsNewspaperOpen] = useState<boolean>(false);
   const [postcardSong, setPostcardSong] = useState<Song | null>(null);
+
+  const handleCycleFairyLights = () => {
+    setFairyLightMode(prev => {
+      const next: FairyLightMode = prev === 'warm' ? 'multicolor' : prev === 'multicolor' ? 'off' : 'warm';
+      localStorage.setItem('tapri_fairy_lights', next);
+      return next;
+    });
+  };
 
   // Desktop Global Keyboard Hotkeys
   useEffect(() => {
@@ -100,6 +116,18 @@ export const App: React.FC = () => {
       {/* Animated Tapri Atmosphere (Illustrated 90s Street Backdrop + Dynamic Weather Engine) */}
       <TapriAtmosphere dimmed={currentView !== 'radio'} weatherMode={weatherMode} />
 
+      {/* Decorative Fairy / Mirchi String Lights */}
+      {currentView === 'radio' && <FairyLights mode={fairyLightMode} />}
+
+      {/* Top Controls: 90s Daily Gazette & Fairy Lights Switch */}
+      {currentView === 'radio' && (
+        <InteractiveTapriScene
+          fairyLightMode={fairyLightMode}
+          onCycleFairyLights={handleCycleFairyLights}
+          onOpenNewspaper={() => setIsNewspaperOpen(true)}
+        />
+      )}
+
       {/* Dim overlay for subpages (Playlists / Songs directory) */}
       {currentView !== 'radio' && (
         <div className="fixed inset-0 z-0 bg-shade/85 backdrop-blur-[3px] pointer-events-none" />
@@ -140,24 +168,9 @@ export const App: React.FC = () => {
               </div>
             )}
 
-            {/* Authentic Cutting Chai Glass Interactive Hotspot (shifted ~15% downwards) */}
+            {/* Authentic Tapri Micro-Interactions Trio (Hero Cycle Bell · Cutting Chai Glass · Tapri Billa Cat) */}
             <div className="my-auto pt-6 sm:pt-10 pb-2 flex justify-center z-30 pointer-events-auto">
-              <div
-                style={{
-                  pointerEvents: 'auto',
-                  background: 'rgba(28, 18, 8, 0.3)',
-                  padding: 8,
-                  borderRadius: '50%',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
-                  border: '1px solid rgba(255, 244, 223, 0.15)',
-                  backdropFilter: 'blur(4px)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <CuttingChaiInteractive />
-              </div>
+              <TapriMicroInteractions />
             </div>
 
             {/* Spacer allowing full view of the illustrated 90s Tapri */}
@@ -218,6 +231,11 @@ export const App: React.FC = () => {
         isOpen={isPostcardOpen}
         onClose={() => setIsPostcardOpen(false)}
         song={postcardSong}
+      />
+
+      <NewspaperModal
+        isOpen={isNewspaperOpen}
+        onClose={() => setIsNewspaperOpen(false)}
       />
 
       <HowToUseModal

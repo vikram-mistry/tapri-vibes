@@ -7,8 +7,8 @@ export const PLAYLISTS: Playlist[] = [
     slug: 'all-tapri-classics',
     hi: 'Tapri Classics',
     en: 'All Tapri Classics (90s)',
-    window: 'Full 124 Tape Archive',
-    description: 'The complete uncut catalogue of 124 timeless 90s Bollywood cassettes playing round the clock.',
+    window: 'Full 127 Tape Archive',
+    description: 'The complete uncut catalogue of 127 timeless 90s Bollywood cassettes playing round the clock.',
     spotifyUrl: 'https://open.spotify.com/playlist/2AVjI8Z57bqMJVtU3V9X1Q',
     ytMusicUrl: 'https://music.youtube.com/playlist?list=PLTJ1PnzCWyFw',
     trackIds: ALL_SONGS.map(s => s.id)

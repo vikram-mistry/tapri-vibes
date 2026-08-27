@@ -91,7 +91,6 @@ class SoundEffectsEngine {
       const t = this.ctx.currentTime;
       const dur = 1.6;
 
-      // 1. Pink Noise liquid stream through narrow resonant filter (Pouring Stream)
       const bufferSize = this.ctx.sampleRate * 2;
       const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
       const output = noiseBuffer.getChannelData(0);
@@ -116,7 +115,7 @@ class SoundEffectsEngine {
       const bandpass = this.ctx.createBiquadFilter();
       bandpass.type = 'bandpass';
       bandpass.frequency.setValueAtTime(650, t);
-      bandpass.frequency.linearRampToValueAtTime(1400, t + dur); // Liquid level rising frequency
+      bandpass.frequency.linearRampToValueAtTime(1400, t + dur);
       bandpass.Q.setValueAtTime(3.5, t);
 
       const noiseGain = this.ctx.createGain();
@@ -132,7 +131,6 @@ class SoundEffectsEngine {
       noise.start(t);
       noise.stop(t + dur + 0.05);
 
-      // 2. Liquid bubbling & droplet resonance
       const oscCount = 8;
       for (let i = 0; i < oscCount; i++) {
         const osc = this.ctx.createOscillator();
@@ -154,7 +152,6 @@ class SoundEffectsEngine {
         osc.stop(dropTime + 0.1);
       }
 
-      // 3. Crisp Glass Clink at the finish
       const finishTime = t + dur - 0.1;
       const clinkHarmonics = [2450, 4900, 7350];
       clinkHarmonics.forEach((f, idx) => {
@@ -178,9 +175,137 @@ class SoundEffectsEngine {
     }
   }
 
-  // 🫖 Authentic Cutting Chai Glass Clink ("Galaas Ki Khanak")
   public playChaiGlassClink() {
     this.playChaiPouringSound();
+  }
+
+  // 🔔 Vintage Hero Bicycle Bell ("Tring-Tring!")
+  public playCycleBell() {
+    try {
+      this.initContext();
+      if (!this.ctx) return;
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+
+      const t = this.ctx.currentTime;
+      // Dual burst of rapid metallic rings
+      const rings = [0, 0.14];
+
+      rings.forEach(offset => {
+        const ringTime = t + offset;
+        const frequencies = [2640, 3180, 5280];
+
+        frequencies.forEach((f, idx) => {
+          const osc = this.ctx!.createOscillator();
+          const gain = this.ctx!.createGain();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(f, ringTime);
+
+          const initialGain = idx === 0 ? 0.35 : 0.15 / (idx + 1);
+          gain.gain.setValueAtTime(initialGain, ringTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, ringTime + 0.45);
+
+          osc.connect(gain);
+          gain.connect(this.ctx!.destination);
+
+          osc.start(ringTime);
+          osc.stop(ringTime + 0.5);
+        });
+      });
+    } catch {}
+  }
+
+  // 🏮 Mechanical Fairy Light Switch Click
+  public playLightSwitch() {
+    try {
+      this.initContext();
+      if (!this.ctx) return;
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+
+      const t = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(220, t);
+      osc.frequency.exponentialRampToValueAtTime(40, t + 0.04);
+
+      gain.gain.setValueAtTime(0.2, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(t);
+      osc.stop(t + 0.06);
+    } catch {}
+  }
+
+  // 📰 90s Newspaper Page Rustle
+  public playPaperRustle() {
+    try {
+      this.initContext();
+      if (!this.ctx) return;
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+
+      const t = this.ctx.currentTime;
+      const bufferSize = this.ctx.sampleRate * 0.3;
+      const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = (Math.random() * 2 - 1) * 0.15;
+      }
+
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = noiseBuffer;
+
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(1800, t);
+      filter.Q.setValueAtTime(2.0, t);
+
+      const gain = this.ctx.createGain();
+      gain.gain.setValueAtTime(0.01, t);
+      gain.gain.linearRampToValueAtTime(0.25, t + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      noise.start(t);
+      noise.stop(t + 0.3);
+    } catch {}
+  }
+
+  // 🐈 Roadside Cat Purr & Soft Mrrp
+  public playCatPurr() {
+    try {
+      this.initContext();
+      if (!this.ctx) return;
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+
+      const t = this.ctx.currentTime;
+      // Gentle friendly meow tone + purr resonance
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(540, t);
+      osc.frequency.linearRampToValueAtTime(780, t + 0.15);
+      osc.frequency.linearRampToValueAtTime(420, t + 0.4);
+
+      gain.gain.setValueAtTime(0.01, t);
+      gain.gain.linearRampToValueAtTime(0.18, t + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(t);
+      osc.stop(t + 0.48);
+    } catch {}
   }
 
   // 🔔 Peaceful Timer Chime
